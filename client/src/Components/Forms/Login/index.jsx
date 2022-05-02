@@ -22,13 +22,13 @@ function Login() {
   };
 
   return (
-    <div className="bg-primary">
-      <h1 className="text-center brand-form">
+    <div className="row bg-primary">
+      <h1 className="col l-3 m-4 c-3 text-center brand-form">
         Love Travel
         <p className="brand-form__line"></p>
       </h1>
 
-      <div id={clsx(styles.loginForm)}>
+      <div id={clsx(styles.loginForm)} className="col l-9 m-8 c-9">
         <h1 className="text-center">Đăng nhập</h1>
 
         {/* Account */}
@@ -72,10 +72,10 @@ function Login() {
         {/* Submit button className="col c-4 btn btn-login" */}
         <div className={clsx("row", styles.formGroup)}>
           <span className="col c-8">
-            <a href="#" className={clsx(styles.linkRegister)}>
-              {" "}
-              Đăng ký ngay{" "}
-            </a>
+            <a href="#" className={clsx(styles.link)}>Đăng ký ngay </a>
+            <div style={{marginTop: '4px'}}>
+              <a href="#" className={clsx(styles.link)}>Quên mật khẩu</a>
+            </div>
           </span>
           <button
             className={clsx("col", "c-4", "btn", styles.btnLogin)}
