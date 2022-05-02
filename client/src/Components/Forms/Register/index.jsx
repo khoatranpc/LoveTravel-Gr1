@@ -2,56 +2,93 @@ import {useState } from "react";
 import clsx from "clsx";
 
 import styles from "../Form.module.scss";
-import { isRequired } from "../validator.jsx";
+import { isRequired, isEmail, minLength, isEqual} from "../validator.jsx";
 
+const LENGTH_USER_NAME = 2
+const LENGTH_IDENTIFY = 2
+const LENGTH_PASSWORD = 2
 
 function Register() {
+  const [userName, setUserName] = useState('');
+  const [userNameMsg, setUserNameMsg] = useState();
+
   const [name, setName] = useState('');
   const [nameMsg, setNameMsg] = useState();
+
   const [birth, setBirth] = useState('');
   const [birthMsg, setBirthMsg] = useState();
+
   const [address, setAddress] = useState('');
+  const [addressMsg, setAddressMsg] = useState();
+
   const [gender, setGender] = useState('male');
-  const [identification, setIdentification] = useState('');
+
+  const [identify, setIdentify] = useState('');
+  const [identifyMsg, setIdentifyMsg] = useState();
+
   const [email, setEmail] = useState('');
+  const [emailMsg, setEmailMsg] = useState('');
+
   const [password, setPassword] = useState('');
+  const [passwordMsg, setPasswordMsg] = useState('');
 
+  const [checkPassword, setCheckPassword] = useState(true);
 // Validate form
+  const validateInputs = () => {
+    setUserNameMsg(minLength(userName, LENGTH_USER_NAME))
+    setNameMsg(isRequired(name))
+    setBirthMsg(isRequired(birth))
+    setAddressMsg(isRequired(address))
+    setIdentifyMsg(minLength(identify, LENGTH_IDENTIFY))
+    setEmailMsg(isEmail(email))
+    setPasswordMsg(minLength(password, LENGTH_PASSWORD))
+  }
 
-
-  // Handle submit
-  const handleSubmit = () => {
-    console.log({
-      name,
-      birth,
-      address,
-      gender,
-      identification,
-      email,
-      password
-    })
-
+// Reset states
+  const resetStates = () => {
     setName('')
     setBirth('')
     setAddress('')
     setGender('')
-    setIdentification('')
+    setIdentify('')
     setEmail('')
     setPassword('')
   }
 
+  // Handle submit
+  const handleSubmit = () => {
+    console.log(!userNameMsg , !!name , !!birth , !!address , !identifyMsg , !emailMsg , !passwordMsg,  checkPassword);
+
+    if(!userNameMsg && !!name && !!birth && !!address && !identifyMsg && !emailMsg && !passwordMsg && checkPassword === undefined) {
+      console.log({userName, name, birth, address, gender, identify, email, password});
+    }else{
+      console.log("Fail");
+    }
+  }
 
 
 
   return (
-    <div className="bg-primary">
-      <h1 className="text-center brand-form">
+    <div className="row bg-primary">
+       <h1 className="col l-3 m-4 c-4 text-center brand-form">
         Love Travel
         <p className="brand-form__line"></p>
       </h1>
-
-      <div id={clsx(styles.registerForm)}>
+      
+      <div id={clsx(styles.registerForm)} className="col l-9 m-8 c-8" >
         <h1 className="text-center">Đăng ký</h1>
+
+         {/* User name */}
+         <div className={clsx(styles.formGroup)}>
+          <label htmlFor="user-name" className={clsx(styles.formLabel)}>Tên đăng nhập:</label>
+          <input id="user-name" type="text" name="registerUserName"
+            className={clsx(styles.formControl)}
+            value={userName}
+            onChange={e => setUserName(e.target.value)}
+            onBlur={() => setUserNameMsg(minLength(userName, LENGTH_USER_NAME))}
+          />
+          <span className={clsx(styles.formMsg, styles.formMsgError)}>{userNameMsg}</span>
+        </div>
 
         {/* Name */}
         <div className={clsx(styles.formGroup)}>
@@ -59,7 +96,7 @@ function Register() {
           <input id="name" type="text" name="registerName" placeholder="VD: Đào Tài"
             className={clsx(styles.formControl)}
             value={name}
-            onChange={e => setName(e.target.value.trim())}
+            onChange={e => setName(e.target.value)}
             onBlur={() => setNameMsg(isRequired(name))}
           />
           <span className={clsx(styles.formMsg, styles.formMsgError)}>{nameMsg}</span>
@@ -84,8 +121,9 @@ function Register() {
             className={clsx(styles.formControl)}
             value={address}
             onChange={e => setAddress(e.target.value)}
+            onBlur={() => setAddressMsg(isRequired(address))}
           />
-          <span className={clsx(styles.formMsg, styles.formMsgError)}> </span>
+          <span className={clsx(styles.formMsg, styles.formMsgError)}> {addressMsg} </span>
         </div>
 
         {/* Gender */}
@@ -110,13 +148,14 @@ function Register() {
 
         {/* CCCD */}
         <div className={clsx(styles.formGroup)}>
-          <label htmlFor="identification" className={clsx(styles.formLabel)}>CCCD:</label>
-          <input id="identification" type="text" name="registerIdentification" placeholder="Nhập CCCD"
+          <label htmlFor="identify" className={clsx(styles.formLabel)}>CCCD:</label>
+          <input id="identify" type="number" name="registerIdentify" placeholder="Nhập CCCD"
             className={clsx(styles.formControl)}
-            value={identification}
-            onChange={e => setIdentification(e.target.value.trim())}
+            value={identify}
+            onChange={e => setIdentify(e.target.value.trim())}
+            onBlur={() => setIdentifyMsg(minLength(identify, LENGTH_IDENTIFY))}
           />
-          <span className={clsx(styles.formMsg, styles.formMsgError)}> </span>
+          <span className={clsx(styles.formMsg, styles.formMsgError)}>{identifyMsg}</span> 
         </div>
 
         {/* Email */}
@@ -126,26 +165,39 @@ function Register() {
             className={clsx(styles.formControl)}
             value={email}
             onChange={e => setEmail(e.target.value.trim())}
+            onBlur={() => setEmailMsg(isEmail(email))}
           />
-          <span className={clsx(styles.formMsg, styles.formMsgError)}> </span>
+          <span className={clsx(styles.formMsg, styles.formMsgError)}>{emailMsg} </span>
         </div>
 
          {/* Password */}
+        <div className={clsx(styles.formGroup)}>
+        <label htmlFor="password" className={clsx(styles.formLabel)}>Mật khẩu:</label>
+        <input id="password" type="password" name="registerPassword" 
+          className={clsx(styles.formControl)}
+          value={password}
+          onChange={e => setPassword(e.target.value.trim())}
+          onBlur={() => setPasswordMsg(minLength(password, LENGTH_PASSWORD))}
+        />
+        <span className={clsx(styles.formMsg, styles.formMsgError)}>{passwordMsg}</span>
+        </div>
+
+         {/* Re-password */}
          <div className={clsx(styles.formGroup)}>
-          <label htmlFor="password" className={clsx(styles.formLabel)}>Mật khẩu:</label>
-          <input id="password" type="password" name="registerPassword" 
+          <label htmlFor="password" className={clsx(styles.formLabel)}>Nhập lại mật khẩu:</label>
+          <input id="re-password" type="password" name="registerRePassword" 
             className={clsx(styles.formControl)}
-            value={password}
-            onChange={e => setPassword(e.target.value.trim())}
+            onBlur={e => setCheckPassword(isEqual(e.target.value, password, "Mật khẩu nhập lại không chính xác"))}
           />
-          <span className={clsx(styles.formMsg, styles.formMsgError)}> </span>
+          <span className={clsx(styles.formMsg, styles.formMsgError)}> {checkPassword} </span>
         </div>
 
         <div className={clsx(styles.formGroup)}>
           <button className={clsx(styles.btnRegister)}
               onClick={handleSubmit}
           >
-          Đăng ký</button>
+            Đăng ký
+          </button>
         </div>
       </div>
     </div>

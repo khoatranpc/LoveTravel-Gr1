@@ -25,6 +25,8 @@ html{
     left: 0;
     bottom: 0;
     background: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+    justify-content: space-around ;
+    align-items: center;
 }
 
 .btn{
@@ -39,17 +41,16 @@ html{
 }
 
 .brand-form{
-    position: absolute;
+    position: relative;
     z-index: 999;
     margin: 0;
     color: #fff;
-    font-size: 54px;
+    font-size: 64px;
     letter-spacing: 3px;
     text-shadow: 4px 4px 8px rgb(0 0 0 / 60%);
     padding-top: 24px;
     display: block;
-    left: 50%;
-    transform: translateX(-50%);
+    top: -25%;
 }
 
 .brand-form__line{
@@ -62,3 +63,11 @@ html{
     bottom: -25px;
 }
 
+@media screen and (max-width: 739px) {
+    .brand-form{
+        font-size: 32px;
+        top: 0;
+        margin-bottom: 24px;
+        padding-top: 0;
+    }
+}

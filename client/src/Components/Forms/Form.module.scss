@@ -1,14 +1,15 @@
 /* Login form */
 
 #loginForm{
-    position: absolute;
-    top: 55%;
-    left: 50%;
-    min-width: 480px;
+    // position: absolute;
+    // top: 55%;
+    // right: 10%;
+    min-width: 370px;
+    max-width: 560px;
     background-color: #fff;
     padding: 10px 25px;
     min-height: 380px;
-    transform: translate(-50%, -50%);
+    // transform: translate(-10%, -50%);
     border-radius: 8px;
     box-shadow: 1px 1px 8px rgba(0,0,0,0.5);
     h1 {
@@ -21,6 +22,8 @@
         -webkit-text-fill-color: transparent;
         border-bottom: 1px solid #FFCC70;
     }
+
+  
 }
 
 #registerForm{
@@ -36,11 +39,16 @@
         background: -webkit-linear-gradient(#4158D0 , #C850C0 , #FFCC70);
         border-radius: 25px;
     }
+
+    @media screen and (max-width: 739px) {
+       min-width: 100%;
+       min-height: 100%;
+    }
 }
 
 
 .formGroup{
-    padding: 10px 0;
+    padding: 10px 0 0;
     margin-bottom: 4px;
 }
 
@@ -67,15 +75,19 @@ input[type="radio"]{
 }
 
 .formMsg.formMsgError{
+    display: block;
+    margin-top: 4px;
     color: red;
 }
 
-.linkRegister{
+.link{
     color: #0069d9;
     transition: all 0.2s linear;
+    text-decoration: none;
     &:hover{
         opacity: 0.8;
         color: orangered;
+        text-decoration: underline;
     }
 }
 
