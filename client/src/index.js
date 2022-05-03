@@ -27,6 +27,7 @@ root.render(
             <Route path={path} element={<Main />} key={index}>
               <Route path='' element={<BodyMainPage />}>
                 <Route path='' element={<Intro />}></Route>
+                <Route path='' element={<Intro />}></Route>
               </Route>
             </Route>
           );

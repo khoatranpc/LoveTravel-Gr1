@@ -7,14 +7,48 @@
     --white-color: #fff;
     --black-color: #000;
     --text-color: #333;
+    --primary-color: #f69d3c;
 }
 
 html{
     line-height: 1.6rem;
 }
 
+header{
+    background: var(--primary-color);
+}
+
 .text-center{
     text-align: center;
+}
+
+.container{
+    padding-top: 60px !important;
+    padding-bottom: 60px !important;
+}
+
+.brand-name {
+    font-size: 24px;
+    background: -webkit-linear-gradient(#4158D0 , #C850C0 , #FFCC70);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-style: normal;
+}
+
+.container > h1{
+    font-size: 36px;
+    margin: 0;
+    letter-spacing: 1px;
+    color: var(--text-color);
+}
+
+.container > h2{
+    font-size: 20px;
+    margin-bottom: 24px;
+    font-style: italic;
+    color: var(--primary-color);
+    letter-spacing: 1px;
+    font-weight: 400;
 }
 
 

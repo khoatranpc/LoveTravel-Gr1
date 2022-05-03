@@ -1,0 +1,102 @@
+
+.introContainer{
+    background: url('./img_intro.jpg') top center / cover no-repeat ;
+    padding-top: 50%;
+    position: relative;
+    z-index: 1;
+    button{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 50%);
+        border-radius: 36px;
+        color: #fff;
+        font-size: 16px;
+        padding: 12px 14px;
+        letter-spacing: 1px;
+        background-color: rgba(0,0,0,0.5);
+        border: 1px solid transparent;
+        min-width: 200px;
+        &:hover{
+            letter-spacing: 2px;
+            background-color: orange;
+            cursor: pointer;
+        }
+    }
+}
+
+.introContent{
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%,-15%);
+    color: #fff;
+    text-shadow: 1px 1px 8px rgb(0 0 0 / 60%);
+    text-align: center;
+    width: 100%;
+    h1{
+        font-size: 52px;
+        letter-spacing: 2px;
+    }
+    h2{
+        font-size: 42px;
+    }
+}
+
+// Slides
+@mixin button(){
+    position: absolute;
+    top: 50%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: none;
+    font-size: 35px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s linear all;
+    &:hover{
+        background-color: rgba(0,0,0,0.2);
+    }
+}
+.introSlides{
+    position: relative;
+
+    .btnLeft{
+        @include button;
+        left: 6%;
+    }
+
+    .btnRight{
+        @include button;
+        right: 6%;
+    }
+
+    img{
+        width: 90%;
+        height: 80vh;
+        border-radius: 4px;
+        object-fit: cover;
+        filter: drop-shadow(1px 1px 6px rgba(0,0,0,0.5));
+    }
+    
+    .introText{
+        position: absolute;
+        bottom: 10%;
+        left: 50%;
+        transform: translate(-50%, 10%);
+        color: #fff;
+        text-shadow: 1px 1px 6px rgba(0,0,0,0.5);
+        letter-spacing: 1px;
+        h2{
+            font-size: 36px;
+            font-weight: 400;
+            margin-bottom: 4px;
+        }
+        p{
+            font-size: 20px;
+
+        }
+    }
+}

@@ -1,0 +1,131 @@
+$primaryColor: #f69d3c;
+
+nav.nav-bar{
+    display: flex;
+    justify-content: space-around;
+}
+
+nav{
+    align-items: center;
+    background-color: $primaryColor;
+    padding: 10px 32px;
+    ul{
+        display: flex !important;
+    }
+}
+
+#logo{
+    cursor: pointer;
+    padding: 16px 0;
+    &:hover{
+        opacity: 0.9
+    }
+}
+
+.navItem{
+    padding: 12px 24px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    transition: 0.3s linear all;
+    &:hover{
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 24px;
+        opacity: 0.8;
+    }
+}
+
+.navSearch{
+    position: relative;
+    margin: 12px 0;
+    input{
+        font-size: 16px;
+        min-width: 100%;
+        padding: 8px 12px 8px 12px;
+        border-radius: 8px;
+        outline: none;
+        border: 1px solid #333;
+    }
+
+    .searchIcon{
+        position: absolute;
+        top: 50%;
+        right: 12px;
+        font-size: 18px;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+}
+
+.navRight{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    .navItem{
+        padding: 10px 24px;
+        background-color: #4158D0;
+        border-radius: 32px;
+        margin-left: 8px;
+        transition: 0.2s linear all;
+        &:hover{
+            opacity: 0.8;
+            background-color:#C850C0;
+        }
+    }
+    .navUser{
+        padding: 2px 14px;
+        color: #fff;
+        font-size: 20px;
+        border: 1px solid ;
+        border-radius: 4px;
+        cursor: pointer;
+        position: relative;
+
+        
+        .navUserChildren{
+            position: absolute;
+            z-index: 999;
+            top: 150%;
+            right: 0;
+            bottom: -100%;
+            background-color: #fff;
+            box-shadow: 1px 1px 6px rgba(0,0,0,0.5);
+            min-width: 180px;
+            min-height: 130px;
+            max-height: 140px;
+            transform-origin: top right;
+            border-radius: 2px;
+            display: block !important;
+
+            // display: none !important;
+            &::before{
+                content: "";
+                position: absolute;
+                top: -28px;
+                right: 5%;
+                border: 14px solid;
+                border-color: transparent transparent #fff transparent;
+            }
+
+            li{
+                color: #333;
+                font-size: 16px;
+                padding: 10px 8px;
+                &:not(:last-child){
+                    border-bottom: 1px solid orange;
+                }
+
+                &:hover{
+                    color: orange;
+                    i{
+                        transform: translateX(4px);
+                    }
+                }
+                i{
+                    padding-right: 12px;
+                    transition: 0.3s ease all;
+                }
+            }
+        }
+    }
+}

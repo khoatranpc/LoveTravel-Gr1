@@ -5,7 +5,7 @@ import styles from "../Form.module.scss";
 import { isRequired, isEmail, minLength, isEqual} from "../validator.jsx";
 
 const LENGTH_USER_NAME = 2
-const LENGTH_IDENTIFY = 2
+const LENGTH_IDENTIFY = 12
 const LENGTH_PASSWORD = 2
 
 function Register() {
