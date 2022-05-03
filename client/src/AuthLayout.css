@@ -23,8 +23,8 @@ header{
 }
 
 .container{
-    padding-top: 60px !important;
-    padding-bottom: 60px !important;
+    padding-top: 54px !important;
+    padding-bottom: 32px !important;
 }
 
 .brand-name {
@@ -35,7 +35,7 @@ header{
     font-style: normal;
 }
 
-.container > h1{
+.container h1{
     font-size: 36px;
     margin: 0;
     letter-spacing: 1px;
@@ -95,6 +95,12 @@ header{
     background-color: #FFCC70;
     margin: 0;
     bottom: -25px;
+}
+
+.qr-code{
+    width: 150px;
+    height: 150px;
+    cursor: no-drop;
 }
 
 @media screen and (max-width: 739px) {

@@ -1,0 +1,63 @@
+$primaryColor: #f69d3c;
+
+.text{
+    color: #333 !important;
+    font-size: 18px;
+    letter-spacing: 0.8px;
+    text-align: justify;
+    a{
+        color: $primaryColor;
+        text-decoration: none;
+        letter-spacing: 1px;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+}
+
+.listAdv{
+    justify-content: space-between;
+    margin: 0 -8px;
+}
+
+.advImg{
+    width: 100%;
+    height: 250px;
+    border-radius: 3px;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    margin-left: -8px;
+    margin-right: -8px;
+    transition: 0.2s ease-in all;
+    .advContent{
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        transform: translate(10px, -10px);
+        color: #fff;
+        font-weight: 500;
+        text-shadow: 1px 4px 6px rgba(0,0,0,0.3);
+        transition: 0.2s ease-in all;
+    }
+
+    &:hover{
+        opacity: 0.9;
+        transform: scale(1.02);
+        .advContent{
+            color: $primaryColor;
+        }
+    }
+}
+
+.dowloadApps{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    img{
+        cursor: pointer;
+    }
+}

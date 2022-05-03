@@ -63,7 +63,7 @@ export default function Intro() {
         <button className={"btn"} > Đăng ký ngay  </button>
        
     </div>
-     {/* Slides */}
+    {/* Slides */}
     <div className={"grid wide container text-center"}>
           <h1>Địa điểm du lịch nổi bật</h1>
           <h2>Cùng <span className="brand-name">Love Travel</span> bắt đầu hành trình khám phá du lịch Việt Nam</h2>
