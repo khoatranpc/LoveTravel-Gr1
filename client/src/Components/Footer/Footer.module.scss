@@ -1,0 +1,29 @@
+$primaryColor: #f69d3c;
+
+.footerItem{
+    margin-top: -30px;
+    h1{
+        color: $primaryColor;
+        font-size: 28px;
+        font-weight: 400;
+    }
+
+    i{
+        font-size: 18px;
+        color: #007bff;
+        padding-right: 12px;
+        cursor: pointer;
+        &:hover{
+            color: $primaryColor;
+        }
+    }
+
+    a{
+        color: #007bff;
+        text-decoration: none;
+        &:hover{
+            text-decoration: underline;
+            color:$primaryColor;
+        }
+    }
+}

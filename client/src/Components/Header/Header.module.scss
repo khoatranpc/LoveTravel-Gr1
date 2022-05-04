@@ -16,28 +16,85 @@ nav{
 
 #logo{
     cursor: pointer;
-    padding: 16px 0;
+    display: block;
+    img{
+        transform: scale(2);
+        max-width: 100%;
+    }
+    transition: all 0.3s linear;
     &:hover{
-        opacity: 0.9
+        filter: invert(1);
     }
 }
 
 .navItem{
-    padding: 12px 24px;
-    color: #fff;
-    text-decoration: none;
-    font-size: 16px;
-    transition: 0.3s linear all;
-    &:hover{
-        background-color: rgba(0,0,0,0.5);
-        border-radius: 24px;
-        opacity: 0.8;
+    position: relative;
+    &:not(:last-child):after{
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 0;
+        height: 70%;
+        transform: translateY(-50%);
+        width: 2px;
+        background-color: #fff;
     }
+    .item{
+        padding: 12px 24px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 18px;
+        transition: 0.3s linear opacity;
+        &:hover{
+            color: #000;
+            border-bottom: 1px solid #fff;
+            border-radius: 4px;
+            opacity: 0.8;
+      
+    }}
 }
+
+    
 
 .navSearch{
     position: relative;
     margin: 12px 0;
+
+    #navSearchInput{
+        &:focus{
+            &~.searchTours{
+                display: block;
+            }
+        }
+    }
+
+    .searchTours{
+        display: none;
+        position: absolute;
+        top: 105%;
+        background-color: #fff;
+        color: #333;
+        width: 100%;
+        max-height: 300px;
+        overflow-y: auto;
+        border-radius: 4px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        a{
+            padding: 10px 12px;
+            text-decoration: none;
+            color: #333;
+            cursor: pointer;
+            display: block;
+            &:hover{
+                background-color: rgba(0,0,0,0.1);
+            }
+        }
+
+        h4{
+            margin: 0;
+        }
+    }
+
     input{
         font-size: 16px;
         min-width: 100%;
@@ -58,34 +115,35 @@ nav{
 }
 
 .navRight{
-    display: flex;
+    display: flex !important;
     justify-content: flex-end;
     align-items: center;
-    .navItem{
-        padding: 10px 24px;
+    .item{
+        text-decoration: none;
+        color: #fff;
+        padding: 10px 16px;
         background-color: #4158D0;
-        border-radius: 32px;
+        border-radius: 12px;
         margin-left: 8px;
         transition: 0.2s linear all;
         &:hover{
             opacity: 0.8;
-            background-color:#C850C0;
+            background-color:tomato;
+            border-bottom: none;
         }
     }
     .navUser{
         padding: 2px 14px;
         color: #fff;
         font-size: 20px;
-        border: 1px solid ;
+        border: 1px solid currentColor;
         border-radius: 4px;
         cursor: pointer;
         position: relative;
-
-        
         .navUserChildren{
             position: absolute;
             z-index: 999;
-            top: 150%;
+            top: 100%;
             right: 0;
             bottom: -100%;
             background-color: #fff;
