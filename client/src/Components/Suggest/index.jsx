@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import styles from './Marketing.module.scss'
+import styles from './Suggest.module.scss'
 
 import adv1 from './img-1.jpg'
 import adv2 from './img-2.jpg'
@@ -55,7 +55,7 @@ const suggestTours = [
     },
 ]
 
-function Marketing(){
+function Suggest(){
 
     return <div id="suggest" className="container grid wide">
         <h1>Ưu đãi từ <span className="brand-name" style={{fontSize: 36}}>Love Travel</span></h1>
@@ -102,4 +102,4 @@ function Marketing(){
     </div>
 }
  
-export default Marketing
+export default Suggest

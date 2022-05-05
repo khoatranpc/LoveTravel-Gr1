@@ -122,25 +122,3 @@ $primaryColor: #f69d3c;
 
 }
 
-
-@keyframes circle1 {
-    from{
-        top: 0%;
-        transform: rotate(0)
-    }
-    to{
-        top: 0%;
-        transform: rotate(180deg)
-    }
-}
-
-@keyframes circle2 {
-    from{
-        left: 0%;
-        transform: rotate(0)
-    }
-    to{
-        left: 0%;
-        transform: rotate(180deg)
-    }
-}

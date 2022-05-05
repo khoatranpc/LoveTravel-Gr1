@@ -61,6 +61,9 @@ footer{
     font-weight: 400;
 }
 
+#contact{
+    padding-top: 24px !important;
+}
 
 .bg-primary{
     position: absolute;
@@ -68,7 +71,7 @@ footer{
     right: 0;
     left: 0;
     bottom: 0;
-    background: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+    background: linear-gradient(43deg, #83eaf1 0%, #a88beb 26%, #FFCC70 100%);
     justify-content: space-around ;
     align-items: center;
 }

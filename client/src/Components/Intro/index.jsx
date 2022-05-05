@@ -1,6 +1,9 @@
 import {useState, useEffect} from 'react'
 import clsx from 'clsx'
+import {Routes, Route, Link} from 'react-router-dom'
 
+
+import Login from '../Forms/Login'
 import slide1 from './slide-1.jpg'
 import slide2 from './slide-2.jpg'
 import slide3 from './slide-3.jpg'
@@ -55,29 +58,36 @@ export default function Intro() {
 
   return (
     <>
-    <div className={clsx(styles.introContainer)}>
-        <div className={clsx(styles.introContent)}>
-            <h1>{INTRO_TITLE}</h1>
-            <h2>{INTRO_SUB_TITLE}</h2>
-        </div>
-        <button className={"btn"} > Đăng ký ngay  </button>
-       
-    </div>
-    {/* Slides */}
-    <div className={"grid wide container text-center"}>
-          <h1>Địa điểm du lịch nổi bật</h1>
-          <h2>Cùng <span className="brand-name">Love Travel</span> bắt đầu hành trình khám phá du lịch Việt Nam</h2>
-          <div className={clsx(styles.introSlides)}>
-            <img  src={slides[slide].img} alt="bg" />
-             <div className={clsx(styles.introText)}>
-             <h2>{slides[slide].title}</h2>
-             <p>{slides[slide].quote}</p>
-             </div>
-
-            <button onClick={prevSlide} className={clsx(styles.btnLeft)}><i className="fa-solid fa-chevron-left"></i> </button>
-            <button onClick={nextSlide}  className={clsx(styles.btnRight)}><i className="fa-solid fa-chevron-right"></i> </button>
+      <div className={clsx(styles.introContainer)}>
+          <div className={clsx(styles.introContent)}>
+              <h1>{INTRO_TITLE}</h1>
+              <h2>{INTRO_SUB_TITLE}</h2>
           </div>
-    </div>
+          <a href="#" className={"btn"} > Đăng ký ngay</a>
+        
+      </div>
+
+      {/* <Routes>
+        <Route path="/Login" element={<Login />} />
+      </Routes> */}
+
+      {/* Slides */}
+      <div className={"grid wide container text-center"}>
+            <h1>Địa điểm du lịch nổi bật</h1>
+            <h2>Cùng <span className="brand-name">Love Travel</span> bắt đầu hành trình khám phá du lịch Việt Nam</h2>
+            <div className={clsx(styles.introSlides)}>
+              <img  src={slides[slide].img} alt="bg" />
+              <div className={clsx(styles.introText)}>
+              <h2>{slides[slide].title}</h2>
+              <p>{slides[slide].quote}</p>
+              </div>
+
+              <button onClick={prevSlide} className={clsx(styles.btnLeft)}><i className="fa-solid fa-chevron-left"></i> </button>
+              <button onClick={nextSlide}  className={clsx(styles.btnRight)}><i className="fa-solid fa-chevron-right"></i> </button>
+            </div>
+      </div>
+
+
     </>
     
   )

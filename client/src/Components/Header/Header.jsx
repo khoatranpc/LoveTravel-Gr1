@@ -12,7 +12,7 @@ import logo from './logo.png'
         <a href="/auth/login">Login</a>
         <a href="/auth/register">Register</a> */}
 
-const IS_ONLINE = true;        
+const IS_ONLINE = false;        
 export default function Header() {
   const [showUserMenu, setShowUserMenu] = useState(false)
   
@@ -35,7 +35,7 @@ export default function Header() {
         </ul>
 
         {/* Search */}
-        <div className="col l-4">
+        <div className="col l-4 ">
             <div className={clsx(styles.navSearch)}>
                 <input id={clsx(styles.navSearchInput)} type="text" placeholder="Tìm kiếm"  />
                 <label htmlFor="nav-search" className={clsx(styles.searchIcon)}>
@@ -72,7 +72,7 @@ export default function Header() {
         </div>
 
         <div className={clsx("row col l-2" ,styles.navRight)}>
-              {/* <div><a className={clsx(styles.item)} href="">Đăng nhập</a></div> */}
+              <div><a className={clsx(styles.item)} href="/auth/login">Đăng nhập</a></div>
               {IS_ONLINE && (
                 <> 
                   <div className={clsx(styles.navUser)} onClick={toggleMenuUser}>

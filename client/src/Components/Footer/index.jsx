@@ -5,7 +5,7 @@ function Footer(){
 
     return <footer id="contact" className="container">
         <div className="row grid wide">
-            <div className={clsx("col l-4 m-4 c-12", styles.footerItem)}>
+            <div className={clsx("col l-4 m-12 c-12", styles.footerItem)}>
                 <h1>Love Travel</h1>
                 <p>
                     <i className="fa-solid fa-phone-volume"></i>
@@ -21,7 +21,7 @@ function Footer(){
                 </p>
             </div>
 
-            <div className={clsx("col l-4 m-4 c-12", styles.footerItem)}>
+            <div className={clsx("col l-4 m-12 c-12", styles.footerItem)}>
                 <h1>Cộng đồng </h1>
                 <p>
                     <i className="fa-brands fa-facebook"></i>
@@ -36,7 +36,7 @@ function Footer(){
                     <span>Pinterest: <a href="#"> pinterest.com/viettourofficial</a></span>
                 </p>
             </div>
-            <div className={clsx("col l-4 m-4 c-12", styles.footerItem)}>
+            <div className={clsx("col l-4 m-12 c-12", styles.footerItem)}>
                 <h1>Đối tác truyền thông </h1>
                 <p>
                     <span>Tuổi trẻ online: <a href="#"> https://dulich.tuoitre.vn</a></span>

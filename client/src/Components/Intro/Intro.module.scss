@@ -4,7 +4,7 @@
     padding-top: 50%;
     position: relative;
     z-index: 1;
-    button{
+    a{
         position: absolute;
         top: 55%;
         left: 50%;
@@ -12,11 +12,13 @@
         border-radius: 36px;
         color: #fff;
         font-size: 16px;
-        padding: 12px 14px;
+        padding: 12px 8px;
+        text-decoration: none;
+        text-align: center;
         letter-spacing: 1px;
         background-color: rgba(0,0,0,0.5);
         border: 1px solid transparent;
-        min-width: 200px;
+        min-width: 180px;
         &:hover{
             letter-spacing: 2px;
             background-color: orange;

@@ -7,8 +7,8 @@ import { useEffect } from "react";
 function AuthLayout() {
   const navigate = useNavigate();
   useEffect(() => {
-    // navigate("login");
-    navigate("register");
+    navigate("login");
+    // navigate("register");
     return;
   }, []);
 
