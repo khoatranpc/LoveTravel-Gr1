@@ -23,7 +23,7 @@ function Login() {
   };
 
   return (
-    <div className="row bg-primary">
+    <div className="bg-primary">
       <h1 className="col l-3 m-4 c-3 text-center brand-form">
         Love Travel
         <p className="brand-form__line"></p>

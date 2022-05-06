@@ -4,9 +4,9 @@ import clsx from "clsx";
 import styles from "../Form.module.scss";
 import { isRequired, isEmail, minLength, isEqual} from "../validator.jsx";
 
-const LENGTH_USER_NAME = 2
+const LENGTH_USER_NAME = 6
 const LENGTH_IDENTIFY = 12
-const LENGTH_PASSWORD = 2
+const LENGTH_PASSWORD = 6
 
 function Register() {
   const [userName, setUserName] = useState('');
@@ -58,7 +58,7 @@ function Register() {
   // Handle submit
   const handleSubmit = () => {
     console.log(!userNameMsg , !!name , !!birth , !!address , !identifyMsg , !emailMsg , !passwordMsg,  checkPassword);
-
+    validateInputs()
     if(!userNameMsg && !!name && !!birth && !!address && !identifyMsg && !emailMsg && !passwordMsg && checkPassword === undefined) {
       console.log({userName, name, birth, address, gender, identify, email, password});
     }else{
@@ -67,9 +67,8 @@ function Register() {
   }
 
 
-
   return (
-    <div className="row bg-primary">
+    <div className="bg-primary">
        <h1 className="col l-3 m-4 c-4 text-center brand-form">
         Love Travel
         <p className="brand-form__line"></p>

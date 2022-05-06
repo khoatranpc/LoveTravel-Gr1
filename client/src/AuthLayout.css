@@ -71,7 +71,8 @@ footer{
     right: 0;
     left: 0;
     bottom: 0;
-    background: linear-gradient(43deg, #83eaf1 0%, #a88beb 26%, #FFCC70 100%);
+    background: url('./assets/img/background.jpg') no-repeat center / cover;
+    display: flex;
     justify-content: space-around ;
     align-items: center;
 }

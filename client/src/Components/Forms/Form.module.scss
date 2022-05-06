@@ -5,7 +5,7 @@
     // top: 55%;
     // right: 10%;
     min-width: 370px;
-    max-width: 560px;
+    max-width: 500px;
     background-color: #fff;
     padding: 10px 25px;
     min-height: 380px;
@@ -15,7 +15,8 @@
     h1 {
         font-size: 38px;
         padding: 10px 0 20px;
-        margin-top: 8px;
+        margin-top: 0;
+        margin-bottom: 0;
         letter-spacing: 1px;
         background: -webkit-linear-gradient(#4158D0 , #C850C0 , #FFCC70);
         -webkit-background-clip: text;
@@ -30,7 +31,7 @@
     @extend #loginForm;
     min-width: 600px;
     min-height: 380px;
-    max-height: 600px;
+    max-height: 500px;
     overflow: auto;
     &::-webkit-scrollbar{
         width: 5px; 
@@ -49,14 +50,14 @@
 
 .formGroup{
     padding: 10px 0 0;
-    margin-bottom: 4px;
+    margin: 0px 0px 4px;
 }
 
 .formLabel{
     display: block;
     color: var(--text-color);
     font-weight: 500;
-    padding-bottom: 5px;
+    padding-bottom: 8px;
     cursor: pointer;
 }
 

@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react'
 import clsx from 'clsx'
 import {Routes, Route, Link} from 'react-router-dom'
 
-import Login from '../Forms/Login'
+import Register from '../Forms/Register'
 import slide1 from './slide-1.jpg'
 import slide2 from './slide-2.jpg'
 import slide3 from './slide-3.jpg'
@@ -62,7 +62,7 @@ export default function Intro() {
               <h1>{INTRO_TITLE}</h1>
               <h2>{INTRO_SUB_TITLE}</h2>
           </div>
-          <Link to="/auth/login" className={"btn"} > Đăng ký ngay</Link>
+          <Link to="/auth/register" className={"btn"} > Đăng ký ngay</Link>
         
       </div>
 
@@ -84,7 +84,7 @@ export default function Intro() {
       </div>
 
        <Routes>
-        <Route path="/auth/login" element={<Login />} />
+        <Route path="/auth/register" element={<Register />} />
       </Routes>
     </>
     
