@@ -10,13 +10,12 @@ export default function BodyMainPage() {
   return (
     <div>
       {/* <Outlet /> */}
-
-      {/* <Intro />
+      <Intro />
       <Categories />`
       <Suggest />
-      <Footer /> */}
+      <Footer />
 
-      <ListTour />
+      {/* <ListTour /> */}
     </div>
   );
 }

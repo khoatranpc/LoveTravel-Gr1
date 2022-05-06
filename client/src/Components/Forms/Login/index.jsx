@@ -3,6 +3,7 @@ import clsx from "clsx";
 
 import styles from "../Form.module.scss";
 import { isRequired } from "../validator.jsx";
+
 function Login() {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");

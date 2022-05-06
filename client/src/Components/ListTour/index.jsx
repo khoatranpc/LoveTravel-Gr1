@@ -1,9 +1,31 @@
 import clsx from 'clsx'
+import {useState} from 'react'
 
+import Tour from './Tour'
 import styles from "./LisTour.module.scss"
 import img from './img_intro.jpg'
 
+const tours = [
+    {
+        id: 1,
+        tour: 'ha long',
+        price: 2000
+    },
+    {
+        id: 2,
+        tour: 'ha noi',
+        price: 5000
+    },
+    {
+        id: 3,
+        tour: 'da nang',
+        price: 3000
+    },
+]
+
 export default function ListTour(){
+    const [valueSearch, setValueSearch] = useState('')
+
 
     return <div className={clsx("grid wide row", styles.container)} style={{marginTop: 80}}>
             <div className="col l-3 m-12 c-12">
@@ -17,46 +39,21 @@ export default function ListTour(){
                         </optgroup>
                     </select>
                 </div>
-                <input type="search" placeholder="Tìm kiếm" />
+                <input type="search" placeholder="Tìm kiếm"
+                    value = {valueSearch}
+                    onChange={e => setValueSearch(e.target.value) }
+                />
             </div>
 
             <div className={clsx("col l-9 m-12 c-12",styles.listTour)}>
-                <div className={clsx("col l-3 m-6 c-6", styles.tour)}>
-                    <img src={img} alt="" />
-                    <h3>Tên tour</h3>
-                    <p>Địa điểm</p>
-                    <p>Giá</p>
-                    <p>Số lượng tour</p>
-                    <p>Giới thiệu</p>
-                    <button>Đặt tour</button>
-                </div>
-                <div className={clsx("col l-3 m-6 c-6", styles.tour)}>
-                    <img src={img} alt="" />
-                    <h3>Tên tour</h3>
-                    <p>Địa điểm</p>
-                    <p>Giá</p>
-                    <p>Số lượng tour</p>
-                    <p>Giới thiệu</p>
-                    <button>Đặt tour</button>
-                </div>
-                <div className={clsx("col l-3 m-6 c-6", styles.tour)}>
-                    <img src={img} alt="" />
-                    <h3>Tên tour</h3>
-                    <p>Địa điểm</p>
-                    <p>Giá</p>
-                    <p>Số lượng tour</p>
-                    <p>Giới thiệu</p>
-                    <button>Đặt tour</button>
-                </div>
-                <div className={clsx("col l-3 m-6 c-6", styles.tour)}>
-                    <img src={img} alt="" />
-                    <h3>Tên tour</h3>
-                    <p>Địa điểm</p>
-                    <p>Giá</p>
-                    <p>Số lượng tour</p>
-                    <p>Giới thiệu</p>
-                    <button>Đặt tour</button>
-                </div>
+               {
+                   tours.map((tour) => {
+                       return (
+                           <Tour key={tour.id} data={tour} />
+                       )
+                   })
+               }
+                
             </div>
     </div>
 }

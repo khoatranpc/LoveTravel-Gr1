@@ -1,24 +1,27 @@
 import {useState} from "react";
-import { Link } from "react-router-dom";
-
-
-import styles from "./Header.module.scss";
+import { Link, Routes, Route } from "react-router-dom";
 import clsx from 'clsx'
+
+import Login from '.././Forms/Login'
+import ListTour from '../ListTour'
+import styles from "./Header.module.scss";
 import logo from './logo.png'
 
- {/* <Link to={"/"}>Home</Link>
-        <Link to={"/"}>Account</Link>
-        <Link to={"/"}>Setting</Link>
-        <a href="/auth/login">Login</a>
-        <a href="/auth/register">Register</a> */}
+//  {/* <Link to={"/"}>Home</Link>
+//         <Link to={"/"}>Account</Link>
+//         <Link to={"/"}>Setting</Link>
+//         <a href="/auth/login">Login</a>
+//         <a href="/auth/register">Register</a> */}
 
 const IS_ONLINE = false;        
+
 export default function Header() {
   const [showUserMenu, setShowUserMenu] = useState(false)
   
   const toggleMenuUser = () => {
       setShowUserMenu(!showUserMenu)
   }
+
 
   return (
     <header>
@@ -29,7 +32,7 @@ export default function Header() {
         </a>
 
         <ul className="row col l-5" style={{justifyContent: "center"}}>
-            <li className={clsx(styles.navItem)} ><a className={clsx(styles.item)} href="#category">Thể loại</a></li>
+            <li className={clsx(styles.navItem)} ><a  className={clsx(styles.item)} href="#category">Thể loại</a></li>
             <li className={clsx(styles.navItem)} ><a className={clsx(styles.item)} href="#suggest">Gợi ý</a></li>
             <li className={clsx(styles.navItem)} ><a className={clsx(styles.item)} href="#contact">Liên hệ</a></li>
         </ul>
@@ -47,32 +50,12 @@ export default function Header() {
                       <h4>Tên tour</h4>
                       <span>Giá: 500$</span>
                    </a>
-                   <a href="#">
-                      <h4>Tên tour</h4>
-                      <span>Giá: 500$</span>
-                   </a>
-                   <a href="#">
-                      <h4>Tên tour</h4>
-                      <span>Giá: 500$</span>
-                   </a>
-                   <a href="#">
-                      <h4>Tên tour</h4>
-                      <span>Giá: 500$</span>
-                   </a>
-                   <a href="#">
-                      <h4>Tên tour</h4>
-                      <span>Giá: 500$</span>
-                   </a>
-                   <a href="#">
-                      <h4>Tên tour</h4>
-                      <span>Giá: 500$</span>
-                   </a>
                 </div>
             </div>
         </div>
 
         <div className={clsx("row col l-2" ,styles.navRight)}>
-              <div><a className={clsx(styles.item)} href="/auth/login">Đăng nhập</a></div>
+              <div><Link to="/auth/login" className={clsx(styles.item)} >Đăng nhập</Link></div>
               {IS_ONLINE && (
                 <> 
                   <div className={clsx(styles.navUser)} onClick={toggleMenuUser}>
@@ -90,6 +73,10 @@ export default function Header() {
         </div>
       </nav>
     </div>
+
+    <Routes>
+       <Route path="/auth/login" element={<Login />} />
+    </Routes>
     </header>
   );
 }

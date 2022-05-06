@@ -2,7 +2,6 @@ import {useState, useEffect} from 'react'
 import clsx from 'clsx'
 import {Routes, Route, Link} from 'react-router-dom'
 
-
 import Login from '../Forms/Login'
 import slide1 from './slide-1.jpg'
 import slide2 from './slide-2.jpg'
@@ -63,13 +62,10 @@ export default function Intro() {
               <h1>{INTRO_TITLE}</h1>
               <h2>{INTRO_SUB_TITLE}</h2>
           </div>
-          <a href="#" className={"btn"} > Đăng ký ngay</a>
+          <Link to="/auth/login" className={"btn"} > Đăng ký ngay</Link>
         
       </div>
 
-      {/* <Routes>
-        <Route path="/Login" element={<Login />} />
-      </Routes> */}
 
       {/* Slides */}
       <div className={"grid wide container text-center"}>
@@ -87,7 +83,9 @@ export default function Intro() {
             </div>
       </div>
 
-
+       <Routes>
+        <Route path="/auth/login" element={<Login />} />
+      </Routes>
     </>
     
   )
