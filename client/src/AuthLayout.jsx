@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 function AuthLayout() {
-  const navigate = useNavigate();
-  useEffect(() => {
-    navigate("login");
-    // navigate("register");
-    return;
-  }, []);
+  // const navigate = useNavigate();
+  // useEffect(() => {
+  //   navigate("login");
+  //   // navigate("register");
+  //   return;
+  // }, []);
 
   
   return (

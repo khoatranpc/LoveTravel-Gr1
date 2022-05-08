@@ -10,6 +10,7 @@ import Main from './Main';
 import NotFoundPage from './Components/NotFoundPage';
 import BodyMainPage from './Components/Body';
 import Intro from './Components/Intro';
+import ListTour from './Components/ListTour';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -27,11 +28,12 @@ root.render(
             <Route path={path} element={<Main />} key={index}>
               <Route path='' element={<BodyMainPage />}>
                 <Route path='' element={<Intro />}></Route>
-                <Route path='' element={<Intro />}></Route>
               </Route>
             </Route>
           );
         })}
+        <Route path='/listTour' element={<ListTour />}></Route>
+
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
 

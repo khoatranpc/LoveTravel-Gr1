@@ -58,17 +58,7 @@ const suggestTours = [
 function Suggest(){
 
     return <div id="suggest" className="container grid wide">
-        <h1>Ưu đãi từ <span className="brand-name" style={{fontSize: 36}}>Love Travel</span></h1>
-        <p className={clsx(styles.text)}>Nhanh tay <a href="#">Đăng ký</a> để nhận ngay ưu đãi độc quyền ngay hôm nay</p>
-        <ul className={clsx("row", styles.listAdv)}>
-            {listAdv.map((adv, i) => {
-                return <li className={clsx("l-4 m-12 c-12", styles.advImg)} style={{backgroundImage: 'url('+adv.img+')'}}  key={i}>
-                    <h2 className={clsx(styles.advContent)}>{adv.content} {adv.icon && <i className="brand-name fa-solid fa-gift"></i>}</h2>
-                </li>
-            })}
-        </ul>
-
-        <div className="row container">
+         <div className="row container">
             <div className="col l-4">
                 <h1>Đi cùng <span className="brand-name" style={{fontSize: 36}}>Love Travel</span></h1>
                 <h2>Ứng dụng Web du lịch số 1 Việt Nam</h2>
@@ -99,6 +89,17 @@ function Suggest(){
                 </ul>
             </div>
         </div>
+        <h1>Ưu đãi từ <span className="brand-name" style={{fontSize: 36}}>Love Travel</span></h1>
+        <p className={clsx(styles.text)}>Nhanh tay <a href="#">Đăng ký</a> để nhận ngay ưu đãi độc quyền ngay hôm nay</p>
+        <ul className={clsx("row", styles.listAdv)}>
+            {listAdv.map((adv, i) => {
+                return <li className={clsx("l-4 m-12 c-12", styles.advImg)} style={{backgroundImage: 'url('+adv.img+')'}}  key={i}>
+                    <h2 className={clsx(styles.advContent)}>{adv.content} {adv.icon && <i className="brand-name fa-solid fa-gift"></i>}</h2>
+                </li>
+            })}
+        </ul>
+
+       
     </div>
 }
  

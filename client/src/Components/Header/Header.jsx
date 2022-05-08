@@ -1,9 +1,7 @@
 import {useState} from "react";
-import { Link, Routes, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import clsx from 'clsx'
 
-import Login from '.././Forms/Login'
-import ListTour from '../ListTour'
 import styles from "./Header.module.scss";
 import logo from './logo.png'
 
@@ -22,17 +20,16 @@ export default function Header() {
       setShowUserMenu(!showUserMenu)
   }
 
-
   return (
     <header>
       <div className={clsx("grid wide", styles.header)}>
       <nav className="row" >
-        <a id={clsx(styles.logo)}  className="col l-1"  href="#">
+        <Link to="/home" id={clsx(styles.logo)}className="col l-1"  >
           <img src={logo} />
-        </a>
+        </Link>
 
         <ul className="row col l-5" style={{justifyContent: "center"}}>
-            <li className={clsx(styles.navItem)} ><a  className={clsx(styles.item)} href="#category">Thể loại</a></li>
+            <li className={clsx(styles.navItem)} ><Link to="/listTour"  className={clsx(styles.item)} >Thể loại</Link></li>
             <li className={clsx(styles.navItem)} ><a className={clsx(styles.item)} href="#suggest">Gợi ý</a></li>
             <li className={clsx(styles.navItem)} ><a className={clsx(styles.item)} href="#contact">Liên hệ</a></li>
         </ul>
@@ -74,9 +71,6 @@ export default function Header() {
       </nav>
     </div>
 
-    <Routes>
-       <Route path="/auth/login" element={<Login />} />
-    </Routes>
     </header>
   );
 }
