@@ -116,10 +116,18 @@ nav{
     .searchIcon{
         position: absolute;
         top: 50%;
-        right: 12px;
+        padding: 4px 8px;
+        right: 8px;
         font-size: 18px;
         transform: translateY(-50%);
+        border-radius: 4px;
+        color: $primaryColor;
         cursor: pointer;
+        transition: all 0.3s ease;
+        &:hover{
+            color: #fff;
+            background-color: $primaryColor;
+        }
     }
 }
 
@@ -193,6 +201,33 @@ nav{
                     transition: 0.3s ease all;
                 }
             }
+        }
+    }
+}
+
+.scrollOnTop{
+    position: fixed;
+    bottom: 10%;
+    right: 15px;
+    a{
+        padding: 5px;
+        display: block;
+        border-radius: 50%;
+        border: 1px solid $primaryColor;
+        cursor: pointer;
+        transition: all 0.3s linear;
+        &:hover{
+            background-color: $primaryColor;
+            opacity: 0.8;
+            i{
+                color: #fff;
+            }
+        }
+        i{
+            transition: all 0.3s linear;
+            font-size: 32px;
+            color: $primaryColor;
+            width: 100%;
         }
     }
 }

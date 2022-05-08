@@ -57,7 +57,7 @@ export default function ListTour(){
 
     return <>
             <Header />
-            <div className={clsx("grid wide row", styles.container)} style={{marginTop: 84}}>
+            <div className={clsx("grid wide row", styles.container)} >
             <div className="col l-3 m-12 c-12">
                 <div className={clsx(styles.headingSearch)}>
                     <span>Tìm kiếm theo: </span>
