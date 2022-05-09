@@ -1,5 +1,6 @@
 import { useState } from "react";
 import clsx from "clsx";
+import {Link} from 'react-router-dom'
 
 import styles from "../Form.module.scss";
 import { isRequired } from "../validator.jsx";
@@ -24,12 +25,12 @@ function Login() {
 
   return (
     <div className="bg-primary">
-      <h1 className="col l-3 m-4 c-3 text-center brand-form">
+      <h1 className="col l-3 m-4 c-0 text-center brand-form">
         Love Travel
         <p className="brand-form__line"></p>
       </h1>
 
-      <div id={clsx(styles.loginForm)} className="col l-9 m-8 c-9">
+      <div id={clsx(styles.loginForm)} className="col l-9 m-8 c-11">
         <h1 className="text-center">Đăng nhập</h1>
 
         {/* Account */}
@@ -73,7 +74,7 @@ function Login() {
         {/* Submit button className="col c-4 btn btn-login" */}
         <div className={clsx("row", styles.formGroup)}>
           <span className="col c-8">
-            <a href="#" className={clsx(styles.link)}>Đăng ký ngay </a>
+            <Link to="/auth/register" className={clsx(styles.link)}>Đăng ký ngay </Link>
             <div style={{marginTop: '4px'}}>
               <a href="#" className={clsx(styles.link)}>Quên mật khẩu</a>
             </div>

@@ -69,12 +69,12 @@ function Register() {
 
   return (
     <div className="bg-primary">
-       <h1 className="col l-3 m-4 c-4 text-center brand-form">
+       <h1 className="col l-3 m-4 c-0 text-center brand-form">
         Love Travel
         <p className="brand-form__line"></p>
       </h1>
       
-      <div id={clsx(styles.registerForm)} className="col l-9 m-8 c-8" >
+      <div id={clsx(styles.registerForm)} className="col l-9 m-8 c-12" >
         <h1 className="text-center">Đăng ký</h1>
 
          {/* User name */}

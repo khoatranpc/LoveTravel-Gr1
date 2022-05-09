@@ -11,6 +11,7 @@ import NotFoundPage from './Components/NotFoundPage';
 import BodyMainPage from './Components/Body';
 import Intro from './Components/Intro';
 import ListTour from './Components/ListTour';
+import Manager from './Components/Manager'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -32,7 +33,9 @@ root.render(
             </Route>
           );
         })}
-        <Route path='/listTour' element={<ListTour />}></Route>
+
+        <Route path='/manage' element={<Manager />} />
+        <Route path='/listTour' element={<ListTour />} />
 
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
