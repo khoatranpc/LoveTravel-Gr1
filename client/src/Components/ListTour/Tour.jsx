@@ -10,6 +10,7 @@ function Tour({data}){
     const [statusBuy, setStatusBuy] = useState(false)
     const [showIntro, setShowInTro] = useState(false)
 
+    console.log(data)
     useLayoutEffect(() => {
         if(amount < 0){
             setAmount(0)
@@ -42,26 +43,28 @@ function Tour({data}){
     }
 
     return(<>
-        <div className={clsx("l-3 m-12 c-12", styles.tour)}>
+        <div className={clsx("l-4 m-12 c-12", styles.tour)}>
             <div className={clsx(styles.tourInfo)}>
-                <img  src={img} alt=""
-                    onMouseEnter={() => setShowInTro(true)}
-                    onMouseLeave={() => setShowInTro(false)}
+                <img  src={data.image} alt=""
+                    onClick={() => setShowInTro(!showIntro)}
+                    // onMouseEnter={() => setShowInTro(true)}
+                    // onMouseLeave={() => setShowInTro(false)}
                 />
                 
-                <h2>{data.tour}</h2>
-                <p>Địa điểm</p>
-                <p>Giá: {data.price}</p>
-                <div>Số lượng tour: {data.limit}</div>
+                <h2>{data.tourName}</h2>
+                <p>{data.place}</p>
+                <p>{data.price}</p>
+                <div>Số lượng tour: {data.maxCustomer}</div>
                
                 {
                     showIntro &&
                     <div className={clsx(styles.tourIntro)}>
-                        <span>Đoạn này giới thiệu chi tiết tour </span>
+                        <p>{data.intro}</p>
+                        <p>Nhà cung cấp: {data.supplierTour}</p>
                     </div>
                 }
             </div>
-            <div className="row">
+            <div className={clsx(styles.tourAmount)}>
                     <span>Số tour đặt</span>
                     <button onClick={decreaseAmount}> - </button>
                     <span>{amount}</span>

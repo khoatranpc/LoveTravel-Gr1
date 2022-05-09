@@ -1,60 +1,38 @@
 import clsx from 'clsx'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
+import axios from 'axios'
 import Tour from './Tour'
 import Header from '../Header/Header'
 import styles from "./LisTour.module.scss"
 import img from './img_intro.jpg'
 
-const tours = [
-    {
-        id: 1,
-        tour: 'ha long',
-        price: 2000,
-        limit: 15
-    },
-    {
-        id: 2,
-        tour: 'ha noi',
-        price: 5000,
-        limit: 5
-    },
-    {
-        id: 3,
-        tour: 'da nang',
-        price: 3000,
-        limit: 15
-    },
-    {
-        id: 4,
-        tour: 'cam ranh',
-        price: 5000,
-        limit: 132
-    },
-    {
-        id: 5,
-        tour: 'ha noi',
-        price: 5000,
-        limit: 5
-    },
-    {
-        id: 6,
-        tour: 'da nang',
-        price: 3000,
-        limit: 15
-    },
-    {
-        id: 7,
-        tour: 'cam ranh',
-        price: 5000,
-        limit: 132
-    },
-]
+
+const apiTours = "http://localhost:8000/api/tour/get-all-tour"
 
 export default function ListTour(){
+    const [listTours, setListTours] = useState([])
     const [valueSearch, setValueSearch] = useState('')
     const [typeSearch, setTypeSearch] = useState('category')
 
+
+    useEffect(() => {
+        const getTours = (page) => {
+            axios.get(apiTours, {
+                params: { page: page },
+            })
+            .then((res) => {
+                setListTours(res.data.data)
+                return res;
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+          };
+          getTours(1);
+    }, [])
+
+    console.log(listTours)
     return <>
             <Header />
             <div className={clsx("grid wide row", styles.container)} >
@@ -78,9 +56,9 @@ export default function ListTour(){
 
             <div className={clsx("col l-9 m-12 c-12",styles.listTour)}>
                {
-                   tours.map((tour) => {
+                   listTours.map((tour) => {
                        return (
-                           <Tour key={tour.id} data={tour} />
+                           <Tour key={tour._id} data={tour} />
                        )
                    })
                }

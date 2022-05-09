@@ -43,6 +43,7 @@
         padding-left: 32px;
         border-left: 1px solid orange;
         display:flex;
+        justify-content: space-between;
         flex-wrap: wrap;
         max-height: 80vh;
         overflow-y: scroll;
@@ -57,7 +58,8 @@
 
         .tour{
             border-radius: 8px;
-            max-width: 215px;
+            max-width: 270px;
+            min-height: 500px;
             margin: 16px 8px;
             padding: 8px 10px 20px;
             box-shadow: 1px 1px 6px rgba(0,0,0,0.5);
@@ -76,14 +78,13 @@
                     left: 0;
                     background-color: rgba(0,0,0,0.5);
                     color: #fff;
-                    display: none;
                     padding: 8px;
                     border-radius: 8px;
                     overflow: auto;
                     display: block;
                     animation: fadeIn 0.4s ease-in;
                     @include scroll;
-                    span{
+                    p{
                         text-shadow: 2px 2px 6px black;
                         text-align: justify;
                     }
@@ -111,9 +112,12 @@
                 text-align: center;
             }
 
-            div{
-                justify-content: space-evenly;
+
+            .tourAmount{
+                display: flex;
+                justify-content: space-between;
                 align-items: center;
+                padding-right: 4px;
                 font-size: 16px;
                 button{
                     width: 28px;
