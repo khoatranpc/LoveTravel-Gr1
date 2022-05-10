@@ -25,15 +25,15 @@ function Footer(){
                 <h1>Cộng đồng </h1>
                 <p>
                     <i className="fa-brands fa-facebook"></i>
-                    <span>Facebook: <a href="#">facebook.com/viettourofficial</a></span>
+                    <span>Facebook: <a href="#">facebook.com/lovetravelofficial</a></span>
                 </p>
                 <p>
                     <i className="fa-brands fa-instagram"></i>
-                    <span>Instatagram: <a href="#"> instagram.com/viettourofficial</a></span>
+                    <span>Instatagram: <a href="#"> instagram.com/lovetravelofficial</a></span>
                 </p>
                 <p>
                     <i className="fa-brands fa-pinterest"></i>
-                    <span>Pinterest: <a href="#"> pinterest.com/viettourofficial</a></span>
+                    <span>Pinterest: <a href="#"> pinterest.com/lovetravelofficial</a></span>
                 </p>
             </div>
             <div className={clsx("col l-4 m-12 c-12", styles.footerItem)}>

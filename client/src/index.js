@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Login from "./Components/Forms/Login";
 import Register from "./Components/Forms/Register";
+import ForgetPassword from "./Components/Forms/ForgetPassword";
+import NewPassword from "./Components/Forms/NewPassword";
 import Main from './Main';
 import NotFoundPage from './Components/NotFoundPage';
 import BodyMainPage from './Components/Body';
@@ -22,6 +24,8 @@ root.render(
         <Route path='/auth' element={<AuthLayout />}>
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
+          <Route path='forgetPassword' element={<ForgetPassword />} />
+          <Route path='newPassword' element={<NewPassword />} />
         </Route>
         {/* Layout main page */}
         {["/", "/home"].map((path, index) => {

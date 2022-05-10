@@ -16,12 +16,15 @@ $primaryColor: #f69d3c;
 }
 
 .listAdv{
+    display: flex;
     justify-content: space-between;
-    margin: 0 -8px 54px;
+    flex-wrap: wrap;
+    margin: 0 0 54px;
 }
 
 .advImg{
     width: 100%;
+    max-width: 390px;
     height: 250px;
     border-radius: 3px;
     position: relative;
@@ -29,7 +32,7 @@ $primaryColor: #f69d3c;
     background-position: center;
     background-repeat: no-repeat;
     cursor: pointer;
-    margin: 8px -8px;
+    margin: 8px 0;
     transition: 0.2s ease-in all;
     .advContent{
         position: absolute;

@@ -2,22 +2,18 @@ import clsx from 'clsx'
 import {memo, useState, useLayoutEffect, useEffect} from 'react'
 
 import styles from "./LisTour.module.scss"
-import img from './img_intro.jpg'
-
 
 function Tour({data}){
     const [amount, setAmount] = useState(0)
     const [statusBuy, setStatusBuy] = useState(false)
     const [showIntro, setShowInTro] = useState(false)
-
-    console.log(data)
     useLayoutEffect(() => {
         if(amount < 0){
             setAmount(0)
         }
 
-        if(amount > data.limit){
-            setAmount(data.limit)
+        if(amount > data.maxCustomer    ){
+            setAmount(data.maxCustomer)
         }
     }, [amount])
 
@@ -52,8 +48,9 @@ function Tour({data}){
                 />
                 
                 <h2>{data.tourName}</h2>
-                <p>{data.place}</p>
-                <p>{data.price}</p>
+                <p>Địa điểm: {data.place}</p>
+                <p>Giá: {data.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
+                <p>Thể loại: {data.typeTour}</p>
                 <div>Số lượng tour: {data.maxCustomer}</div>
                
                 {
@@ -61,6 +58,7 @@ function Tour({data}){
                     <div className={clsx(styles.tourIntro)}>
                         <p>{data.intro}</p>
                         <p>Nhà cung cấp: {data.supplierTour}</p>
+                        
                     </div>
                 }
             </div>
@@ -77,7 +75,7 @@ function Tour({data}){
                     [styles.active]: statusBuy
                 })}
             >
-                {statusBuy && `Hủy tour ` || 'Đặt tour'  } 
+            {statusBuy && `Hủy tour ` || 'Đặt tour'  } 
             </button>
         </div>    
     </>)

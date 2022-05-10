@@ -36,7 +36,7 @@ function Login() {
         {/* Account */}
         <div className={clsx(styles.formGroup)}>
           <label htmlFor="account" className={clsx(styles.formLabel)}>
-            Tài khoản:
+            Tên đăng nhập:
           </label>
           <input
             id="account"
@@ -76,7 +76,7 @@ function Login() {
           <span className="col c-8">
             <Link to="/auth/register" className={clsx(styles.link)}>Đăng ký ngay </Link>
             <div style={{marginTop: '4px'}}>
-              <a href="#" className={clsx(styles.link)}>Quên mật khẩu</a>
+              <Link to="/auth/forgetPassword" className={clsx(styles.link)}>Quên mật khẩu</Link>
             </div>
           </span>
           <button

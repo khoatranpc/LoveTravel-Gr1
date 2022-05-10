@@ -1,4 +1,4 @@
-
+$primaryColor: #f69d3c;
 @mixin scroll(){
     &::-webkit-scrollbar{
         width: 6px; 
@@ -25,10 +25,10 @@
         }
 
         select{
-            padding: 4px;
-            
-            option{
+            padding: 8px 12px;
+            & > option{
                 padding: 8px;
+                font-size: 14px;
             }
         }
         & ~ input{
@@ -41,15 +41,11 @@
     }
     .listTour{
         padding-left: 32px;
+        padding-bottom: 50px;
         border-left: 1px solid orange;
         display:flex;
         justify-content: space-between;
         flex-wrap: wrap;
-        max-height: 80vh;
-        overflow-y: scroll;
-        @include scroll;
-       
-
         @media screen  and (max-width: 1023px){
             border: none;
             padding-left: 0;
@@ -58,18 +54,27 @@
 
         .tour{
             border-radius: 8px;
-            max-width: 270px;
+            max-width: 260px;
             min-height: 500px;
             margin: 16px 8px;
             padding: 8px 10px 20px;
             box-shadow: 1px 1px 6px rgba(0,0,0,0.5);
+            transition: all 0.3s linear;
+            animation: fadeIn 0.3s linear;
+            
             @media screen  and (max-width: 1023px){
                 max-width: 100%;
                 margin: 16px 0;
             }
+          
 
             .tourInfo{
                 position: relative;
+                & > p, & > h2{
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
                 .tourIntro{
                     position: absolute;
                     top: 50%;
@@ -106,10 +111,10 @@
 
             h2{
                 margin-bottom: 0;
+                text-align: center;
                 background: -webkit-linear-gradient(#4158D0 , #C850C0 , #FFCC70);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
-                text-align: center;
             }
 
 
@@ -164,11 +169,50 @@
     }
 }
 
+.wrapPagination{
+    display: block;
+    width: 100%;
+    margin-top: 32px;
+    background-color: rgba(0,0,0,0.02);
+    .pagination{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        span{
+            font-size: 18px;
+            cursor: default;
+            padding: 4px 16px;
+            border: 1px solid $primaryColor;
+            border-radius: 3px;
+            display: block;
+        }
+        .pageLink{
+            font-size: 18px;
+            padding: 8px 12px;
+            border: none;
+            background-color: transparent;
+            margin: 0 16px;
+            cursor: pointer;
+            transition: all 0.2s linear;
+            &:hover{
+                border: none;
+                opacity: 0.8;
+            }
+            i{
+                font-size: 36px;
+                color: $primaryColor;
+            }
+        }
+    }
+}
+
 @keyframes fadeIn {
     from{
         opacity: 0;
+        transform: translateX(-15px);
     }
     to{
         opacity: 1;
+        transform: translateX(0);
     }
 }

@@ -91,7 +91,7 @@ function Suggest(){
         </div>
         <h1>Ưu đãi từ <span className="brand-name" style={{fontSize: 36}}>Love Travel</span></h1>
         <p className={clsx(styles.text)}>Nhanh tay <a href="#">Đăng ký</a> để nhận ngay ưu đãi độc quyền ngay hôm nay</p>
-        <ul className={clsx("row", styles.listAdv)}>
+        <ul className={clsx(styles.listAdv)}>
             {listAdv.map((adv, i) => {
                 return <li className={clsx("l-4 m-12 c-12", styles.advImg)} style={{backgroundImage: 'url('+adv.img+')'}}  key={i}>
                     <h2 className={clsx(styles.advContent)}>{adv.content} {adv.icon && <i className="brand-name fa-solid fa-gift"></i>}</h2>

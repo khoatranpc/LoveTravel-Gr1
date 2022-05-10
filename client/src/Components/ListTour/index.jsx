@@ -1,22 +1,40 @@
 import clsx from 'clsx'
-import {useState, useEffect} from 'react'
-
+import {useState, useEffect, useLayoutEffect} from 'react'
 import axios from 'axios'
+
+
+import {infor} from '../../axios'
 import Tour from './Tour'
 import Header from '../Header/Header'
 import styles from "./LisTour.module.scss"
-import img from './img_intro.jpg'
-
 
 const apiTours = "http://localhost:8000/api/tour/get-all-tour"
-
 export default function ListTour(){
     const [listTours, setListTours] = useState([])
     const [valueSearch, setValueSearch] = useState('')
     const [typeSearch, setTypeSearch] = useState('category')
+    const [page, setPage] = useState(1)
 
+    const handleIncreasePage = () => {
+      setPage(prev => {
+          if(prev >= listTours.length - 2 ){
+            return prev
+          }
+          return prev + 1
+      })
+    }
+
+    const handleDecreasePage = () => {
+        setPage(prev => {
+            if(prev <= 1 ){
+              return prev
+            }
+            return prev - 1
+        })
+    }
 
     useEffect(() => {
+        // Call api
         const getTours = (page) => {
             axios.get(apiTours, {
                 params: { page: page },
@@ -29,10 +47,10 @@ export default function ListTour(){
                 console.log(err);
             });
           };
-          getTours(1);
-    }, [])
+          getTours(page);
 
-    console.log(listTours)
+    }, [page])
+
     return <>
             <Header />
             <div className={clsx("grid wide row", styles.container)} >
@@ -62,7 +80,27 @@ export default function ListTour(){
                        )
                    })
                }
-                
+                <nav className={clsx(styles.wrapPagination)}>
+                    <ul className={clsx(styles.pagination)}>
+                        <li className="page-item">
+                            <button onClick={handleDecreasePage}
+                             className={clsx(styles.pageLink)}>
+                                <i className="fa-solid fa-circle-chevron-left"></i>
+                            </button>
+                        </li>
+
+                        <li className="page-item">
+                            <span>{page}</span>
+                        </li>
+
+                        <li className="page-item">
+                            <button onClick={handleIncreasePage}
+                             className={clsx(styles.pageLink)}>
+                                <i className="fa-solid fa-circle-chevron-right"></i>
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
             </div>
             </div>
     </>
