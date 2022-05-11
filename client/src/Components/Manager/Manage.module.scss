@@ -1,5 +1,9 @@
 
 $primaryColor: #f69d3c;
+
+header{
+}
+
 nav{
     li{
         cursor: pointer;
@@ -32,12 +36,58 @@ nav{
     }
 }
 
-.container{
-    margin-top: 100px !important;
+.wrapSearch{
     display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    input{
+        width: 500px;
+        padding: 8px 16px;
+        border: 1px solid #333;
+        border-radius: 12px;
+        font-size: 16px;
+        &:focus{
+            outline: 1px solid $primaryColor;
+            border: 1px solid $primaryColor;
+        }
+    }
+}
+
+.container{
+    padding-bottom: 80px;
+
+    .heading{
+        position: relative;
+        padding-bottom: 15px;
+        border-bottom: 1px solid $primaryColor;
+        button{
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid $primaryColor;
+            background: #fff;
+            box-shadow: 1px 1px 6px rgba(0,0,0,0.2);
+            cursor: pointer;
+            &:hover{
+                background: $primaryColor;
+                i{
+                    color: #fff;
+                }
+            }
+            i{
+                color: $primaryColor;
+                font-size: 24px;
+            }
+        }
+    }
+
     h1{
-        text-align: center;
+        text-align: center !important; 
         letter-spacing: 2px;
+        font-size: 36px;
     }
 
     .formGroup + .formGroup{
@@ -71,4 +121,62 @@ nav{
             }
         }
     }
+}
+
+
+.tourItem{
+    border: 1px solid $primaryColor;
+    
+    img{
+        width: 100%;
+    }
+    & > div{
+        border-right: 1px solid $primaryColor;
+        padding: 10px 5px;
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .tourInfo{
+        text-align: start;
+        padding-left: 10px;
+        font-size: 16px;
+
+        p{
+            margin: 0;
+        }
+    }
+
+    .wrapBtns{
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+        button{
+            padding: 8px 18px;
+            border: 1px solid #333;
+            border-radius: 12px;
+            font-size: 16px;
+            margin-right: 12px;
+            min-width: 88px;
+            cursor: pointer;
+            transition: all 0.3s linear;
+            &:hover{
+                opacity: 0.6;
+            }
+        }
+
+        button:first-child{
+            color: #fff;
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+        }
+
+        button:last-child{
+            color: #212529;
+            background-color: #ffc107;
+            border-color: #ffc107;
+        }
+    }
+
 }

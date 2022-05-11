@@ -7,7 +7,7 @@ import styles from "./Manage.module.scss"
 
 export default function Manage(){
   
-    return <div className="grid wide">
+    return <div >
             <Header />
             <Tours />
     </div>

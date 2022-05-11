@@ -13,7 +13,6 @@ export default function Header(){
                     <li><a href="#"> Tài khoản</a></li>
                     <li><a href="#"> Doanh thu</a></li>
                 </ul>
-
                 <div className={clsx("row col l-2" ,styles.navRight)}>
                     <button>Đăng xuất</button>
                 </div>
