@@ -43,7 +43,7 @@ export default function Header() {
             </Link>
 
             <ul className="row col l-5" style={{justifyContent: "center"}}>
-                <li className={clsx(styles.navItem)} ><Link to="/listTour"  className={clsx(styles.item)} >Thể loại</Link></li>
+                <li className={clsx(styles.navItem)} ><Link to="/listTour"  className={clsx(styles.item)} >Tours</Link></li>
                 <li className={clsx(styles.navItem)} ><a className={clsx(styles.item)} href="#suggest">Gợi ý</a></li>
                 <li className={clsx(styles.navItem)} ><a className={clsx(styles.item)} href="#contact">Liên hệ</a></li>
             </ul>

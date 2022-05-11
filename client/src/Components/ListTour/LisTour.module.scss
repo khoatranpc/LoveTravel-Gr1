@@ -1,4 +1,6 @@
 $primaryColor: #f69d3c;
+
+
 @mixin scroll(){
     &::-webkit-scrollbar{
         width: 6px; 
@@ -9,14 +11,162 @@ $primaryColor: #f69d3c;
     }
     &::-webkit-scrollbar-track{
         border-radius: 25px;
-        background: rgba(0,0,0,.4);
+        background: rgba(0,0,0,0.1);
+    }
+}
+
+@mixin button(){
+    margin-top: 12px;
+    width: 100%;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 8px;
+    border: 1px solid orange;
+    font-size: 16px;
+    color: #000;
+    background-color: #fff;
+    letter-spacing: 1px;
+    transition: 0.2s linear all;
+    &.active{
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+    &:hover{
+        opacity: 0.8;
+        background-color: orange;
+        color: #fff;
+        i{
+            color: #fff;
+            transform: rotate(180deg);
+        }
+    }
+
+}
+
+// Header
+header{
+    position: relative;
+}
+.header{
+    padding: 18px 0;
+    nav{
+        justify-content: space-between;
+    }
+    .navRight{
+        display: flex !important;
+        justify-content: flex-end;
+        align-items: center;
+        .item{
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 16px;
+            background-color: #4158D0;
+            border-radius: 12px;
+            margin-left: 8px;
+            transition: 0.2s linear all;
+            &:hover{
+                opacity: 0.8;
+                background-color:tomato;
+                border-bottom: none;
+            }
+        }
+        .navUser{
+            padding: 2px 14px;
+            color: #fff;
+            font-size: 20px;
+            border: 1px solid currentColor;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            .navUserChildren{
+                position: absolute;
+                z-index: 999;
+                top: 100%;
+                right: 0;
+                background-color: #fff;
+                box-shadow: 1px 1px 6px rgba(0,0,0,0.5);
+                min-width: 180px;
+                transform-origin: top right;
+                border-radius: 2px;
+                display: block !important;
+    
+                // display: none !important;
+                &::before{
+                    content: "";
+                    position: absolute;
+                    top: -28px;
+                    right: 5%;
+                    border: 14px solid;
+                    border-color: transparent transparent #fff transparent;
+                }
+    
+                li{
+                    color: #333;
+                    font-size: 16px;
+                    padding: 10px 8px;
+                    &:not(:last-child){
+                        border-bottom: 1px solid orange;
+                    }
+    
+                    &:hover{
+                        color: orange;
+                        i{
+                            transform: translateX(4px);
+                        }
+                    }
+                    i{
+                        padding-right: 12px;
+                        transition: 0.3s ease all;
+                    }
+                }
+            }
+        }
+    }
+}
+
+#logo{
+    cursor: pointer;
+    display: block;
+    img{
+        transform: scale(1.5);
+        max-width: 100px;
+    }
+    transition: all 0.3s linear;
+    &:hover{
+        filter: invert(1);
+    }
+}
+.scrollOnTop{
+    position: fixed;
+    bottom: 10%;
+    right: 15px;
+    a{
+        padding: 5px;
+        display: block;
+        border-radius: 50%;
+        border: 1px solid $primaryColor;
+        cursor: pointer;
+        transition: all 0.3s linear;
+        &:hover{
+            background-color: $primaryColor;
+            opacity: 0.8;
+            i{
+                color: #fff;
+            }
+        }
+        i{
+            transition: all 0.3s linear;
+            font-size: 32px;
+            color: $primaryColor;
+            width: 100%;
+        }
     }
 }
 
 .container{
     padding: 85px 0;
     font-size: 16px;
-    margin-top: 100px !important;
     .headingSearch{
         display: flex;
         justify-content: space-between;
@@ -55,7 +205,7 @@ $primaryColor: #f69d3c;
         .tour{
             border-radius: 8px;
             max-width: 260px;
-            min-height: 500px;
+            min-height: 440px;
             margin: 16px 8px;
             padding: 8px 10px 20px;
             box-shadow: 1px 1px 6px rgba(0,0,0,0.5);
@@ -75,25 +225,7 @@ $primaryColor: #f69d3c;
                     white-space: nowrap;
                     text-overflow: ellipsis;
                 }
-                .tourIntro{
-                    position: absolute;
-                    top: 50%;
-                    bottom: 0;
-                    right: 0;
-                    left: 0;
-                    background-color: rgba(0,0,0,0.5);
-                    color: #fff;
-                    padding: 8px;
-                    border-radius: 8px;
-                    overflow: auto;
-                    display: block;
-                    animation: fadeIn 0.4s ease-in;
-                    @include scroll;
-                    p{
-                        text-shadow: 2px 2px 6px black;
-                        text-align: justify;
-                    }
-                }
+             
             }
 
             img{
@@ -116,55 +248,18 @@ $primaryColor: #f69d3c;
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
             }
-
-
-            .tourAmount{
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding-right: 4px;
-                font-size: 16px;
-                button{
-                    width: 28px;
-                    height: 28px;
-                    border-radius: 50%;
-                    background-color: transparent;
-                    padding: 4px;
-                    font-size: 18px;
-                    text-align: center;
-                    color: rgba(0, 119, 255, 0.801);
-                    cursor: pointer;
-                    border: 1px solid #333;
-                    margin: 14px 0;
-                    &:hover{
-                        opacity: 0.8;
-                    }
-                }
+            
+            i{
+                color: $primaryColor;
+                font-size: 20px;
+                margin-left: 8px;
+                transition: 0.5s linear transform, 0.4s ease background-color;
             }
 
-            .btnBuy{
-                margin-top: 8px;
-                width: 100%;
-                padding: 8px;
-                cursor: pointer;
-                border-radius: 8px;
-                border: 1px solid orange;
-                font-size: 16px;
-                color: #000;
-                background-color: #fff;
-                letter-spacing: 1px;
-                transition: 0.2s linear all;
-                &.active{
-                    color: #fff;
-                    background-color: #dc3545;
-                    border-color: #dc3545;
-                }
-                &:hover{
-                    opacity: 0.8;
-                    background-color: orange;
-                    color: #fff;
-                }
+            .btnDetail{
+                @include button;
             }
+
         }
     }
 }
@@ -202,6 +297,105 @@ $primaryColor: #f69d3c;
                 font-size: 36px;
                 color: $primaryColor;
             }
+        }
+    }
+}
+
+.containerModal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.3);
+    z-index: 9999;
+    .modalTour{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 800px;
+        background-color: #fff;
+        min-height: 400px;
+        max-height: 500px;
+        transform: translate(-50%, -50%);
+        padding: 16px 32px;
+        border-radius: 8px;
+        box-shadow: 1px 1px 8px rgba(0,0,0,0.2);
+        overflow-y: scroll;
+        @include scroll;
+
+        .closeBtn{
+            position: absolute;
+            top: 1px;
+            right: 10px;
+            button{
+                border: none;
+                background: #fff;
+                cursor: pointer;
+                padding: 8px 12px;
+                transition: all 0.3s linear;
+                &:hover{
+                    opacity: 0.8;
+                    transform: rotate(90deg);
+                    i{
+                        color: $primaryColor;
+                    }
+                }
+                i{
+                    font-size: 28px;
+                    color: #333;
+                }
+            }
+        }
+
+        h1{
+            font-size: 32px;
+        }
+
+        .tourIntro{
+            padding: 8px;
+            display: block;
+            animation: fadeIn 0.4s ease-in;
+            margin-right: 8px;
+            img{
+                width: 100%;
+                border-radius: 12px;
+            }
+
+            p{
+                text-align: justify;
+            }
+        }
+
+        .tourAmount{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-right: 4px;
+            font-size: 16px;
+            button{
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                background-color: transparent;
+                padding: 4px;
+                font-size: 18px;
+                text-align: center;
+                color: rgba(0, 119, 255, 0.801);
+                cursor: pointer;
+                border: 1px solid #333;
+                margin: 14px 0;
+                &:hover{
+                    opacity: 0.8;
+                }
+            }
+            span{
+                outline: none;
+            }
+        }
+
+        .btnBuy{
+            @include button;
         }
     }
 }

@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import {memo, useState, useLayoutEffect, useEffect} from 'react'
+import {memo, useState, useLayoutEffect, useMemo} from 'react'
 
 import styles from "./LisTour.module.scss"
 
@@ -7,14 +7,17 @@ function Tour({data}){
     const [amount, setAmount] = useState(0)
     const [statusBuy, setStatusBuy] = useState(false)
     const [showIntro, setShowInTro] = useState(false)
+    const [showModal, setShowModal] = useState(false)
+    const totalPrice = amount * data.price
     useLayoutEffect(() => {
         if(amount < 0){
             setAmount(0)
         }
 
-        if(amount > data.maxCustomer    ){
+        if(amount > data.maxCustomer){
             setAmount(data.maxCustomer)
         }
+        
     }, [amount])
 
 
@@ -46,38 +49,70 @@ function Tour({data}){
                     // onMouseEnter={() => setShowInTro(true)}
                     // onMouseLeave={() => setShowInTro(false)}
                 />
-                
                 <h2>{data.tourName}</h2>
                 <p>Địa điểm: {data.place}</p>
                 <p>Giá: {data.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
                 <p>Thể loại: {data.typeTour}</p>
                 <div>Số lượng tour: {data.maxCustomer}</div>
-               
-                {
-                    showIntro &&
-                    <div className={clsx(styles.tourIntro)}>
-                        <p>{data.intro}</p>
-                        <p>Nhà cung cấp: {data.supplierTour}</p>
-                        
-                    </div>
-                }
             </div>
-            <div className={clsx(styles.tourAmount)}>
-                    <span>Số tour đặt</span>
-                    <button onClick={decreaseAmount}> - </button>
-                    <span>{amount}</span>
-                    <button onClick={increaseAmount}> + </button>
-            </div>
-
             <button
-                onClick={submitAmount}
-                className={clsx(styles.btnBuy, {
-                    [styles.active]: statusBuy
-                })}
+                onClick={() => setShowModal(true)}
+                className={clsx(styles.btnDetail)}
             >
-            {statusBuy && `Hủy tour ` || 'Đặt tour'  } 
+                Chi tiết
+                <i className="fa-solid fa-compass"></i>
             </button>
-        </div>    
+        </div>   
+
+         {/* Modal  */}
+         {
+            showModal && 
+            <div className={clsx(styles.containerModal)}>
+                <div className={clsx(styles.modalTour)}>
+                    {/* Close button */}
+                    <div className={clsx(styles.closeBtn)}>
+                        <button onClick={() => setShowModal(false)}>
+                            <i className="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+
+                    {/* Content */}
+                    <h1 className="text-center brand-name">{data.tourName}</h1>
+                    <div className="row">
+                        <div className={clsx("l-6 m-6 c-12")}>
+                            <div className={clsx(styles.tourIntro)}>
+                            <img  src={data.image} alt="img" />
+                                <p>Địa điểm: {data.place}</p>
+                                <p>Thể loại: {data.typeTour}</p>
+                                <p>Nhà cung cấp: {data.supplierTour}</p>
+                                <p>Giới thiệu: {data.intro}</p>
+                            </div>
+                        </div>
+
+                        <div className={clsx("l-6 m-6 c-12")}>
+                            <p>Số lượng tour: {data.maxCustomer}</p>
+                            <p>Giá: {data.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
+                            <p>Tổng: {totalPrice.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
+                            <div className={clsx(styles.tourAmount)}>
+                                <span>Số tour đặt</span>
+                                <button onClick={decreaseAmount}> - </button>
+                                <span>{amount}</span>
+                                <button onClick={increaseAmount}> + </button>
+                            </div>
+
+                            <button
+                                onClick={submitAmount}
+                                className={clsx(styles.btnBuy, {
+                                    [styles.active]: statusBuy
+                                })}
+                            >
+                            {statusBuy && `Hủy tour ` || 'Đặt tour'  } 
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         }
     </>)
 }
 
