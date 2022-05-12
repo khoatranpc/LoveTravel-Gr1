@@ -1,7 +1,18 @@
 
 $primaryColor: #f69d3c;
 
-header{
+@mixin scroll(){
+    &::-webkit-scrollbar{
+        width: 6px; 
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 25px;
+        background-color: rgb(243, 187, 82);
+    }
+    &::-webkit-scrollbar-track{
+        border-radius: 25px;
+        background: rgba(0,0,0,0.1);
+    }
 }
 
 nav{
@@ -90,21 +101,7 @@ nav{
         font-size: 36px;
     }
 
-    .formGroup + .formGroup{
-        margin-bottom: 8px;
-    }
-
-    .formGroup{
-        font-size: 18px;
-        padding: 16px 8px;
-        align-items: center;
-        input{
-            padding: 8px;
-            border: 1px solid #333;
-            border-radius: 4px;
-        }
-    }
-
+   
     .buttonGroup{
         display: flex;
         justify-content: flex-end;
@@ -129,6 +126,8 @@ nav{
     
     img{
         width: 100%;
+        max-height: 120px;
+        object-fit: cover;
     }
     & > div{
         border-right: 1px solid $primaryColor;
@@ -179,4 +178,234 @@ nav{
         }
     }
 
+}
+
+.wrapPagination{
+    display: block;
+    width: 100%;
+    margin-top: 32px;
+    background-color: rgba(0,0,0,0.02);
+    .pagination{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        span{
+            font-size: 18px;
+            cursor: default;
+            padding: 4px 16px;
+            border: 1px solid $primaryColor;
+            border-radius: 3px;
+            display: block;
+        }
+        .pageLink{
+            font-size: 18px;
+            padding: 8px 12px;
+            border: none;
+            background-color: transparent;
+            margin: 0 16px;
+            cursor: pointer;
+            transition: all 0.2s linear;
+            &:hover{
+                border: none;
+                opacity: 0.8;
+            }
+            i{
+                font-size: 36px;
+                color: $primaryColor;
+            }
+        }
+    }
+}
+
+.containerModal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.3);
+    z-index: 9999;
+    .modalTour{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 300px;
+        max-width: 800px;
+        background-color: #fff;
+        min-height: 200px;
+        max-height: 500px;
+        transform: translate(-50%, -50%);
+        padding: 16px 32px 50px;
+        border-radius: 8px;
+        box-shadow: 1px 1px 8px rgba(0,0,0,0.2);
+        overflow-y: scroll;
+        @include scroll;
+
+        .closeBtn{
+            position: absolute;
+            top: 1px;
+            right: 10px;
+            button{
+                border: none;
+                background: #fff;
+                cursor: pointer;
+                padding: 8px 12px;
+                transition: all 0.3s linear;
+                &:hover{
+                    opacity: 0.8;
+                    transform: rotate(90deg);
+                    i{
+                        color: $primaryColor;
+                    }
+                }
+                i{
+                    font-size: 28px;
+                    color: #333;
+                }
+            }
+        }
+
+        h1{
+            font-size: 32px;
+        }
+
+        .tourIntro{
+            padding: 8px;
+            display: block;
+            animation: fadeIn 0.4s ease-in;
+            margin-right: 8px;
+            img{
+                width: 100%;
+                border-radius: 12px;
+            }
+
+            p{
+                text-align: justify;
+            }
+        }
+
+        .tourAmount{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-right: 4px;
+            font-size: 16px;
+            button{
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                background-color: transparent;
+                padding: 4px;
+                font-size: 18px;
+                text-align: center;
+                color: rgba(0, 119, 255, 0.801);
+                cursor: pointer;
+                border: 1px solid #333;
+                margin: 14px 0;
+                &:hover{
+                    opacity: 0.8;
+                }
+            }
+            span{
+                outline: none;
+            }
+        }
+
+    }
+
+   
+}
+
+.wrapTourInfo{
+
+    .row{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        .formGroup + .formGroup{
+            margin-bottom: 8px;
+        }
+
+       
+    }
+}
+
+.formGroup{
+    padding: 8px ;
+    .formLabel{
+        font-size: 16px;
+        margin-top: 8px;
+        display: block;
+    }
+
+    .formControl{
+        padding: 6px 8px;
+        width: 100%;
+        margin-top: 8px;
+        border-radius: 4px;
+        outline: none;
+        border: 1px solid $primaryColor;
+    }
+
+    span{
+        font-size: 18px;
+        margin-left: 12px;
+    }
+
+    button{
+        min-width: 95px;
+        padding: 6px 12px;
+        border: 1px solid $primaryColor;
+        font-size: 16px;
+        background-color: $primaryColor;
+        color: #fff;
+        border-radius: 8px;
+        cursor: pointer;
+        &:hover{
+            opacity: 0.8;
+        }
+    }
+
+    img{
+        width: 100%;
+        margin-top: 8px;
+        border-radius: 8px;
+        object-fit: contain;
+    }
+
+    textarea{
+        width: 100%;
+        height: 90%;
+    }
+}
+
+.dialogConfirm{
+    @extend .modalTour;
+    padding: 32px 16px !important;
+    h2{
+        margin-bottom: 0;
+        i{
+            color: $primaryColor;
+            font-size: 32px;
+        }
+    }
+    b{
+        padding-left: 8px;
+    }
+    .confirmBtnGroup{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        button:first-child{
+            color: #212529;
+            background-color: #ffc107;
+            border-color: #ffc107;
+        }
+    
+        button:last-child{
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+    }
 }
