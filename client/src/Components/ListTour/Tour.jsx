@@ -46,8 +46,6 @@ function Tour({data}){
             <div className={clsx(styles.tourInfo)}>
                 <img  src={data.image} alt=""
                     onClick={() => setShowInTro(!showIntro)}
-                    // onMouseEnter={() => setShowInTro(true)}
-                    // onMouseLeave={() => setShowInTro(false)}
                 />
                 <h2>{data.tourName}</h2>
                 <p>Địa điểm: {data.place}</p>
@@ -62,6 +60,9 @@ function Tour({data}){
                 Chi tiết
                 <i className="fa-solid fa-compass"></i>
             </button>
+
+            <div className={clsx(styles.labelBrand)}>
+            </div>
         </div>   
 
          {/* Modal  */}

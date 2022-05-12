@@ -121,12 +121,12 @@ nav{
         font-size: 18px;
         transform: translateY(-50%);
         border-radius: 4px;
-        color: $primaryColor;
+        color: #fff;
+        background-color: $primaryColor;
         cursor: pointer;
         transition: all 0.3s ease;
         &:hover{
-            color: #fff;
-            background-color: $primaryColor;
+            opacity: 0.8;
         }
     }
 }

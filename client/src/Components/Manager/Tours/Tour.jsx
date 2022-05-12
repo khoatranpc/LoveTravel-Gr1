@@ -175,11 +175,12 @@ export default function Tour({data, order}){
                                                 <option value="3">3</option>
                                             </select>
                                         </div>
-    
-                                        <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
-                                            <button>Cập nhật</button>
-                                        </div>
                                     </div>
+                                </div>
+                                <div className={clsx(styles.wrapBtn)}>
+                                    <button className={clsx(styles.btnUpdateTour)}>Lưu
+                                        <i className="fa-solid fa-floppy-disk"></i>
+                                    </button>
                                 </div>
                             </div>
                     </div>

@@ -3,6 +3,7 @@ import {useState, useEffect, useRef} from 'react'
 import axios from 'axios'
 
 import Tour from './Tour'
+import AddTour from './AddTour'
 import styles from "../Manage.module.scss"
 
 
@@ -10,6 +11,7 @@ const apiTours = "http://localhost:8000/api/tour/get-all-tour"
 export default function Tours(){
     const [listTours, setListTours] = useState([])
     const [page, setPage] = useState(1)
+    const [showAddModal, setShowAddModal] = useState(false)
 
     const scrollRef = useRef()
 
@@ -51,6 +53,10 @@ export default function Tours(){
 
     }, [page])
 
+    const handleshowAddModal = () => {
+        setShowAddModal(!showAddModal)
+    }
+
     return (<div className="grid wide">
         <div className={clsx(styles.wrapSearch)}>
             <input type="search" placeholder="Tìm kiếm"
@@ -61,7 +67,8 @@ export default function Tours(){
         <div className={clsx(styles.container)}>
             <div className={clsx(styles.heading)}>
                 <h1>Danh sách tour</h1>
-                <button>
+                {/* button add tour */}
+                <button onClick={handleshowAddModal}>
                     <i className="fa-solid fa-plus"></i>
                 </button>
             </div>
@@ -111,6 +118,11 @@ export default function Tours(){
                 </ul>
             </nav>
         </div>
+
+        {/* Add modal */}
+        {
+            showAddModal && <AddTour />
+        }
     </div>)
    
 }

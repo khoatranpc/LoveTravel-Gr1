@@ -107,9 +107,9 @@ export default function ListTour(){
                     <div className={clsx(styles.headingSearch)}>
                         <span>Tìm kiếm theo: </span>
                         <select name="typeSearch" id="typeSearch" onChange={(e) => setTypeSearch(e.target.options[e.target.selectedIndex].value)}>
+                            <option value="place" >Địa điểm</option>
                             <option value="category">Thể loại</option>
                             <option value="nameTour">Tên tour</option>
-                            <option value="place" >Địa điểm</option>
                         </select>
                     </div>
                     <input type="search" placeholder="Tìm kiếm"

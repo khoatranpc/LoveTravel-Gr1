@@ -1,6 +1,27 @@
 
 $primaryColor: #f69d3c;
 
+@mixin buttons(){
+    padding: 8px 18px;
+    border: 1px solid $primaryColor;
+    border-radius: 12px;
+    background: $primaryColor;
+    font-size: 16px;
+    margin-right: 12px;
+    min-width: 88px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.3s linear;
+    i{
+        font-size: 14px;
+        color: #333;
+        padding-left: 8px;
+    }
+    &:hover{
+        color: #fff;
+        opacity: 0.8;
+    }
+}
 @mixin scroll(){
     &::-webkit-scrollbar{
         width: 6px; 
@@ -306,13 +327,9 @@ nav{
                     opacity: 0.8;
                 }
             }
-            span{
-                outline: none;
-            }
         }
 
     }
-
    
 }
 
@@ -350,7 +367,6 @@ nav{
 
     span{
         font-size: 18px;
-        margin-left: 12px;
     }
 
     button{
@@ -377,6 +393,7 @@ nav{
     textarea{
         width: 100%;
         height: 90%;
+        margin-bottom: 20px;
     }
 }
 
@@ -384,7 +401,7 @@ nav{
     @extend .modalTour;
     padding: 32px 16px !important;
     h2{
-        margin-bottom: 0;
+        margin: 0;
         i{
             color: $primaryColor;
             font-size: 32px;
@@ -407,5 +424,14 @@ nav{
             background-color: #dc3545;
             border-color: #dc3545;
         }
+    }
+}
+
+.wrapBtn{
+    display: flex;
+    justify-content: flex-end;
+    button{
+        @include buttons;
+        border-radius: 24px;
     }
 }
