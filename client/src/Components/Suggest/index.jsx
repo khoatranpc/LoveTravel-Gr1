@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import clsx from 'clsx'
 import styles from './Suggest.module.scss'
 
@@ -5,6 +6,7 @@ import adv1 from './img-1.jpg'
 import adv2 from './img-2.jpg'
 import adv3 from './img-3.jpg'
 
+import imgEvent from './end_event.png'
 import qrCode from './qr-code.png'
 import apple from './apple-store.svg'
 import googlePlay from './google-play.svg'
@@ -57,8 +59,11 @@ const suggestTours = [
 
 function Suggest(){
 
+    const [showModal, setShowModal] = useState(false)
+
     return <div id="suggest" className="container grid wide">
-         <div className="row container">
+        {/* Suggest tours */}
+        <div className="row container">
             <div className="col l-4">
                 <h1>Đi cùng <span className="brand-name" style={{fontSize: 36}}>Love Travel</span></h1>
                 <h2>Ứng dụng Web du lịch số 1 Việt Nam</h2>
@@ -89,17 +94,36 @@ function Suggest(){
                 </ul>
             </div>
         </div>
+
         <h1>Ưu đãi từ <span className="brand-name" style={{fontSize: 36}}>Love Travel</span></h1>
         <p className={clsx(styles.text)}>Nhanh tay <a href="#">Đăng ký</a> để nhận ngay ưu đãi độc quyền ngay hôm nay</p>
+        
+        {/* Adv */}
         <ul className={clsx(styles.listAdv)}>
             {listAdv.map((adv, i) => {
-                return <li className={clsx("l-4 m-12 c-12", styles.advImg)} style={{backgroundImage: 'url('+adv.img+')'}}  key={i}>
+                return <li onClick={() => setShowModal(true)} className={clsx("l-4 m-12 c-12", styles.advImg)} style={{backgroundImage: 'url('+adv.img+')'}}  key={i}>
                     <h2 className={clsx(styles.advContent)}>{adv.content} {adv.icon && <i className="brand-name fa-solid fa-gift"></i>}</h2>
                 </li>
             })}
         </ul>
 
-       
+        {/* Modal end event */}
+        {showModal && (
+            <div className={clsx(styles.containerModal)}>
+                <div className={clsx(styles.modalAdv)}>
+                    {/* Close button */}
+                    <div className={clsx(styles.closeBtn)}>
+                        <button onClick={() => setShowModal(false)}>
+                            <i className="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <h1>Sự kiện sắp diễn ra...</h1>
+                <div>
+                    <img src={imgEvent} alt="" />
+                </div>
+                </div>
+            </div>
+        )}
     </div>
 }
  

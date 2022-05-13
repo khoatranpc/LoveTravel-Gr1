@@ -222,7 +222,7 @@ select{
                 height: 30px;
                 top: 0;
                 left: 0;
-                background: rgb(250, 80, 80);
+                background: orange;
                 border-top-left-radius: 2px;
                 border-top-right-radius: 2px;
                 &::after{
@@ -233,7 +233,7 @@ select{
                     bottom: -8px;
                     border-width: 0 12px 8px;
                     border-style: solid;
-                    border-color: rgb(250, 80, 80) rgb(250, 80, 80) transparent rgb(250, 80, 80);
+                    border-color: orange orange transparent orange;
                 }
             }
             
