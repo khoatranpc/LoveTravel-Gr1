@@ -40,6 +40,7 @@ function ForgetPassword() {
                 console.log(res);
                 if(res.status === 200){
                   otpContext.sendOtp(res.data.otp)
+                  otpContext.sendIdAccount(res.data.id_account)
                   navigate('/auth/newPassword')
                 }
             })
@@ -47,7 +48,6 @@ function ForgetPassword() {
                 console.log(err);
                 console.log("Failed");
             })
-            navigate('/auth/newPassword')
         }
     }
   }

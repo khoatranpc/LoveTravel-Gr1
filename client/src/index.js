@@ -13,11 +13,13 @@ import NotFoundPage from './Components/NotFoundPage';
 import BodyMainPage from './Components/Body';
 import Intro from './Components/Intro';
 import ListTour from './Components/ListTour';
+
 import Manager from './Components/Manager'
+import ManagerTours from './Components/Manager/Tours/Tours'
+
 import Guide from './Components/Guide'
 
 import {OtpProvider} from './Contexts/OtpContext'
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -42,7 +44,10 @@ root.render(
               );
             })}
 
-            <Route path='/manage' element={<Manager />} />
+            <Route path='/manage' element={<Manager />}>
+                <Route path='tours' element={<ManagerTours />}/>
+            </Route>
+
             <Route path='/guide' element={<Guide />} />
             <Route path='/listTour' element={<ListTour />} />
 

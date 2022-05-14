@@ -12,7 +12,8 @@ export default function Tours(){
     const [listTours, setListTours] = useState([])
     const [page, setPage] = useState(1)
     const [showAddModal, setShowAddModal] = useState(false)
-
+    const [totalTours, setTotalTours] = useState([])
+    
     const scrollRef = useRef()
 
     const handleIncreasePage = () => {
@@ -49,7 +50,7 @@ export default function Tours(){
                 console.log(err);
             });
           };
-          getTours(page);
+          getTours(page)
 
     }, [page])
 

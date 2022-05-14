@@ -4,15 +4,21 @@ const OtpContext = createContext()
 
 function OtpProvider(props){
     const [otp, setOtp]  = useState('')
-
+    const [idAccount, setIdAccount] = useState('')
 
     const sendOtp = (receiveOtp) =>{
         setOtp(receiveOtp)
     }
+
+    const sendIdAccount = (receiveIdAccount)  =>{
+        setIdAccount(receiveIdAccount)
+    }
    
     const value={
         otp,
-        sendOtp
+        sendOtp,
+        idAccount,
+        sendIdAccount
     }
 
     return <OtpContext.Provider  value={value}>

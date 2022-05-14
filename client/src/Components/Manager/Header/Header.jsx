@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import {useState} from 'react'
-
+import { Link } from 'react-router-dom'
 import styles from "../Manage.module.scss"
 
 export default function Header(){
@@ -9,7 +9,7 @@ export default function Header(){
         <div className="grid wide">
             <nav className="row" >
                 <ul className="row col l-10">
-                    <li><a href="#">Tours</a></li>
+                    <li><Link to="/manage/tours" href="#">Tours</Link></li>
                     <li><a href="#"> Tài khoản</a></li>
                     <li><a href="#"> Doanh thu</a></li>
                 </ul>

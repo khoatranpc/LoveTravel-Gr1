@@ -1,6 +1,7 @@
 import {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import clsx from 'clsx'
+import axios from 'axios'
 
 import Loading from '../Loading'
 import styles from "./Header.module.scss";
@@ -17,12 +18,34 @@ export default function Header() {
   const [showUserMenu, setShowUserMenu] = useState(false)
   const [scrollTop, setScrollTop] = useState(false)
   const [isOnline, setIsOnline] = useState(false)
+  const [showBoxSearch, setShowBoxSearch] = useState(false)
+  const [searchTours, setSearchTours] = useState([])
+  const [nameTour, setNameTour] = useState('')
 
   useEffect(() => {
     if(localStorage.getItem('token')){
       setIsOnline(true)
     }
+
   }, [])
+
+  useEffect(() => {
+    const api = `http://localhost:8000/api/tour/search?place=${nameTour}`
+
+    const getTours = () => {
+      axios.get(api)
+      .then((res) => {
+          console.log(res.data);
+          setSearchTours(res.data)
+          return res;
+      })
+      .catch((err) => {
+          console.log(err);
+      });
+    };
+    getTours()
+    console.log("Tours: ", searchTours);
+  },[nameTour])
 
 
   const toggleMenuUser = () => {
@@ -41,7 +64,6 @@ export default function Header() {
 
   }, [])
   
-
   return (
     <header>
       <div className={clsx("grid wide", styles.header)}>
@@ -59,17 +81,34 @@ export default function Header() {
             {/* Search */}
             <div className="col l-4 ">
                 <div className={clsx(styles.navSearch)}>
-                    <input id={clsx(styles.navSearchInput)} type="text" placeholder="Tìm kiếm"  />
+                    <input
+                      value ={nameTour}
+                      onChange={e => setNameTour(e.target.value)}
+                      onClick={() => setShowBoxSearch(!showBoxSearch)}
+                      id={clsx(styles.navSearchInput)} type="text" placeholder="Tìm kiếm"  />
                     <label htmlFor="nav-search" className={clsx(styles.searchIcon)}>
                       <i className="fa-solid fa-magnifying-glass"></i>
                     </label>
 
-                    <div className={clsx(styles.searchTours)}>
-                      <a href="#">
-                          <h4>Tên tour</h4>
-                          <span>Giá: 500$</span>
-                      </a>
-                    </div>
+                   {
+                      showBoxSearch && (
+                        <div className={clsx(styles.searchTours)}>
+                          {searchTours.data &&  searchTours.data.map((tour, i) => {
+                            return (
+                                <a key={i} href="#">
+                                    <div className="wrapImg l-3">
+                                      <img src={tour.image} alt="" />
+                                    </div>
+                                    <div className="l-9">
+                                      <h4>{tour.tourName}</h4>
+                                      <p>Giá: {tour.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
+                                    </div>
+                                </a>
+                            )
+                          })}
+                        </div>
+                      )
+                   }
                 </div>
             </div>
 

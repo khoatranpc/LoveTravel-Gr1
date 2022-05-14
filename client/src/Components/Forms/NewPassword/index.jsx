@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import clsx from "clsx";
 import {useNavigate} from 'react-router-dom'
+import axios from "axios"
 
 import styles from "../Form.module.scss";
 import { isRequired, minLength, isEqual } from "../validator.jsx";
@@ -9,6 +10,8 @@ import {OtpContext} from '../../../Contexts/OtpContext'
 
 function NewPassword() {
   const LENGTH_PASSWORD = 6
+  const apiResetPwd = "http://localhost:8000/api/auth/reset-password"
+
   const [otp, setOtp] = useState('')
   const [otpMsg, setOtpMsg] = useState('')
   const [password, setPassword] = useState('')
@@ -17,21 +20,36 @@ function NewPassword() {
   
 
   const context = useContext(OtpContext)
-  console.log("Ma OTP nhan: ", context.otp);
   
-  console.log("OTP nhap:", otp);
   const navigate = useNavigate()
   useEffect(() => {
     document.title = "Love Travel"
+    console.log("OTP: ", (context.otp).toString());
+    console.log("id: ", context.idAccount);
   },[])
 
   const handleConfirm = () => {
-      if(otp == 123 && password){
+      if(parseInt(otp) === context.otp && password){
           if(otpMsg || passwordMsg || checkPassword){
             console.log("Fail")
-          }else{
-              console.log(otp, password);
-              navigate('/auth/login')
+          }
+          else{
+              axios.put(apiResetPwd,{
+                "receivedOtp":true,
+                "otp": context.otp.toString(),
+                "id_account": context.idAccount,
+                "password":password,
+                "repassword":password
+              })
+              .then(res => {
+                console.log(res);
+                console.log("Success");
+                navigate('/auth/login')
+              })
+              .catch(err => {
+                console.log(err);
+              })
+              
           }
       }else{
           console.log("Mã OTP không hợp lệ");
@@ -72,7 +90,8 @@ function NewPassword() {
          {/* Password */}
          <div className={clsx(styles.formGroup)}>
             <label htmlFor="password" className={clsx(styles.formLabel)}>Mật khẩu:</label>
-            <input id="password" type="password" name="registerPassword" 
+            <input
+            id="password" type="password" name="registerPassword" 
             className={clsx(styles.formControl)}
             value={password}
             onChange={e => setPassword(e.target.value.trim())}
