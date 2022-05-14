@@ -1,21 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import clsx from "clsx";
 import {useNavigate} from 'react-router-dom'
 
 import styles from "../Form.module.scss";
 import { isRequired, minLength, isEqual } from "../validator.jsx";
+import {OtpContext} from '../../../Contexts/OtpContext'
 
-const LENGTH_PASSWORD = 6
 
 function NewPassword() {
-  const navigate = useNavigate()
+  const LENGTH_PASSWORD = 6
   const [otp, setOtp] = useState('')
   const [otpMsg, setOtpMsg] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordMsg, setPasswordMsg] = useState('')
+  const [checkPassword, setCheckPassword] = useState(true)
   
-  const [password, setPassword] = useState('');
-  const [passwordMsg, setPasswordMsg] = useState('');
 
-  const [checkPassword, setCheckPassword] = useState(true);
+  const context = useContext(OtpContext)
+  console.log("Ma OTP nhan: ", context.otp);
+  
+  console.log("OTP nhap:", otp);
+  const navigate = useNavigate()
+  useEffect(() => {
+    document.title = "Love Travel"
+  },[])
 
   const handleConfirm = () => {
       if(otp == 123 && password){
@@ -53,6 +61,11 @@ function NewPassword() {
           />
           <span className={clsx(styles.formMsg, styles.formMsgError)}>
             {otpMsg}
+          </span>
+          <span className={clsx(styles.formMsg, styles.formMsgSuccess)}>
+            {
+              parseInt(otp) === context.otp ? 'Mã OTP chính xác' : undefined
+            }
           </span>
         </div>
 

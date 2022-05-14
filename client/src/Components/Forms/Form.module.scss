@@ -83,6 +83,13 @@ input[type="radio"]{
     color: red;
 }
 
+.formMsg.formMsgSuccess{
+    display: block;
+    margin-top: 4px;
+    color: green;
+}
+
+
 .link{
     color: #0069d9;
     transition: all 0.2s linear;

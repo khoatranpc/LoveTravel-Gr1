@@ -1,7 +1,9 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import clsx from 'clsx'
-import styles from './Suggest.module.scss'
+import axios from 'axios'
+import {useNavigate} from 'react-router-dom'
 
+import styles from './Suggest.module.scss'
 import adv1 from './img-1.jpg'
 import adv2 from './img-2.jpg'
 import adv3 from './img-3.jpg'
@@ -30,40 +32,40 @@ const listAdv = [
     },
 ]
 
-const suggestTours = [
-    {
-        id: 1,
-        place: "Cầu Vàng Đà Nẵng",
-        amount: 300,
-        img: adv1
-    },
-    {
-        id: 2,
-        place: "Phố cổ Hội An",
-        amount: 100,
-        img: adv1
-    },
-    {
-        id: 3,
-        place: "Cù Lao Chàm",
-        amount: 200,
-        img: adv1
-    },
-    {
-        id: 4,
-        place: "Vịnh Hạ Long",
-        amount: 310,
-        img: adv1
-    },
-]
 
+const apiTours = "http://localhost:8000/api/tour/get-all-tour"
 function Suggest(){
-
+    const [listTours, setListTours] = useState([])
     const [showModal, setShowModal] = useState(false)
 
-    return <div id="suggest" className="container grid wide">
+    const navigate = useNavigate()
+    const suggestTours = listTours.filter((tour) => tour.price <= 120000)
+
+
+    useEffect(() => {
+        // Call api
+        const getTours = (page) => {
+            axios.get(apiTours, {
+                params: { page: page },
+            })
+            .then((res) => {
+                setListTours(res.data.data)
+                return res;
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+          };
+          getTours(1);
+
+          
+        }, [])
+        
+        
+
+    return <div id={clsx(styles.suggest)} className="container grid wide">
         {/* Suggest tours */}
-        <div className="row container">
+        <div className="row">
             <div className="col l-4">
                 <h1>Đi cùng <span className="brand-name" style={{fontSize: 36}}>Love Travel</span></h1>
                 <h2>Ứng dụng Web du lịch số 1 Việt Nam</h2>
@@ -83,10 +85,14 @@ function Suggest(){
                 <h1 className="text-center">Tour gợi ý từ <span className="brand-name" style={{fontSize: 36}}>Love Travel</span> </h1>
                 <ul className={clsx("row", styles.listTours)}>
                     {
-                        suggestTours.map((tour) => 
-                            <li key={tour.id} className={clsx("l-5 m-5 c-5", styles.suggestTour)} style={{backgroundImage: 'url('+ tour.img +')'}}>
-                                <h2 className={clsx(styles.suggestPlace)}>{tour.place}
-                                    <p>Số lượng: {tour.amount} tours</p>                      
+                        suggestTours.map((tour, i) => 
+                            <li className={clsx("l-5 m-5 c-5", styles.suggestTour)} 
+                                style={{backgroundImage: 'url('+ tour.image +')'}}
+                                key={i}
+                                onClick={() => navigate('/listTour')}
+                            >
+                                <h2 className={clsx(styles.suggestPlace)}>{tour.tourName}
+                                    <p>Chỉ với {tour.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>                      
                                 </h2>
                             </li>
                         )

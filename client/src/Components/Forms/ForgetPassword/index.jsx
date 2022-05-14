@@ -1,28 +1,57 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import clsx from "clsx";
 import {useNavigate} from 'react-router-dom'
+import axios from "axios";
 
+import NewPassword from '../NewPassword'
 import styles from "../Form.module.scss";
-import { isRequired, isEmail } from "../validator.jsx";
+import { isRequired, isEmail } from "../validator.jsx"
+
+import {OtpContext} from '../../../Contexts/OtpContext'
 
 function ForgetPassword() {
+  const api = "http://localhost:8000/api/auth/sending-otp"
   const [userName, setUserName] = useState('')
   const [email, setEmail] = useState('')
   const [userNameMsg, setUserNameMsg] = useState('')
   const [emailMsg, setEmailMsg] = useState('')
 
   const navigate = useNavigate()
-  const handleGetOTP = () => {
+  const otpContext = useContext(OtpContext)
+
+  useEffect(() => {
+    document.title = 'Quên mật khẩu'
+  },[])
+
+
+  const handleSendOTP = () => {
     if(userName && email){
         if(emailMsg || userNameMsg){
             return
         }
         else{
-          console.log(userName, email)
-          navigate('/auth/newPassword')
+            axios.post(api, {
+                "username": userName,
+                "email": email
+            },{
+                
+            })
+            .then((res)=> {
+                console.log(res);
+                if(res.status === 200){
+                  otpContext.sendOtp(res.data.otp)
+                  navigate('/auth/newPassword')
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                console.log("Failed");
+            })
+            navigate('/auth/newPassword')
         }
     }
   }
+
 
   return (
     <div className="bg-primary">
@@ -65,18 +94,20 @@ function ForgetPassword() {
             {emailMsg}
           </span>
         </div>
-
         {/* Submit button className="col c-4 btn btn-login" */}
         <div className={clsx("row", styles.formGroup)}>
           <button
             className={clsx("col btn l-12 m-12 c-12", styles.btnGetOTP)}
-            onClick={handleGetOTP}
+            onClick={handleSendOTP}
           >
             Lấy mã OTP
           </button>
         </div>
       </div>
+
     </div>
+
+   
   );
 }
 

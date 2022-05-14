@@ -1,6 +1,9 @@
 import clsx from 'clsx'
+import {Link} from 'react-router-dom'
 
 import styles from './Categories.module.scss'
+
+
 import category1 from './co-do-hue.jpg'
 import category2 from './phong-nha-ke-bang.jpg'
 import category3 from './phu-quoc.jpg'
@@ -37,7 +40,7 @@ function Categories(){
                         <h1>{category.title}</h1>
                         <h2>{category.quote}</h2>
                         <div className={clsx(styles.categoryItem)} style={{backgroundImage: 'url('+category.img+')'}}>
-                            <button><a href="#">Xem ngay</a></button>
+                            <button><Link to="/listTour" >Xem ngay</Link></button>
                         </div>
                     </li>
                 })}

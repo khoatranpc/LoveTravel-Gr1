@@ -1,5 +1,9 @@
 $primaryColor: #f69d3c;
 
+#suggest{
+    margin-top: -54px;
+}
+
 .text{
     color: #333 !important;
     font-size: 18px;
@@ -41,7 +45,7 @@ $primaryColor: #f69d3c;
         transform: translate(10px, -10px);
         color: #fff;
         font-weight: 500;
-        text-shadow: 1px 4px 6px rgba(0,0,0,0.3);
+        text-shadow: 4px 4px 6px rgba(0,0,0,0.5);
         transition: 0.2s ease-in all;
     }
 
@@ -170,7 +174,9 @@ $primaryColor: #f69d3c;
 
         h1{
             font-size: 28px;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            font-weight: 400;
+            text-align: center;
             padding: 24px 0 0;
             color: $primaryColor;
         }
@@ -180,7 +186,7 @@ $primaryColor: #f69d3c;
             max-height: 180px;
             object-fit: contain;
             padding-bottom: 20px;
-            animation: rotateAnm 2.5s linear infinite;
+            animation: rotateAnm 1.5s linear forwards;
         }
 
     }
@@ -188,10 +194,12 @@ $primaryColor: #f69d3c;
 
 @keyframes rotateAnm {
     from{
-        transform: rotate(0)
+        transform: rotate(0);
+        opacity: 0;
     }
 
     to{
-        transform: rotate(360deg)
+        transform: rotate(360deg) scale(0.8);
+        opacity: 1;
     }
 }

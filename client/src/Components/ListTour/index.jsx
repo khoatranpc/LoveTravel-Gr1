@@ -89,7 +89,7 @@ export default function ListTour(){
                                 <ul className={clsx(styles.navUserChildren)}>
                                 <li><i className="fa-solid fa-user"></i>Thông tin cá nhân</li>
                                 <li><i className="fa-solid fa-person-walking-luggage"></i>Danh sách tour</li>
-                                <li><i className="fa-solid fa-arrow-right-from-bracket"></i>Đăng xuất</li>
+                                <li ><i className="fa-solid fa-arrow-right-from-bracket"></i>Đăng xuất</li>
                                 </ul>
                                 }
                             </div>

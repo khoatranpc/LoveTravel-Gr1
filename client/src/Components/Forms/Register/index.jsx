@@ -1,5 +1,7 @@
-import {useState } from "react";
+import {useState, useEffect } from "react";
 import clsx from "clsx";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import styles from "../Form.module.scss";
 import { isRequired, isEmail, minLength, isEqual} from "../validator.jsx";
@@ -7,6 +9,8 @@ import { isRequired, isEmail, minLength, isEqual} from "../validator.jsx";
 const LENGTH_USER_NAME = 6
 const LENGTH_IDENTIFY = 12
 const LENGTH_PASSWORD = 6
+
+const api = "http://localhost:8000/api/auth/signup"
 
 function Register() {
   const [userName, setUserName] = useState('');
@@ -33,6 +37,12 @@ function Register() {
   const [passwordMsg, setPasswordMsg] = useState('');
 
   const [checkPassword, setCheckPassword] = useState(true);
+
+  const navigate = useNavigate()
+  useEffect(() => {
+    document.title = 'Đăng ký'
+  },[])
+
 // Validate form
   const validateInputs = () => {
     setUserNameMsg(minLength(userName, LENGTH_USER_NAME))
@@ -44,25 +54,34 @@ function Register() {
     setPasswordMsg(minLength(password, LENGTH_PASSWORD))
   }
 
-// Reset states
-  const resetStates = () => {
-    setName('')
-    setBirth('')
-    setAddress('')
-    setGender('')
-    setIdentify('')
-    setEmail('')
-    setPassword('')
-  }
-
   // Handle submit
   const handleSubmit = () => {
-    console.log(!userNameMsg , !!name , !!birth , !!address , !identifyMsg , !emailMsg , !passwordMsg,  checkPassword);
     validateInputs()
     if(!userNameMsg && !!name && !!birth && !!address && !identifyMsg && !emailMsg && !passwordMsg && checkPassword === undefined) {
-      console.log({userName, name, birth, address, gender, identify, email, password});
-    }else{
-      console.log("Fail");
+      (
+        axios.post(api, {
+          "username" : userName ,
+          "name" :  name,
+          "birth" :  birth,
+          "address" :  address,
+          "gender" :  gender,
+          "indentify" :  identify,
+          "email" :  email,
+          "password" :  password,
+          "repassword": password
+        })
+        .then((res)=> {
+          console.log(res);
+            if(res.status === 201){
+              navigate('/auth/login');
+            }
+        })
+        .catch((err) => {
+          console.log(err);
+          console.log("Failed");
+        })
+
+      )
     }
   }
 

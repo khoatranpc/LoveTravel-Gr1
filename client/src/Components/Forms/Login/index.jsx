@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import clsx from "clsx";
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+import axios from "axios"
 
 import styles from "../Form.module.scss";
 import { isRequired } from "../validator.jsx";
@@ -10,17 +11,37 @@ function Login() {
   const [password, setPassword] = useState("");
   const [accountMsg, setAccountMsg] = useState(undefined);
   const [passwordMsg, setPasswordMsg] = useState(undefined);
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    document.title = 'Đăng nhập'
+  },[])
+
 
   const handleSendFormValues = () => {
     setAccountMsg(isRequired(account));
     setPasswordMsg(isRequired(password));
+    (
+      axios.post('http://localhost:8000/api/auth/login', {
+          "username": account,
+          "password": password
+      },{
+        
+      })
+      .then((res)=> {
+          console.log(res);
+          if(res.data.status === 200){
+            navigate('/')
+          }
+          localStorage.setItem('token', res.data.token)
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("Failed");
+        setPasswordMsg("Thông tin đăng nhập không hợp lệ")
+      })
 
-    !accountMsg &&
-      !passwordMsg &&
-      console.log({
-        account,
-        password,
-      });
+    )
   };
 
   return (
@@ -35,9 +56,7 @@ function Login() {
 
         {/* Account */}
         <div className={clsx(styles.formGroup)}>
-          <label htmlFor="account" className={clsx(styles.formLabel)}>
-            Tên đăng nhập:
-          </label>
+          <label htmlFor="account" className={clsx(styles.formLabel)}>Tên đăng nhập:</label>
           <input
             id="account"
             name="login_account"
@@ -80,6 +99,7 @@ function Login() {
             </div>
           </span>
           <button
+            type="submit"
             className={clsx("col", "c-4", "btn", styles.btnLogin)}
             onClick={handleSendFormValues}
           >

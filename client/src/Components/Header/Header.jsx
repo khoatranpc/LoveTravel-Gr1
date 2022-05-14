@@ -2,6 +2,7 @@ import {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import clsx from 'clsx'
 
+import Loading from '../Loading'
 import styles from "./Header.module.scss";
 import logo from './logo.png'
 
@@ -11,12 +12,19 @@ import logo from './logo.png'
 //         <a href="/auth/login">Login</a>
 //         <a href="/auth/register">Register</a> */}
 
-const IS_ONLINE = true;        
 
 export default function Header() {
   const [showUserMenu, setShowUserMenu] = useState(false)
   const [scrollTop, setScrollTop] = useState(false)
-  
+  const [isOnline, setIsOnline] = useState(false)
+
+  useEffect(() => {
+    if(localStorage.getItem('token')){
+      setIsOnline(true)
+    }
+  }, [])
+
+
   const toggleMenuUser = () => {
       setShowUserMenu(!showUserMenu)
   }
@@ -66,8 +74,28 @@ export default function Header() {
             </div>
 
             <div className={clsx("row col l-2" ,styles.navRight)}>
+              {
+                  isOnline ? (
+                    <> 
+                      <div className={clsx(styles.navUser)} onClick={toggleMenuUser}>
+                        <i className="fa-solid fa-bars"></i>
+                        {showUserMenu && 
+                          <ul className={clsx(styles.navUserChildren)}>
+                          <li><i className="fa-solid fa-user"></i>Thông tin cá nhân</li>
+                          <li><i className="fa-solid fa-person-walking-luggage"></i>Danh sách tour</li>
+                          <li onClick={() => {
+                            localStorage.removeItem('token')
+                            setIsOnline(false)
+                          }}><i className="fa-solid fa-arrow-right-from-bracket"></i>Đăng xuất</li>
+                        </ul>
+                        }
+                      </div>
+                    </>
+                  )
+                  : (<div><Link to="/auth/login" className={clsx(styles.item)} >Đăng nhập</Link></div>)
+              }
                   {/* <div><Link to="/auth/login" className={clsx(styles.item)} >Đăng nhập</Link></div> */}
-                  {IS_ONLINE && (
+                  {/* {isOnline && (
                     <> 
                       <div className={clsx(styles.navUser)} onClick={toggleMenuUser}>
                         <i className="fa-solid fa-bars"></i>
@@ -80,11 +108,12 @@ export default function Header() {
                         }
                       </div>
                     </>
-                  )}
+                  )} */}
             </div>
           </nav>
       </div>
 
+    {/* Scroll on Top  */}
      <div>
         {
         scrollTop && (
@@ -100,6 +129,13 @@ export default function Header() {
       }
      </div>
 
+      {/* Loading */}
+      {/* {isLoading &&  <div className={clsx(styles.modal)}>
+          <div>
+              <Loading /> 
+          </div>
+          <h2 className="text-center">Vui lòng đợi ...</h2>
+      </div>} */}
     </header>
   );
 }
