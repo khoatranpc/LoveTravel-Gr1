@@ -3,6 +3,7 @@ import {useState} from 'react'
 
 import Header from './Header/Header'
 import Tours from './Tours/Tours'
+import Accounts from './Accounts/'
 import styles from "./Manage.module.scss"
 
 const apiTours = "http://localhost:8000/api/tour/get-all-tour"

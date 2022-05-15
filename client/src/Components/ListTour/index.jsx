@@ -12,7 +12,7 @@ export default function ListTour(){
     const [scrollTop, setScrollTop] = useState(false)
     const [listTours, setListTours] = useState([])
     const [valueSearch, setValueSearch] = useState('')
-    const [typeSearch, setTypeSearch] = useState('category')
+    const [typeSearch, setTypeSearch] = useState('name')
     const [page, setPage] = useState(1)
     const [showUserMenu, setShowUserMenu] = useState(false)
 
@@ -53,6 +53,7 @@ export default function ListTour(){
         })
     }
 
+    // Phân trang
     useEffect(() => {
         // Call api
         const getTours = (page) => {
@@ -70,6 +71,22 @@ export default function ListTour(){
           getTours(page);
 
     }, [page])
+
+
+    const apiSearch = `http://localhost:8000/api/tour/search?${typeSearch}=${valueSearch} `
+    const handleSearch = () => {
+        axios.get(apiSearch)
+        .then((res) => {
+            setListTours(res.data.data)
+            console.log("Tours: ", listTours);
+            console.log("Res: ", res.data.data);
+            return res;
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
+
 
     return <>
             <header>
@@ -99,7 +116,6 @@ export default function ListTour(){
                     </nav>
                 </div>
             </header>
-            
 
             {/* List tours */}
             <div className={clsx("grid wide row", styles.container)} >
@@ -107,27 +123,32 @@ export default function ListTour(){
                     <div className={clsx(styles.headingSearch)}>
                         <span>Tìm kiếm theo: </span>
                         <select name="typeSearch" id="typeSearch" onChange={(e) => setTypeSearch(e.target.options[e.target.selectedIndex].value)}>
+                            <option value="name">Tên tour</option>
                             <option value="place" >Địa điểm</option>
-                            <option value="category">Thể loại</option>
-                            <option value="nameTour">Tên tour</option>
+                            <option value="type">Thể loại</option>
                         </select>
                     </div>
+                    {/* Search */}
+                    {/* name,place,type */}
                     <input type="search" placeholder="Tìm kiếm"
                         value = {valueSearch}
                         onChange={e => {
-                            console.log("Tìm theo: ", typeSearch);
+                            console.log("Tìm kiếm theo:", typeSearch);
+                            console.log("Giá trị tìm kiếm:", valueSearch);
                             setValueSearch(e.target.value)
+                            handleSearch()
                         } }
                     />
                 </div>
 
                 <div ref={scrollRef} className={clsx("col l-9 m-12 c-12",styles.listTour)}>
                 {
-                    listTours.map((tour) => {
+                  Array.isArray(listTours) ?  listTours.map((tour) => {
                         return (
                             <Tour key={tour._id} data={tour} />
                         )
                     })
+                  : []
                 }
                     <nav className={clsx(styles.wrapPagination)}>
                         <ul className={clsx(styles.pagination)}>

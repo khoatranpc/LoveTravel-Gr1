@@ -11,7 +11,7 @@ export default function Tours(){
 
     return (
         <div className="grid wide">
-            <ul ref={scrollRef}>
+            <ul >
                 <li className={clsx("row", styles.tourItem)}>
                     <div className="col l-1">STT</div>
                     <div className="col l-9">

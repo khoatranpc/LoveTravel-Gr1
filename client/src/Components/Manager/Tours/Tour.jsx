@@ -1,5 +1,7 @@
 import clsx from 'clsx'
 import {useState} from 'react'
+import axios from 'axios'
+
 
 import styles from "../Manage.module.scss"
 export default function Tour({data, order}){
@@ -38,8 +40,31 @@ export default function Tour({data, order}){
         setShowDialogConfirm(!showDialogConfirm)
     }
     const hanleDeleteTour = () => {
-        console.log(data._id);
+        const apiDelete = `http://localhost:8000/api/tour/delete/${data._id}`
+        axios.delete(apiDelete,{
+            headers: {authorization: localStorage.getItem('token')}
+        })
+        .then(res => {
+            console.log(res);
+        })
+        .catch(err => console.error(err))
     }
+
+    const handleUpdateTour = () => {
+        const apiUpdate = `http://localhost:8000/api/tour/update/${data._id}`
+        axios.put(apiUpdate,
+            {
+                "tourName": tourName
+            },
+            {
+            headers: {authorization: localStorage.getItem('token')}
+        })
+        .then(res => {
+            console.log("Update thanh cong:", res);
+        })
+        .catch(err => console.error(err))
+    }
+
     return (
         <div>
             <li className={clsx("row", styles.tourItem)}>
@@ -157,7 +182,7 @@ export default function Tour({data, order}){
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Ảnh</label>
                                             <input className={clsx(styles.formControl)} 
-                                                type="file" />
+                                                type="input" placeholder="Nhập đường dẫn" />
                                             <img src={image} alt=""/>
                                         </div>
                                        
@@ -170,7 +195,7 @@ export default function Tour({data, order}){
 
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Người dẫn tour:</label>
                                             <select className={clsx(styles.formControl)}>
-                                                <option value="1">1</option>
+                                                <option value="1">Nguyen Van A</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
                                             </select>
@@ -178,7 +203,9 @@ export default function Tour({data, order}){
                                     </div>
                                 </div>
                                 <div className={clsx(styles.wrapBtn)}>
-                                    <button className={clsx(styles.btnUpdateTour)}>Lưu
+                                    <button
+                                    onClick={handleUpdateTour}
+                                    className={clsx(styles.btnUpdateTour)}>Lưu
                                         <i className="fa-solid fa-floppy-disk"></i>
                                     </button>
                                 </div>

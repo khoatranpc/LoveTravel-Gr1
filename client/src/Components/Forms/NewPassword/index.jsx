@@ -42,12 +42,12 @@ function NewPassword() {
                 "repassword":password
               })
               .then(res => {
-                console.log(res);
                 console.log("Success");
                 navigate('/auth/login')
               })
               .catch(err => {
                 console.log(err);
+                setOtpMsg("Mã OTP không hợp lệ")
               })
               
           }
@@ -89,7 +89,7 @@ function NewPassword() {
 
          {/* Password */}
          <div className={clsx(styles.formGroup)}>
-            <label htmlFor="password" className={clsx(styles.formLabel)}>Mật khẩu:</label>
+            <label htmlFor="password" className={clsx(styles.formLabel)}>Mật khẩu mới:</label>
             <input
             id="password" type="password" name="registerPassword" 
             className={clsx(styles.formControl)}
@@ -102,7 +102,7 @@ function NewPassword() {
 
          {/* Re-password */}
          <div className={clsx(styles.formGroup)}>
-          <label htmlFor="re-password" className={clsx(styles.formLabel)}>Nhập lại mật khẩu:</label>
+          <label htmlFor="re-password" className={clsx(styles.formLabel)}>Nhập lại mật khẩu mới:</label>
           <input id="re-password" type="password" name="registerRePassword" 
             className={clsx(styles.formControl)}
             onBlur={e => setCheckPassword(isEqual(e.target.value, password, "Mật khẩu nhập lại không chính xác"))}

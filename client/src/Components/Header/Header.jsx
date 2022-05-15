@@ -1,17 +1,10 @@
 import {useState, useEffect} from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import clsx from 'clsx'
 import axios from 'axios'
-
 import Loading from '../Loading'
 import styles from "./Header.module.scss";
 import logo from './logo.png'
-
-//  {/* <Link to={"/"}>Home</Link>
-//         <Link to={"/"}>Account</Link>
-//         <Link to={"/"}>Setting</Link>
-//         <a href="/auth/login">Login</a>
-//         <a href="/auth/register">Register</a> */}
 
 
 export default function Header() {
@@ -21,6 +14,8 @@ export default function Header() {
   const [showBoxSearch, setShowBoxSearch] = useState(false)
   const [searchTours, setSearchTours] = useState([])
   const [nameTour, setNameTour] = useState('')
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     if(localStorage.getItem('token')){
@@ -35,8 +30,8 @@ export default function Header() {
     const getTours = () => {
       axios.get(api)
       .then((res) => {
-          console.log(res.data);
-          setSearchTours(res.data)
+        setSearchTours(res.data)
+        console.log(res.data);
           return res;
       })
       .catch((err) => {
@@ -44,7 +39,6 @@ export default function Header() {
       });
     };
     getTours()
-    console.log("Tours: ", searchTours);
   },[nameTour])
 
 
@@ -72,14 +66,14 @@ export default function Header() {
               <img src={logo} />
             </Link>
 
-            <ul className="row col l-5" style={{justifyContent: "center"}}>
+            <ul className="row col l-9" style={{justifyContent: "center"}}>
                 <li className={clsx(styles.navItem)} ><Link to="/listTour"  className={clsx(styles.item)} >Tours</Link></li>
                 <li className={clsx(styles.navItem)} ><a className={clsx(styles.item)} href="#suggest">Gợi ý</a></li>
                 <li className={clsx(styles.navItem)} ><a className={clsx(styles.item)} href="#contact">Liên hệ</a></li>
             </ul>
 
             {/* Search */}
-            <div className="col l-4 ">
+            {/* <div className="col l-4 ">
                 <div className={clsx(styles.navSearch)}>
                     <input
                       value ={nameTour}
@@ -95,7 +89,7 @@ export default function Header() {
                         <div className={clsx(styles.searchTours)}>
                           {searchTours.data &&  searchTours.data.map((tour, i) => {
                             return (
-                                <a key={i} href="#">
+                                <Link to="/listTour" key={i} >
                                     <div className="wrapImg l-3">
                                       <img src={tour.image} alt="" />
                                     </div>
@@ -103,14 +97,14 @@ export default function Header() {
                                       <h4>{tour.tourName}</h4>
                                       <p>Giá: {tour.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
                                     </div>
-                                </a>
+                                </Link>
                             )
                           })}
                         </div>
                       )
                    }
                 </div>
-            </div>
+            </div> */}
 
             <div className={clsx("row col l-2" ,styles.navRight)}>
               {
@@ -120,9 +114,10 @@ export default function Header() {
                         <i className="fa-solid fa-bars"></i>
                         {showUserMenu && 
                           <ul className={clsx(styles.navUserChildren)}>
-                          <li><i className="fa-solid fa-user"></i>Thông tin cá nhân</li>
+                          <li><Link to="/user/account"><i className="fa-solid fa-user"></i>Thông tin cá nhân</Link></li>
                           <li><i className="fa-solid fa-person-walking-luggage"></i>Danh sách tour</li>
                           <li onClick={() => {
+                            navigate('/home')
                             localStorage.removeItem('token')
                             setIsOnline(false)
                           }}><i className="fa-solid fa-arrow-right-from-bracket"></i>Đăng xuất</li>

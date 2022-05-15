@@ -16,8 +16,16 @@ import ListTour from './Components/ListTour';
 
 import Manager from './Components/Manager'
 import ManagerTours from './Components/Manager/Tours/Tours'
+import ManagerAccounts from './Components/Manager/Accounts'
+import ManagerIncome from './Components/Manager/Income'
 
 import Guide from './Components/Guide'
+import GuideAccount from './Components/Guide/Account'
+import GuideAccountSelectedTours from './Components/Guide/SelectedTours'
+
+import User from './Components/User';
+import UserBookedTours from './Components/User/BookedTours'
+import UserAccount from './Components/User/Account'
 
 import {OtpProvider} from './Contexts/OtpContext'
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -44,11 +52,28 @@ root.render(
               );
             })}
 
-            <Route path='/manage' element={<Manager />}>
-                <Route path='tours' element={<ManagerTours />}/>
+            {/* Manager  */}
+            <Route path='/manage' >
+              <Route path='tours' element={<Manager />}/>
+              <Route path='accounts' element={<ManagerAccounts />}/>
+              <Route path='income' element={<ManagerIncome />}/>
             </Route>
 
-            <Route path='/guide' element={<Guide />} />
+
+            {/* Guide */}
+            <Route path='/guide'>
+              <Route path='' element={<Guide />}/>
+              <Route path='account' element={<GuideAccount />}/>
+              <Route path='selectedTours' element={<GuideAccountSelectedTours />}/>
+            </Route>
+
+          {/* User */}
+          <Route path='/user'>
+              <Route path='' element={<User />}/>
+              <Route path='account' element={<UserAccount />}/>
+              <Route path='bookedTours' element={<UserBookedTours />}/>
+            </Route>
+
             <Route path='/listTour' element={<ListTour />} />
 
             <Route path='*' element={<NotFoundPage />} />

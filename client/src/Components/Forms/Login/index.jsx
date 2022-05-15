@@ -17,6 +17,16 @@ function Login() {
     document.title = 'Đăng nhập'
   },[])
 
+ // Decode Token
+ const parseJwt = (token) => {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+
+  return JSON.parse(jsonPayload);
+};
 
   const handleSendFormValues = () => {
     setAccountMsg(isRequired(account));
@@ -31,9 +41,22 @@ function Login() {
       .then((res)=> {
           console.log(res);
           if(res.data.status === 200){
-            navigate('/')
+            console.log("Decode token:", parseJwt((res.data.token)));
+            const decode = parseJwt((res.data.token))
+           
+            if(decode.role_user === 'admin'){
+              navigate('/manage/tours')
+            }
+            if(decode.role_user === 'user'){
+              navigate('/user/account')
+            }
+            else{
+              navigate('/')
+            }
+           
           }
           localStorage.setItem('token', res.data.token)
+          document.title = "Love Travel"
       })
       .catch((err) => {
         console.log(err);

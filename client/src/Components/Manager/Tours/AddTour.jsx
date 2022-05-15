@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import {useState} from 'react'
+import axios from 'axios'
 
 import styles from "../Manage.module.scss"
 export default function AddTour(){
@@ -17,18 +18,26 @@ export default function AddTour(){
     const [showModal, setShowModal] = useState(true)
 
     const handleAddTour = () => {
-        console.log({
-            currentCustomer,
-            image,
-            intro,
-            maxCustomer,
-            place,
-            price,
-            status,
-            supplierTour,
-            tourName,
-            typeTour,
-        });
+        const apiAdd = "http://localhost:8000/api/tour/add-tour"
+        axios.post(apiAdd, 
+            {
+                "tourName" : tourName,
+                "place": place,
+                "price": price,
+                "typeTour": typeTour
+            },{
+                headers: {
+                    authorization: localStorage.getItem('token')
+                }
+            }
+        )
+        .then(res => {
+            console.log("Res: ", res);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+     
     }
 
     return (
@@ -37,15 +46,16 @@ export default function AddTour(){
             {
                 showModal && (
                     <div className={clsx(styles.containerModal)}>
-                    <div className={clsx(styles.modalTour)}>
-                        {/* Close button */}
-                        <div className={clsx(styles.closeBtn)}>
-                            <button onClick={() => setShowModal(false)}>
-                                <i className="fa-solid fa-xmark"></i>
-                            </button>
-                        </div>
-    
-                        {/* Content */}
+
+                        <div className={clsx(styles.modalTour)}>
+                            {/* Close button */}
+                            <div className={clsx(styles.closeBtn)}>
+                                <button onClick={() => setShowModal(false)}>
+                                    Thoát <i className="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+        
+                            {/* Content */}
                             <div>
                                 <div className={clsx(styles.wrapTourInfo)}>
                                     <div className={clsx(styles.row)}>
@@ -56,7 +66,7 @@ export default function AddTour(){
                                                 value={tourName}
                                             />
                                         </div>
-    
+
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Địa điểm: </label>
                                             <input type="text" className={clsx(styles.formControl)}
@@ -64,7 +74,7 @@ export default function AddTour(){
                                                 value={place}  />
                                         </div>
                                     </div>
-    
+
                                     <div className={clsx(styles.row)}>
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Số khách hiện tại: </label>
@@ -73,7 +83,7 @@ export default function AddTour(){
                                                 value={currentCustomer}
                                             />
                                         </div>
-    
+
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Thể loại: </label>
                                             <input type="text" className={clsx(styles.formControl)}
@@ -82,7 +92,7 @@ export default function AddTour(){
                                             />
                                         </div>
                                     </div>
-    
+
                                     <div className={clsx(styles.row)}>
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Nhà cung cấp: </label>
@@ -90,7 +100,7 @@ export default function AddTour(){
                                                 onChange={e => setSupplierTour(e.target.value)}
                                                 value={supplierTour} />
                                         </div>
-    
+
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Đơn giá: </label>
                                             <input type="number" className={clsx(styles.formControl)}
@@ -98,7 +108,7 @@ export default function AddTour(){
                                             value={price}  />
                                         </div>
                                     </div>
-    
+
                                     <div className={clsx(styles.row)}>
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Trạng thái: </label>
@@ -106,7 +116,7 @@ export default function AddTour(){
                                                 onChange={e => setStatus(e.target.value)}
                                             value={status}  />
                                         </div>
-    
+
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Số lượng tối đa:</label>
                                             <input
@@ -114,8 +124,8 @@ export default function AddTour(){
                                             value={maxCustomer} type="number" className={clsx(styles.formControl)} />
                                         </div>
                                     </div>
-    
-    
+
+
                                     <div className={clsx(styles.row)}>
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Giới thiệu:</label> 
@@ -124,17 +134,21 @@ export default function AddTour(){
                                                 onChange={e => setIntro(e.target.value)}
                                             />
                                         </div>                           
-    
-    
+
+
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Ảnh</label>
                                             <input className={clsx(styles.formControl)} 
-                                                type="file" />
+                                                value={image}
+                                                onChange={e => setImage(e.target.value)}
+                                                type="input"
+                                                placeholder="Nhập đường dẫn hình ảnh"
+                                                />
                                             <img src={image} alt=""/>
                                         </div>
-                                       
+                                        
                                     </div>
-    
+
                                     <div className={clsx(styles.row)}>
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Người dẫn tour:</label>
@@ -154,7 +168,9 @@ export default function AddTour(){
                                     </button>
                                 </div>
                             </div>
-                    </div>
+
+                        </div>
+
                     </div>
                 )
             }

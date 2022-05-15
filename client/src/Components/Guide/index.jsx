@@ -10,7 +10,6 @@ export default function Guide(){
         <div className="">
             <Header />
             <SelectedTours />
-            <Account />
         </div>
     )
 }

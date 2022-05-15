@@ -43,6 +43,8 @@ function Register() {
     document.title = 'Đăng ký'
   },[])
 
+ 
+
 // Validate form
   const validateInputs = () => {
     setUserNameMsg(minLength(userName, LENGTH_USER_NAME))
@@ -72,6 +74,7 @@ function Register() {
         })
         .then((res)=> {
           console.log(res);
+          
             if(res.status === 201){
               navigate('/auth/login');
             }

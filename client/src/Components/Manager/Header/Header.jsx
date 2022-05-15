@@ -1,20 +1,29 @@
 import clsx from 'clsx'
 import {useState} from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
+
 import styles from "../Manage.module.scss"
 
+
+
 export default function Header(){
-  
+    const navigate = useNavigate()
+    const handleLogout = () => {
+        localStorage.removeItem('token')
+        navigate('/auth/login')
+    }
+
     return ( <header>
         <div className="grid wide">
             <nav className="row" >
                 <ul className="row col l-10">
-                    <li><Link to="/manage/tours" href="#">Tours</Link></li>
-                    <li><a href="#"> Tài khoản</a></li>
-                    <li><a href="#"> Doanh thu</a></li>
+                    <li><Link to="/manage/tours">Tours</Link></li>
+                    <li><Link to="/manage/accounts" >Tài khoản</Link></li>
+                    <li><Link to="/manage/income"> Doanh thu</Link></li>
                 </ul>
                 <div className={clsx("row col l-2" ,styles.navRight)}>
-                    <button>Đăng xuất</button>
+                    <button onClick={handleLogout}>Đăng xuất</button>
                 </div>
             </nav>
         </div>
