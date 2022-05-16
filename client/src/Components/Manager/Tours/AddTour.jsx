@@ -24,7 +24,7 @@ export default function AddTour(){
                 "tourName" : tourName,
                 "place": place,
                 "price": price,
-                "typeTour": typeTour
+                "typeTour": typeTour,
             },{
                 headers: {
                     authorization: localStorage.getItem('token')
@@ -32,6 +32,7 @@ export default function AddTour(){
             }
         )
         .then(res => {
+            window.location.reload(true)
             console.log("Res: ", res);
         })
         .catch(err => {
@@ -47,11 +48,13 @@ export default function AddTour(){
                 showModal && (
                     <div className={clsx(styles.containerModal)}>
 
-                        <div className={clsx(styles.modalTour)}>
+                        <div className={clsx(styles.modalAddTour)}>
                             {/* Close button */}
                             <div className={clsx(styles.closeBtn)}>
                                 <button onClick={() => setShowModal(false)}>
-                                    Thoát <i className="fa-solid fa-xmark"></i>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="bi bi-x-lg" viewBox="0 0 16 16">
+                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                                </svg>
                                 </button>
                             </div>
         
@@ -163,8 +166,11 @@ export default function AddTour(){
                                 <div className={clsx(styles.wrapBtn)}>
                                     <button 
                                         onClick={handleAddTour}
-                                        className={clsx(styles.btnUpdateTour)}>Thêm
-                                        <i className="fa-solid fa-floppy-disk"></i>
+                                        className={clsx(styles.btnAddTour)}>Thêm
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="bi bi-download" viewBox="0 0 16 16">
+                                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                                            </svg>
                                     </button>
                                 </div>
                             </div>

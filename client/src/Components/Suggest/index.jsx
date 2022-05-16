@@ -41,7 +41,6 @@ function Suggest(){
     const navigate = useNavigate()
     const suggestTours = listTours.filter((tour) => tour.price <= 120000)
 
-
     useEffect(() => {
         // Call api
         const getTours = (page) => {
@@ -63,7 +62,7 @@ function Suggest(){
         
         
 
-    return <div id={clsx(styles.suggest)} className="container grid wide">
+    return <div id="suggest" className={clsx("container grid wide ", styles.suggest)}>
         {/* Suggest tours */}
         <div className="row">
             <div className="col l-4">
@@ -120,7 +119,9 @@ function Suggest(){
                     {/* Close button */}
                     <div className={clsx(styles.closeBtn)}>
                         <button onClick={() => setShowModal(false)}>
-                            <i className="fa-solid fa-xmark"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="28" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                        </svg>
                         </button>
                     </div>
                     <h1>Sự kiện sắp diễn ra...</h1>

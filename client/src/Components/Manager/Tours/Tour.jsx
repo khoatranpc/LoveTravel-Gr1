@@ -1,24 +1,26 @@
 import clsx from 'clsx'
 import {useState} from 'react'
+
+import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
-
-
 import styles from "../Manage.module.scss"
-export default function Tour({data, order}){
+
+const guides = [
     {
-        // currenCustomer: 0
-        // dayUpdate: "2022-05-02T14:25:01.002Z"
-        // image: "https://media.vneconomy.vn/images/upload/2022/01/20/du-lich.jpg"
-        // intro: "Đây là tour du lịch"
-        // maxCustomer: 30
-        // place: "Sông Tô Lịch"
-        // price: 80000
-        // status: "Activing"
-        // supplierTour: "Nhóm 1 Đẹp trai"
-        // tourName: "Hà Nội mùa lũ"
-        // typeTour
-    }
-    
+        id: 123,
+        name: 'Tai'
+    },
+    {
+        id: 1234,
+        name: 'Tai2'
+    },
+    {
+        id: 1235,
+        name: 'Tai3'
+    },
+]
+
+export default function Tour({data, order}){
     const [currentCustomer, setCurrentCustomer] = useState(data.currentCustomer)
     const [dayUpdate, setDayUpdate] = useState(data.dayUpdate)
     const [image, setImage] = useState(data.image)
@@ -30,11 +32,15 @@ export default function Tour({data, order}){
     const [supplierTour, setSupplierTour] = useState(data.supplierTour)
     const [tourName, setTourName] = useState(data.tourName)
     const [typeTour, setTypeTour] = useState(data.typeTour)
+    const [guide, setGuide] = useState({})
+
+
 
     const [showModal, setShowModal] = useState(false)
     const [showDialogConfirm, setShowDialogConfirm] = useState(false)
 
     const day = new Date(dayUpdate)
+    const nav = useNavigate()
 
     const deleteTour = () => {
         setShowDialogConfirm(!showDialogConfirm)
@@ -46,6 +52,7 @@ export default function Tour({data, order}){
         })
         .then(res => {
             console.log(res);
+            window.location.reload(true)
         })
         .catch(err => console.error(err))
     }
@@ -61,9 +68,15 @@ export default function Tour({data, order}){
         })
         .then(res => {
             console.log("Update thanh cong:", res);
+            window.location.reload(true)
         })
         .catch(err => console.error(err))
+
+
     }
+
+    console.log(guide);
+
 
     return (
         <div>
@@ -76,7 +89,7 @@ export default function Tour({data, order}){
                     <p>Tên tour: {data.tourName}</p>
                     <b>Đơn giá: {data.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</b>
                     <p>Số khách hiện tại: {data.currenCustomer}</p>
-                    <p>Ngày cập nhật: {data.dayUpdate}</p>
+                    <p>Ngày cập nhật: {data.dayUpdate.slice(0, 10)}</p>
                 </div>
 
                 <div className={clsx("l-2", styles.wrapBtns)}>
@@ -93,7 +106,9 @@ export default function Tour({data, order}){
                         {/* Close button */}
                         <div className={clsx(styles.closeBtn)}>
                             <button onClick={() => setShowModal(false)}>
-                                <i className="fa-solid fa-xmark"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="bi bi-x-lg" viewBox="0 0 16 16">
+                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                            </svg>
                             </button>
                         </div>
     
@@ -194,10 +209,24 @@ export default function Tour({data, order}){
                                             <span>{day.toLocaleString("en-US")}</span>
 
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Người dẫn tour:</label>
-                                            <select className={clsx(styles.formControl)}>
-                                                <option value="1">Nguyen Van A</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
+                                            <select className={clsx(styles.formControl)}
+                                            
+                                            onChange={(e) => {
+                                                setGuide(e.target.options[e.target.selectedIndex].value)
+                                            }}
+                                            >
+                                            {/* <option value="1">Nguyen Van A</option> */}
+                                                {
+                                                    guides.map((data, i) => {
+                                                        return (
+                                                            <option
+                                                            value={data.name}
+                                                            key={i}>
+                                                                {data.name}
+                                                            </option>
+                                                        )
+                                                    })
+                                                }
                                             </select>
                                         </div>
                                     </div>
@@ -206,7 +235,9 @@ export default function Tour({data, order}){
                                     <button
                                     onClick={handleUpdateTour}
                                     className={clsx(styles.btnUpdateTour)}>Lưu
-                                        <i className="fa-solid fa-floppy-disk"></i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="bi bi-save" viewBox="0 0 16 16">
+                                        <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
+                                        </svg>
                                     </button>
                                 </div>
                             </div>
@@ -235,7 +266,7 @@ export default function Tour({data, order}){
                                     hanleDeleteTour()
                                 }}
                             >
-                                Xác nhận</button>
+                            Xác nhận</button>
                         </div>
 
                     </div>

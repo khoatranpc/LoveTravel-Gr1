@@ -73,9 +73,10 @@ export default function ListTour(){
     }, [page])
 
 
-    const apiSearch = `http://localhost:8000/api/tour/search?${typeSearch}=${valueSearch} `
+    
+
     const handleSearch = () => {
-        axios.get(apiSearch)
+        axios.get(`http://localhost:8000/api/tour/search?${typeSearch}=${valueSearch}`)
         .then((res) => {
             setListTours(res.data.data)
             console.log("Tours: ", listTours);
@@ -98,7 +99,7 @@ export default function ListTour(){
 
                         <div className={clsx("row col l-2" ,styles.navRight)}>
                         {/* <div><Link to="/auth/login" className={clsx(styles.item)} >Đăng nhập</Link></div> */}
-                        {(
+                        {/* {(
                             <> 
                             <div className={clsx(styles.navUser)} onClick={toggleMenuUser}>
                                 <i className="fa-solid fa-bars"></i>
@@ -111,7 +112,7 @@ export default function ListTour(){
                                 }
                             </div>
                             </>
-                         )}
+                         )} */}
                         </div>
                     </nav>
                 </div>
@@ -150,27 +151,32 @@ export default function ListTour(){
                     })
                   : []
                 }
-                    <nav className={clsx(styles.wrapPagination)}>
-                        <ul className={clsx(styles.pagination)}>
-                            <li className="page-item">
-                                <button onClick={handleDecreasePage}
-                                className={clsx(styles.pageLink)}>
-                                    <i className="fa-solid fa-circle-chevron-left"></i>
-                                </button>
-                            </li>
 
-                            <li className="page-item">
-                                <span>{page}</span>
-                            </li>
+                      <nav className={clsx(styles.wrapPagination)}>
+                <ul className={clsx(styles.pagination)}>
+                    <li className="page-item">
+                        <button onClick={handleDecreasePage}
+                        className={clsx(styles.pageLink)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+                            <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+                        </svg>    
+                        </button>
+                    </li>
 
-                            <li className="page-item">
-                                <button onClick={handleIncreasePage}
-                                className={clsx(styles.pageLink)}>
-                                    <i className="fa-solid fa-circle-chevron-right"></i>
-                                </button>
-                            </li>
-                        </ul>
-                    </nav>
+                    <li className="page-item">
+                        <span>{page}</span>
+                    </li>
+
+                    <li className="page-item">
+                        <button onClick={handleIncreasePage}
+                        className={clsx(styles.pageLink)}>
+                            <svg xmlns="http://www.w3.org/2000/svg"   className="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                            <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                            </svg>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
                 </div>
             </div>
 

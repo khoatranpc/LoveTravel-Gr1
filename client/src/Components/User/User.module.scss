@@ -44,7 +44,6 @@ $primaryColor: #f69d3c;
 }
 
 button{
-    width: 60%;
     font-size: 16px;
     padding: 6px 4px;
     background: $primaryColor;
@@ -54,4 +53,13 @@ button{
     &:hover{
         opacity: 0.8;
     }
+}
+
+.btnUpdateAccount{
+    width: 100%;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    letter-spacing:1px;
+    border-radius: 20px;
 }

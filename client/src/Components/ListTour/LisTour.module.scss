@@ -317,6 +317,15 @@ select{
             &:hover{
                 border: none;
                 opacity: 0.8;
+                svg{
+                    transform: translateX(-5px)
+                }
+            }
+            svg{
+                fill: $primaryColor;
+                height: 40px;
+                width: 40px;
+                transition: all 0.2s linear;
             }
             i{
                 font-size: 36px;

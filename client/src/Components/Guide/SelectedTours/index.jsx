@@ -4,6 +4,8 @@ import {useState} from 'react'
 import styles from "../Guide.module.scss"
 import Tours from "./Tours"
 import Header from '../Header'
+import Tour from './Tour'
+
 export default function SelectedTours(){
     return ( <div>
         <Header/>

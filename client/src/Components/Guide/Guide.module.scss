@@ -1,5 +1,17 @@
 $primaryColor: #f69d3c;
-
+@mixin scroll(){
+    &::-webkit-scrollbar{
+        width: 6px; 
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 25px;
+        background-color: rgb(243, 187, 82);
+    }
+    &::-webkit-scrollbar-track{
+        border-radius: 25px;
+        background: rgba(0,0,0,0.1);
+    }
+}
 nav{
     justify-content: space-between;
 }
@@ -49,7 +61,6 @@ nav{
                     color: orange;
                 }
             }
-
             // display: none !important;
             &::before{
                 content: "";
@@ -60,21 +71,30 @@ nav{
                 border-color: transparent transparent #fff transparent;
             }
 
+            .svgOption{
+                width: 24px;
+                height: 24px;
+                padding-right: 4px;
+                margin-right: 4px;
+            }
+
             li{
                 color: #333;
                 font-size: 16px;
-                padding: 10px 8px;
+                padding: 0 8px;
+                display: flex;
+                align-items: center;
                 &:not(:last-child){
                     border-bottom: 1px solid orange;
                 }
 
                 &:hover{
-                    color: orange;
-                    i{
+                    fill: orange;
+                    svg{
                         transform: translateX(4px);
                     }
                 }
-                i{
+                svg{
                     padding-right: 12px;
                     transition: 0.3s ease all;
                 }
@@ -199,4 +219,170 @@ nav{
         opacity: 0.8;
         cursor: pointer;
     }
+}
+
+.formMsg.formMsgError{
+    display: block;
+    margin-top: 4px;
+    color: red;
+}
+
+.formMsg.formMsgSuccess{
+    display: block;
+    margin-top: 4px;
+    color: green;
+}
+
+.containerModal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.3);
+    z-index: 9999;
+    .modalTour{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 300px;
+        max-width: 800px;
+        background-color: #fff;
+        min-height: 200px;
+        max-height: 500px;
+        transform: translate(-50%, -50%);
+        padding: 16px 32px 50px;
+        border-radius: 8px;
+        box-shadow: 1px 1px 8px rgba(0,0,0,0.2);
+        overflow-y: scroll;
+        @include scroll;
+
+        .closeBtn{
+            position: absolute;
+            top: 1px;
+            right: 10px;
+            button{
+                border: none;
+                width: 100%;
+                display: block;
+                background: #fff;
+                cursor: pointer;
+                padding: 8px 12px;
+                transition: all 0.3s linear;
+                &:hover{
+                    opacity: 0.6;
+                    i{
+                        color: $primaryColor;
+                    }
+                }
+                svg{
+                    width: 28px;
+                    fill: #333;
+                }
+            }
+        }
+
+        h1{
+            font-size: 32px;
+        }
+
+        .tourIntro{
+            padding: 8px;
+            display: block;
+            animation: fadeIn 0.4s ease-in;
+            margin-right: 8px;
+            img{
+                width: 100%;
+                border-radius: 12px;
+            }
+
+            p{
+                text-align: justify;
+            }
+        }
+
+        .tourAmount{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-right: 4px;
+            font-size: 16px;
+            button{
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                background-color: transparent;
+                padding: 4px;
+                font-size: 18px;
+                text-align: center;
+                color: rgba(0, 119, 255, 0.801);
+                cursor: pointer;
+                border: 1px solid #333;
+                margin: 14px 0;
+                &:hover{
+                    opacity: 0.8;
+                }
+            }
+        }
+
+    }
+
+    .modalAddTour{
+        @extend .modalTour;
+        min-width: 600px;
+    }
+   
+}
+
+.formGroup{
+    padding: 8px ;
+    .formLabel{
+        font-size: 16px;
+        margin-top: 8px;
+        display: block;
+    }
+
+    .formControl{
+        padding: 6px 8px;
+        width: 100%;
+        margin-top: 8px;
+        border-radius: 4px;
+        outline: none;
+        border: 1px solid $primaryColor;
+    }
+
+    span{
+        font-size: 18px;
+    }
+
+    button{
+        min-width: 95px;
+        padding: 6px 12px;
+        border: 1px solid $primaryColor;
+        font-size: 16px;
+        background-color: $primaryColor;
+        color: #fff;
+        border-radius: 8px;
+        cursor: pointer;
+        &:hover{
+            opacity: 0.8;
+        }
+    }
+
+    img{
+        width: 100%;
+        margin-top: 8px;
+        border-radius: 8px;
+        object-fit: contain;
+    }
+
+    textarea{
+        width: 100%;
+        height: 90%;
+        margin-bottom: 20px;
+    }
+}
+
+.row{
+    display: flex;
 }

@@ -72,10 +72,16 @@ export default function Account(){
                 </div>
 
                 <div className={clsx("col l-8", styles.formContainer)}>
-                    {/* Account */}
+                    <h1 className="text-center brand-name">Thông tin cá nhân</h1>
+                    {/* Họ tên */}
                     <div className={clsx(styles.formGroup)}>
-                    {/* <label htmlFor="account" className={clsx(styles.formLabel)}>Tên đăng nhập:</label> */}
-                    <p>Họ tên: {name}</p>
+                    <label htmlFor="name" className={clsx(styles.formLabel)}>Họ tên:</label>
+                    <input
+                        type="text" id="name"
+                        className={clsx(styles.formControl)}
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                    />
                     </div>
 
                     {/* Gender */}

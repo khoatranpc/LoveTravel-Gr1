@@ -48,7 +48,8 @@ function Login() {
               navigate('/manage/tours')
             }
             if(decode.role_user === 'user'){
-              navigate('/user/account')
+              // navigate('/user/account')
+              navigate('/home')
             }
             if(decode.role_user === 'guide'){
               navigate('/guide/account')

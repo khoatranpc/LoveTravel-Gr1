@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import {isEmail, minLength} from '../../Forms/validator'
 import Header from '../Header'
 
 import styles from '../Guide.module.scss';
@@ -13,8 +14,15 @@ export default function Account(){
     const [gender, setGender] = useState('male');
     const [address, setAddress] = useState('');
     const [identify, setIdentify] = useState('');
+    const [identifyMsg, setIdentifyMsg] = useState();
+    const LENGTH_IDENTIFY = 12
+    const LENGTH_PHONE = 10
+
     const [email, setEmail] = useState('');
+    const [emailMsg, setEmailMsg] = useState('');
+
     const [phone, setPhone] = useState('');
+    const [phoneMsg, setPhoneMsg] = useState('');
 
     useEffect(() => {
         // const decode = parseJwt((res.data.token))
@@ -39,26 +47,37 @@ export default function Account(){
         .catch(err => console.error(err))
     },[])
 
+    const validateInputs = () => {
+        setIdentifyMsg(minLength(identify, LENGTH_IDENTIFY))
+        setEmailMsg(isEmail(email))
+        setPhoneMsg(minLength(phone, LENGTH_PHONE))
+      }
+
     const handleUpdateInfo = () => {
         const apiUpdate = `http://localhost:8000/api/user/current-user/update`
 
-        axios.put(apiUpdate,
-            {
-                "name": name,
-                "birth": birth,
-                "gender": gender,
-                "address": address,
-                "identify": identify,
-                "email": email,
-                "phone": phone,
-            },
-            {
-            headers: {authorization: localStorage.getItem('token')}
-        })
-        .then(res => {
-            console.log("Update thanh cong:");
-        })
-        .catch(err => console.error(err))
+        validateInputs()
+        if(!identifyMsg && !emailMsg && !phoneMsg) {
+            axios.put(apiUpdate,
+                {
+                    "name": name,
+                    "birth": birth,
+                    "gender": gender,
+                    "address": address,
+                    "identify": identify,
+                    "email": email,
+                    "phone": phone,
+                },
+                {
+                headers: {authorization: localStorage.getItem('token')}
+            })
+            .then(res => {
+                console.log("Update thanh cong:");
+            })
+            .catch(err => console.error(err))
+        }else{
+            console.log("Failed");
+        }
     }
 
     return (
@@ -72,6 +91,7 @@ export default function Account(){
                     </div>
 
                     <div className={clsx("col l-8", styles.formContainer)}>
+                        <h1 className="text-center brand-name">Người dẫn tour Love Travel</h1>
                         {/* Account */}
                         <div className={clsx(styles.formGroup)}>
                         <label htmlFor="account" className={clsx(styles.formLabel)}>Tên đăng nhập:</label>
@@ -131,7 +151,9 @@ export default function Account(){
                                 className={clsx(styles.formControl)}
                                 value={identify}
                                 onChange={e => setIdentify(e.target.value.trim())}
+                                onBlur={() => setIdentifyMsg(minLength(identify, LENGTH_IDENTIFY))}
                             />
+                            <span className={clsx(styles.formMsg, styles.formMsgError)}>{identifyMsg}</span>
                         </div>
 
                         {/* Email */}
@@ -141,18 +163,23 @@ export default function Account(){
                                 className={clsx(styles.formControl)}
                                 value={email}
                                 onChange={e => setEmail(e.target.value.trim())}
+                                onBlur={() => setEmailMsg(isEmail(email))}
                             />
+                            <span className={clsx(styles.formMsg, styles.formMsgError)}>{emailMsg}</span>
                         </div>
 
                         {/* Phone */}
                         <div className={clsx(styles.formGroup)}>
                             <label htmlFor="Phone" className={clsx(styles.formLabel)}>Số điện thoại:</label>
-                            <input id="Phone" type="text" 
+                            <input id="Phone" type="number" 
                                 className={clsx(styles.formControl)}
                                 value={phone}
                                 onChange={e => setPhone(e.target.value.trim())}
+                                onBlur={() => setPhoneMsg(minLength(phone, LENGTH_PHONE))}
                             />
+                            
                         </div>
+                        <span className={clsx(styles.formMsg, styles.formMsgError)}>{phoneMsg}</span>
                     </div>
 
                     <div className="col l-2">
