@@ -44,14 +44,14 @@ function Login() {
             console.log("Decode token:", parseJwt((res.data.token)));
             const decode = parseJwt((res.data.token))
            
-            if(decode.role_user === 'admin'){
+            if(decode.role_user == "admin"){
               navigate('/manage/tours')
             }
             if(decode.role_user === 'user'){
               navigate('/user/account')
             }
-            else{
-              navigate('/')
+            if(decode.role_user === 'guide'){
+              navigate('/guide/account')
             }
            
           }

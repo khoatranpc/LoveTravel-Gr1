@@ -26,17 +26,8 @@ export default function Account(){
             headers: {authorization: localStorage.getItem('token')}
         })
         .then(res => {
-            //     address: "Hà Nội"
-    // birth: "2001-11-11T00:00:00.000Z"
-    // email: "ductaidao24102001@gmail.com"
-    // gender: "male"
-    // id_account: "6281062bbb3581bb82fd8b9e"
-    // indentify: 12121212122121212
-    // name: "Dinh Dat"
-    // phone: ""
-    //   
             setName(res.data.data.name)
-            setBirth(res.data.data.birth)
+            setBirth(res.data.data.birth.slice(0, 10))
             setGender(res.data.data.gender)
             setAddress(res.data.data.address)
             setIdentify(res.data.data.indentify)
@@ -109,7 +100,6 @@ export default function Account(){
                     {/* BirthDate */}
                     <div className={clsx(styles.formGroup)}>
                     <label htmlFor="birthDate" className={clsx(styles.formLabel)}>Ngày sinh:
-                        {birth}
                     </label>
                     <input id="birthDate" type="date" name="registerBirthDate"
                         className={clsx(styles.formControl)}

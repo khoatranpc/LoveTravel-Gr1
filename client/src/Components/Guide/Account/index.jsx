@@ -1,6 +1,6 @@
 import clsx from 'clsx'
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import Header from '../Header'
 
@@ -8,6 +8,7 @@ import styles from '../Guide.module.scss';
 import avatar from './avatar.jpg'
 
 export default function Account(){
+    const [name, setName] = useState('')
     const [birth, setBirth] = useState('')
     const [gender, setGender] = useState('male');
     const [address, setAddress] = useState('');
@@ -15,8 +16,53 @@ export default function Account(){
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
 
+    useEffect(() => {
+        // const decode = parseJwt((res.data.token))
+        // console.log(decode);
+        const api = `http://localhost:8000/api/user/current-user`
+        axios.get(api,
+            {
+            headers: {authorization: localStorage.getItem('token')}
+        })
+        .then(res => {
+            setName(res.data.data.name)
+            setBirth(res.data.data.birth.slice(0, 10))
+            setGender(res.data.data.gender)
+            setAddress(res.data.data.address)
+            setIdentify(res.data.data.indentify)
+            setEmail(res.data.data.email)
+            setPhone(res.data.data.phone)
+
+            console.log(res.data.data.birth.slice(0, 10));
+            
+        })
+        .catch(err => console.error(err))
+    },[])
+
+    const handleUpdateInfo = () => {
+        const apiUpdate = `http://localhost:8000/api/user/current-user/update`
+
+        axios.put(apiUpdate,
+            {
+                "name": name,
+                "birth": birth,
+                "gender": gender,
+                "address": address,
+                "identify": identify,
+                "email": email,
+                "phone": phone,
+            },
+            {
+            headers: {authorization: localStorage.getItem('token')}
+        })
+        .then(res => {
+            console.log("Update thanh cong:");
+        })
+        .catch(err => console.error(err))
+    }
+
     return (
-        <>
+        <div>
             <Header />
             <div className="grid wide">
 
@@ -29,7 +75,11 @@ export default function Account(){
                         {/* Account */}
                         <div className={clsx(styles.formGroup)}>
                         <label htmlFor="account" className={clsx(styles.formLabel)}>Tên đăng nhập:</label>
-                        <p>Tên người dẫn tour</p>
+                        <input id="name" type="text" 
+                                className={clsx(styles.formControl)}
+                                value={name}
+                                onChange={e => setName(e.target.value)}
+                            />
                         </div>
 
                         {/* Gender */}
@@ -106,12 +156,14 @@ export default function Account(){
                     </div>
 
                     <div className="col l-2">
-                        <button className={clsx(styles.btnUpdateAccount)} >Cập nhật
+                        <button 
+                        onClick={handleUpdateInfo}
+                        className={clsx(styles.btnUpdateAccount)} >Cập nhật
                         <i className="fa-solid fa-comment-pen"></i>
                         </button>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }

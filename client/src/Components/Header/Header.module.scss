@@ -164,7 +164,7 @@ nav{
             right: 0;
             background-color: #fff;
             box-shadow: 1px 1px 6px rgba(0,0,0,0.5);
-            min-width: 180px;
+            min-width: 200px;
             transform-origin: top right;
             border-radius: 2px;
             display: block !important;
@@ -193,11 +193,17 @@ nav{
                         transform: translateX(4px);
                     }
                 }
+                a{
+                    display: block;
+                    padding: 8px 4px;
+                    font-size: 16px !important;
+                }
                 i{
                     padding-right: 12px;
                     transition: 0.3s ease all;
                 }
             }
+
         }
     }
 }
