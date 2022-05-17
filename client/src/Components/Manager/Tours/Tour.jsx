@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
@@ -8,43 +8,50 @@ import styles from "../Manage.module.scss"
 const guides = [
     {
         id: 123,
-        name: 'Tai'
+        name: 'Tài'
     },
-    {
-        id: 1234,
-        name: 'Tai2'
-    },
-    {
-        id: 1235,
-        name: 'Tai3'
-    },
+    
 ]
 
 export default function Tour({data, order}){
-    const [currentCustomer, setCurrentCustomer] = useState(data.currentCustomer)
-    const [dayUpdate, setDayUpdate] = useState(data.dayUpdate)
-    const [image, setImage] = useState(data.image)
-    const [intro, setIntro] = useState(data.intro)
-    const [maxCustomer, setMaxCustomer] = useState(data.maxCustomer)
-    const [place, setPlace] = useState(data.place)
-    const [price, setPrice] = useState(data.price)
-    const [status, setStatus] = useState(data.status)
-    const [supplierTour, setSupplierTour] = useState(data.supplierTour)
-    const [tourName, setTourName] = useState(data.tourName)
-    const [typeTour, setTypeTour] = useState(data.typeTour)
+    // const [currentCustomer, setCurrentCustomer] = useState(data.currentCustomer)
+    // const [dayUpdate, setDayUpdate] = useState(data.dayUpdate)
+    // const [image, setImage] = useState(data.image)
+    // const [intro, setIntro] = useState(data.intro)
+    // const [maxCustomer, setMaxCustomer] = useState(data.maxCustomer)
+    // const [place, setPlace] = useState(data.place)
+    // const [price, setPrice] = useState(data.price)
+    // const [status, setStatus] = useState(data.status)
+    // const [supplierTour, setSupplierTour] = useState(data.supplierTour)
+    // const [tourName, setTourName] = useState(data.tourName)
+    // const [typeTour, setTypeTour] = useState(data.typeTour)
+
+
     const [guide, setGuide] = useState({})
 
-
+    const [currentCustomer, setCurrentCustomer] = useState('')
+    const [dayUpdate, setDayUpdate] = useState('')
+    const [image, setImage] = useState('')
+    const [intro, setIntro] = useState('')
+    const [maxCustomer, setMaxCustomer] = useState('')
+    const [place, setPlace] = useState('')
+    const [price, setPrice] = useState('')
+    const [status, setStatus] = useState('')
+    const [supplierTour, setSupplierTour] = useState('')
+    const [tourName, setTourName] = useState('')
+    const [typeTour, setTypeTour] = useState('')
 
     const [showModal, setShowModal] = useState(false)
     const [showDialogConfirm, setShowDialogConfirm] = useState(false)
 
+
     const day = new Date(dayUpdate)
-    const nav = useNavigate()
 
     const deleteTour = () => {
         setShowDialogConfirm(!showDialogConfirm)
     }
+
+
     const hanleDeleteTour = () => {
         const apiDelete = `http://localhost:8000/api/tour/delete/${data._id}`
         axios.delete(apiDelete,{
@@ -61,7 +68,9 @@ export default function Tour({data, order}){
         const apiUpdate = `http://localhost:8000/api/tour/update/${data._id}`
         axios.put(apiUpdate,
             {
-                "tourName": tourName
+                "tourName": tourName,
+                "supplierTour" : supplierTour,
+                "place": place
             },
             {
             headers: {authorization: localStorage.getItem('token')}
@@ -72,11 +81,44 @@ export default function Tour({data, order}){
         })
         .catch(err => console.error(err))
 
+        // const apiAddGuide = `http://localhost:8000/api/tour/add-Tour-Guide/ ${data._id}`
+        // axios.put(apiAddGuide,
+        //     {
+        //         "id_guide": "62819f536ea02c9622928747"
+        //     },
+        //     {
+        //     headers: {authorization: localStorage.getItem('token')}
+        // })
+        // .then(res => {
+        //     console.log("Them guide thanh cong:", res);
+        //     window.location.reload(true)
+        // })
+        // .catch(err => console.error(err))
 
     }
 
-    console.log(guide);
+    const handleShowDetail = () => {
+        console.log(data._id);
+        const apiDetail = 'http://localhost:8000/api/tour/detail/'
+        // Call API detail tour
+        axios.get(apiDetail,
+            {
+                params: { id: data._id }
+            }
+        )
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 
+        // Show modal
+        setShowModal(true)
+   }
+
+
+    
 
     return (
         <div>
@@ -93,7 +135,7 @@ export default function Tour({data, order}){
                 </div>
 
                 <div className={clsx("l-2", styles.wrapBtns)}>
-                        <button onClick={() => setShowModal(true)}>Chi tiết</button>
+                        <button onClick={handleShowDetail}>Chi tiết</button>
                         <button onClick={deleteTour}>Xóa</button>
                 </div>
             </li>

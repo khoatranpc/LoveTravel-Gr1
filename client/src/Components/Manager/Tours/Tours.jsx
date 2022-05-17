@@ -7,7 +7,6 @@ import AddTour from './AddTour'
 import styles from "../Manage.module.scss"
 
 
-const apiTours = "http://localhost:8000/api/tour/get-all-tour"
 export default function Tours(){
     const [listTours, setListTours] = useState([])
     const [page, setPage] = useState(1)
@@ -24,6 +23,7 @@ export default function Tours(){
             }
             return prev + 1
         })
+       
     }
 
     const handleDecreasePage = () => {
@@ -39,7 +39,7 @@ export default function Tours(){
     useEffect(() => {
         // Call api
         const getTours = (page) => {
-            axios.get(apiTours, {
+            axios.get("http://localhost:8000/api/tour/get-all-tour", {
                 params: { page: page },
             })
             .then((res) => {

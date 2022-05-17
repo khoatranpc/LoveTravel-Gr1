@@ -1,0 +1,137 @@
+
+.toastContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+}
+
+
+#toast{
+    position: fixed;
+    top: 32px;
+    right: 32px;
+    z-index: 1000;
+    z-index: 999999;
+    background-color: #fff;
+    border-left: 4px solid tomato;
+    border-radius: 4px;
+    animation: slideInLeft linear 0.3s, fadeOut 1s 3s forwards;
+}
+
+.toast + .toast{
+    margin-top: 20px;
+}
+
+.toast{
+    background-color: #fff;
+    min-width: 300px;
+    max-width: 450px;
+    display: flex;
+    font-size: 16px;
+    align-items: center;
+    // border-left: 4px solid tomato;
+    padding: 8px 16px;
+    box-shadow: 0px 6px 16px rgba(0,0,0,0.2);
+    border-radius: 4px;
+    transition: all 0.3s linear;
+}
+
+p{
+    margin: 4px;
+}
+
+.toast__icon i{
+    padding: 0 16px;
+}
+
+.toast__body{
+    flex-grow: 1;
+}
+
+.toast__title{
+    font-size: 20px;
+    margin: 4px;
+}
+
+.toast__close i {
+    font-size: 20px;
+    color: rgba(0,0,0,0.3);
+    cursor: pointer;
+    padding: 0 16px;
+}
+
+.toast--success{
+    border-color: green;
+}
+
+.toast--success .toast__icon i{
+    color: green;
+}
+
+.toast--info{
+    border-color: blue;
+}
+
+.toast--info .toast__icon i{
+    color: blue;
+}
+
+.toast--warning{
+    border-color: yellow;
+}
+
+.toast--warning .toast__icon i{
+    color: yellow;
+}
+
+.toast--error{
+    border-color: tomato;
+}
+
+.toast--error .toast__icon i{
+    color: tomato;
+}
+
+.row{
+    display: flex;
+    position: absolute;
+    top: 50%;
+}
+
+.btn{
+    padding: 10px 40px;
+    min-width: 200px;
+    max-width: 210px;
+    border-radius: 12px;
+    margin-right: 25px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn.btn--success{
+    background-color: green;
+    color: #fff;
+}
+
+.btn.btn--error{
+    background-color: tomato;
+    color: #fff;
+}
+
+@keyframes slideInLeft {
+    0%{
+        opacity: 0;
+        transform: translateX(calc(100% + 32px));
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeOut{
+    to{
+        opacity: 0;
+    }
+}

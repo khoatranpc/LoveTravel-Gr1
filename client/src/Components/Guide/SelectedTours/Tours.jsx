@@ -34,6 +34,8 @@ export default function Tours(){
         })
     }
 
+    console.log(localStorage.getItem('token'));
+
     useEffect(() => {
         // Call api
         const getTours = (page) => {

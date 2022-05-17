@@ -15,6 +15,8 @@ export default function AddTour(){
     const [tourName, setTourName] = useState('')
     const [typeTour, setTypeTour] = useState('')
 
+    const [sendData, setSendData] = useState({})
+
     const [showModal, setShowModal] = useState(true)
 
     const handleAddTour = () => {
@@ -25,6 +27,7 @@ export default function AddTour(){
                 "place": place,
                 "price": price,
                 "typeTour": typeTour,
+
             },{
                 headers: {
                     authorization: localStorage.getItem('token')

@@ -73,20 +73,33 @@ export default function ListTour(){
     }, [page])
 
 
-    
-
-    const handleSearch = () => {
+    useEffect(() => {
         axios.get(`http://localhost:8000/api/tour/search?${typeSearch}=${valueSearch}`)
         .then((res) => {
             setListTours(res.data.data)
             console.log("Tours: ", listTours);
-            console.log("Res: ", res.data.data);
             return res;
         })
         .catch((err) => {
             console.log(err);
         });
-    }
+
+
+    },[valueSearch, typeSearch])
+
+
+    // const handleSearch = () => {
+    //     axios.get(`http://localhost:8000/api/tour/search?${typeSearch}=${valueSearch}`)
+    //     .then((res) => {
+    //         setListTours(res.data.data)
+    //         console.log("Tours: ", listTours);
+    //         console.log("Res: ", res.data.data);
+    //         return res;
+    //     })
+    //     .catch((err) => {
+    //         console.log(err);
+    //     });
+    // }
 
 
     return <>
@@ -123,10 +136,17 @@ export default function ListTour(){
                 <div className="col l-3 m-12 c-12">
                     <div className={clsx(styles.headingSearch)}>
                         <span>Tìm kiếm theo: </span>
-                        <select name="typeSearch" id="typeSearch" onChange={(e) => setTypeSearch(e.target.options[e.target.selectedIndex].value)}>
+                        <select 
+                            name="typeSearch" id="typeSearch"
+                         
+                            onChange={(e) => {
+                                setTypeSearch(e.target.options[e.target.selectedIndex].value)
+                            }}
+                        >
+
                             <option value="name">Tên tour</option>
                             <option value="place" >Địa điểm</option>
-                            <option value="type">Thể loại</option>
+                            {/* <option value="type">Thể loại</option> */}
                         </select>
                     </div>
                     {/* Search */}
@@ -137,7 +157,7 @@ export default function ListTour(){
                             console.log("Tìm kiếm theo:", typeSearch);
                             console.log("Giá trị tìm kiếm:", valueSearch);
                             setValueSearch(e.target.value)
-                            handleSearch()
+                            // handleSearch()
                         } }
                     />
                 </div>
