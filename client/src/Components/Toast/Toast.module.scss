@@ -16,7 +16,7 @@
     background-color: #fff;
     border-left: 4px solid tomato;
     border-radius: 4px;
-    animation: slideInLeft linear 0.3s, fadeOut 1s 3s forwards;
+    animation: slideInLeft linear 0.3s, fadeOut 1s 2s forwards;
 }
 
 .toast + .toast{
@@ -132,6 +132,7 @@ p{
 
 @keyframes fadeOut{
     to{
+        transform: translateX(50%);
         opacity: 0;
     }
 }

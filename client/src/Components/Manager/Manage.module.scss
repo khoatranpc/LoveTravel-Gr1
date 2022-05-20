@@ -92,6 +92,7 @@ nav{
     .heading{
         position: relative;
         padding-bottom: 15px;
+        margin-bottom: 24px;
         border-bottom: 1px solid $primaryColor;
         button{
             position: absolute;
@@ -116,11 +117,11 @@ nav{
             }
         }
     }
-
     h1{
         text-align: center !important; 
         letter-spacing: 2px;
-        font-size: 36px;
+        margin-bottom: 0;
+        font-size: 40px;
     }
 
    
@@ -346,6 +347,11 @@ nav{
         @extend .modalTour;
         min-width: 600px;
     }
+
+    .modalDetailTour{
+        @extend .modalTour;
+        min-width: 600px;
+    }
    
 }
 
@@ -367,9 +373,13 @@ nav{
 .formGroup{
     padding: 8px ;
     .formLabel{
+        font-weight: 500;
         font-size: 16px;
         margin-top: 8px;
         display: block;
+        b{
+            margin-left: 4px;
+        }
     }
 
     .formControl{
@@ -416,6 +426,7 @@ nav{
 .dialogConfirm{
     @extend .modalTour;
     padding: 32px 16px !important;
+    max-height: 150px;
     h2{
         margin: 0;
         i{
@@ -427,6 +438,7 @@ nav{
         padding-left: 8px;
     }
     .confirmBtnGroup{
+        margin-top: 24px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -452,7 +464,8 @@ nav{
     }
 }
 .btnUpdateTour{
-    padding: 8px 32px !important;
+    padding: 6px 16px !important;
+    border-radius: 4px !important;
     svg{
         height: 16px;
         padding-left: 4px;
@@ -473,9 +486,79 @@ nav{
 }
 
 .accountItem{
-    border: 1px solid $primaryColor;
+    border-left: 1px solid $primaryColor;
+    border-top: 1px solid $primaryColor;
+    border-bottom: 1px solid $primaryColor;
+    align-items: stretch;
+
+    .wrapInfoAccount{
+        display: flex;
+        align-items: stretch;
+        justify-content: space-between;
+        height: 100%;
+        & > div{
+            padding: 4px;
+           
+        }
+        & > div:first-child{
+            border-right: 1px solid $primaryColor;
+        }
+    }
 
     & > div{
         border-right: 1px solid $primaryColor;
+        span{
+            font-weight: 500;
+            font-size: 18px;
+        }
     }
+}
+
+
+
+.wrapOptionAccount{
+    border-top: 1px solid #000;
+    border-right: 1px solid #000;
+    border-left: 1px solid #000;
+    button{
+        width: 100%;
+        margin: 10px 0 24px;
+        background-color: rgba(0,0,0,0.1);
+    }
+    button.active{
+        background: $primaryColor;
+        color: #fff;
+    }
+}
+
+.tableInfo{
+    margin: 0;
+}
+
+#wrapOtions{
+    margin-top: 24px;
+    padding-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button{
+        border: none;
+        font-size: 20px;
+        padding: 6px 18px;
+        margin: 0 12px;
+        background-color: transparent;
+        border-bottom: 1px solid $primaryColor;
+        &:hover{
+            
+        }
+    }
+
+    button.active{
+        background-color: orange;
+        color: #fff;
+    }
+}
+
+.optionAccount{
+    margin-bottom: 32px;
 }

@@ -6,17 +6,19 @@ import axios from 'axios'
 import Header from '../Header/Header'
 import styles from "../Manage.module.scss"
 import Account from './Account'
-
+import Authorize from './Authorize'
 
 export default function Accounts(){
-
     const [showAddModal, setShowAddModal] = useState(false)
-    const scrollRef = useRef()
     const [page, setPage] = useState(1)
     const [listAccounts, setListAccounts] = useState([])
+    const [listRoles, setListRoles] = useState([])
+    const [isListAccounts, setIsListAccounts] = useState(false)
+    const [isAuthorized, setIsAuthorized] = useState(true)
+    const [typeAccount, setTypeAccount] = useState('user')
+
 
     const handleIncreasePage = () => {
-        scrollRef.current.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
         setPage(prev => {
             if(prev >= listAccounts.length - 2 ){
                 return prev
@@ -26,7 +28,6 @@ export default function Accounts(){
     }
 
     const handleDecreasePage = () => {
-        scrollRef.current.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
         setPage(prev => {
             if(prev <= 1 ){
               return prev
@@ -35,8 +36,17 @@ export default function Accounts(){
         })
     }
 
-    
+    const showListAccounts = () => {
+        setIsListAccounts(true)
+        setIsAuthorized(false)
+    }
 
+    const showAuthorize = () => {
+        setIsListAccounts(false)
+        setIsAuthorized(true)
+    }
+
+//  Phân trang
     useEffect(() => {
         axios.get(`http://localhost:8000/api/admin/admin-controller/get-data-user?page=${page}`,{
              headers: {
@@ -45,7 +55,6 @@ export default function Accounts(){
         })
         .then(res => {
             setListAccounts(res.data.data)
-            console.log(res.data.data);
         })
         .catch(err => {
             console.log(err);
@@ -53,69 +62,92 @@ export default function Accounts(){
     },[page])
 
 
+    // List Author
+    useEffect(() => {
+        axios.get(`http://localhost:8000/api/admin/admin-controller/account/get-all/${typeAccount}`,
+        {
+            headers: {authorization: localStorage.getItem('token')}
+        })
+        .then((res) => {
+            setListRoles(res.data.data)
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }, [typeAccount])
+
     return (
         <>
         <Header />
         <div className="grid wide">
-                {/* <div className={clsx(styles.wrapSearch)}>
-                    <input type="search" placeholder="Tìm kiếm"
-                    className={clsx(styles.inputSearch)}
-                    />
-                </div> */}
+            <div id={clsx(styles.wrapOtions)}>
+                <button
+                    onClick={showAuthorize}
+                    className={clsx({
+                        [styles.active]: isAuthorized
+                    })}
+                >Phân quyền
+                </button>
 
-            <div className={clsx(styles.container)}>
-                <div className={clsx(styles.heading)}>
-                    <h1>Danh sách người dùng</h1>
-                </div>
+                <button
+                    onClick={showListAccounts}
+                    className={clsx({
+                        [styles.active]: isListAccounts
+                    })}
+                >
+                    Danh sách tài khoản
+                </button>
+            </div>
+            {/* Authorize */}
+            {
+                isAuthorized && (
+                <div className={clsx(styles.container)}>
                 {/* Content */}
-            <div>
-                    <ul ref={scrollRef}>
-                        <li className={clsx("row", styles.accountItem)}>
-                            <div className="col l-1 text-center">STT</div>
-                            <div className="col l-9 text-center">
-                            <div>Thông tin</div>
-                            </div>
-                            <div className="col l-2 text-center">
-                            <span>Phân quyền dẫn tour</span>
-                            </div>
-                        </li>
-                        {
-                            listAccounts.map((account, i) => {
-                                return <Account key={i} data={account} index={i}/>
+               <>
+                    <div className={clsx("brand-name",styles.heading)}>
+                        <h1>Danh sách phân quyền</h1>
+                    </div>
+                    <select className={clsx(styles.optionAccount)} 
+                            onChange={e =>{
+                                setTypeAccount(e.target.options[e.target.selectedIndex].value)
+                            }}
+                            value={typeAccount}
+                        >
+                            <option value="user">Khách hàng</option>
+                            <option value="guide">Người dẫn tour</option>
+                            <option value="admin">Admin</option>
+                    </select>
+
+                    <div>
+                        <ul className={clsx(styles.tableInfo)}>
+                            <li className={clsx("row", styles.accountItem)}>
+                                <div className="col l-1 m-1 c-0 text-center"><span>STT</span></div>
+                                <div className="col l-7 m-7 c-9 text-center">
+                                    <div className={clsx(styles.wrapInfoAccount)}>
+                                        <div className="l-6 m-6 c-6"><span>User name</span></div>
+                                        <div className="l-6 m-6 c-6"><span>Role</span></div>
+                                    </div>
+                                </div>
+                                <div className="col l-2 m-2 c-2 text-center">
+                                    <span>Phân quyền</span>
+                                </div>
+                                <div className="col l-2 m-2 c-2 text-center">
+                                    <span>Chi tiết</span>
+                                </div>
+                            </li>
+                            {
+                            listRoles.map((account, i) =>{
+                                return <Authorize key={i} data={account} index={i} />
                             })
-                        }
-                    </ul>
-            </div>
+                            }
+                        </ul>
+                    </div>
+               </>
+                </div>
+                )
+            }
 
-            {/* Pagination */}
-            <nav className={clsx(styles.wrapPagination)}>
-                <ul className={clsx(styles.pagination)}>
-                    <li className="page-item">
-                        <button onClick={handleDecreasePage}
-                        className={clsx(styles.pageLink)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="bi bi-arrow-left-circle" viewBox="0 0 16 16">
-                            <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
-                        </svg>    
-                        </button>
-                    </li>
-
-                    <li className="page-item">
-                        <span>{page}</span>
-                    </li>
-
-                    <li className="page-item">
-                        <button onClick={handleIncreasePage}
-                        className={clsx(styles.pageLink)}>
-                            <svg xmlns="http://www.w3.org/2000/svg"  fill="$primaryColor" className="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                            <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
-                            </svg>
-                        </button>
-                    </li>
-                </ul>
-            </nav>
-
-            
-            </div>
+           
         </div>
         </>
     )

@@ -325,11 +325,30 @@ nav{
             }
         }
 
+        .containerAuthorize{
+            padding: 2px;
+            & > div{
+                padding: 4px;
+                margin-bottom: 4px;
+                font-size: 19px;
+                letter-spacing: 1px;
+            }
+            label{
+                font-weight: bold;
+                padding-left: 4px;
+            }
+        }
+
     }
 
     .modalAddTour{
         @extend .modalTour;
         min-width: 600px;
+    }
+
+    .modalAuthorize{
+        @extend .modalTour;
+        min-width: 500px;
     }
    
 }
@@ -386,3 +405,4 @@ nav{
 .row{
     display: flex;
 }
+

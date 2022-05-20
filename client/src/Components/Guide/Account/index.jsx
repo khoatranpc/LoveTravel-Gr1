@@ -72,7 +72,7 @@ export default function Account(){
                 headers: {authorization: localStorage.getItem('token')}
             })
             .then(res => {
-                console.log("Update thanh cong:");
+                console.log("Update thanh cong:", res);
             })
             .catch(err => console.error(err))
         }else{

@@ -36,7 +36,7 @@ export default function ListTour(){
     const handleIncreasePage = () => {
         scrollRef.current.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
         setPage(prev => {
-            if(prev >= listTours.length - 2 ){
+            if(prev >= listTours.length - 1 ){
                 return prev
             }
             return prev + 1
@@ -138,7 +138,6 @@ export default function ListTour(){
                         <span>Tìm kiếm theo: </span>
                         <select 
                             name="typeSearch" id="typeSearch"
-                         
                             onChange={(e) => {
                                 setTypeSearch(e.target.options[e.target.selectedIndex].value)
                             }}

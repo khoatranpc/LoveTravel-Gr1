@@ -4,6 +4,7 @@ import {useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import styles from "../Manage.module.scss"
+import Toast from '../../Toast'
 
 const guides = [
     {
@@ -14,23 +15,10 @@ const guides = [
 ]
 
 export default function Tour({data, order}){
-    // const [currentCustomer, setCurrentCustomer] = useState(data.currentCustomer)
-    // const [dayUpdate, setDayUpdate] = useState(data.dayUpdate)
-    // const [image, setImage] = useState(data.image)
-    // const [intro, setIntro] = useState(data.intro)
-    // const [maxCustomer, setMaxCustomer] = useState(data.maxCustomer)
-    // const [place, setPlace] = useState(data.place)
-    // const [price, setPrice] = useState(data.price)
-    // const [status, setStatus] = useState(data.status)
-    // const [supplierTour, setSupplierTour] = useState(data.supplierTour)
-    // const [tourName, setTourName] = useState(data.tourName)
-    // const [typeTour, setTypeTour] = useState(data.typeTour)
-
-
     const [guide, setGuide] = useState({})
-
     const [currentCustomer, setCurrentCustomer] = useState('')
-    const [dayUpdate, setDayUpdate] = useState('')
+    const [dateBeginTour, setDateBeginTour] = useState('')
+    const [dateEndTour, setDateEndTour] = useState('')
     const [image, setImage] = useState('')
     const [intro, setIntro] = useState('')
     const [maxCustomer, setMaxCustomer] = useState('')
@@ -39,18 +27,20 @@ export default function Tour({data, order}){
     const [status, setStatus] = useState('')
     const [supplierTour, setSupplierTour] = useState('')
     const [tourName, setTourName] = useState('')
-    const [typeTour, setTypeTour] = useState('')
+    const [typeTour, setTypeTour] = useState('Di tích lịch sử')
+    const [reviewsTour, setReviewsTour] = useState('')
+    const [sendData, setSendData] = useState({})
 
     const [showModal, setShowModal] = useState(false)
     const [showDialogConfirm, setShowDialogConfirm] = useState(false)
+    const [showToast, setShowToast] = useState(false)
 
-
-    const day = new Date(dayUpdate)
+    const dayBegin = new Date(dateBeginTour)
+    const dayEnd = new Date(dateEndTour)
 
     const deleteTour = () => {
         setShowDialogConfirm(!showDialogConfirm)
     }
-
 
     const hanleDeleteTour = () => {
         const apiDelete = `http://localhost:8000/api/tour/delete/${data._id}`
@@ -64,63 +54,102 @@ export default function Tour({data, order}){
         .catch(err => console.error(err))
     }
 
-    const handleUpdateTour = () => {
-        const apiUpdate = `http://localhost:8000/api/tour/update/${data._id}`
-        axios.put(apiUpdate,
+    const getDataSend = (e) => {
+        setSendData({
+            ...sendData,
+            [e.target.id] : e.target.value
+        })
+    }
+
+    const updateTour = () => {
+        const apiUpdateTour = `http://localhost:8000/api/tour/update/${data._id}`
+        axios.put(apiUpdateTour,
+            sendData,
             {
-                "tourName": tourName,
-                "supplierTour" : supplierTour,
-                "place": place
+                headers: {authorization: localStorage.getItem('token')}
+            }
+        )
+        .then(res => {
+            // window.location.reload(true)
+            
+        })
+        .catch(err => {
+            console.error(err)
+            setShowToast(true)
+            setTimeout(() => {
+                setShowToast(false)
+            }, 3000)
+        })
+    }
+
+    const updateDetailTour = () => {
+        const apiUpdateDetailTour = `http://localhost:8000/api/admin/admin-controller/tour/${data._id}/update`
+        axios.put(apiUpdateDetailTour,
+            {
+                "reviews_tour": reviewsTour,
+                "date_begin_tour": dateBeginTour,
+                "date_end_tour": dateEndTour
             },
             {
-            headers: {authorization: localStorage.getItem('token')}
-        })
+                headers: {authorization: localStorage.getItem('token')}
+            }
+        )
         .then(res => {
             console.log("Update thanh cong:", res);
-            window.location.reload(true)
         })
-        .catch(err => console.error(err))
+        .catch(err => {
+            console.error(err)
+            setShowToast(true)
+            setTimeout(() => {
+                setShowToast(false)
+            }, 3000)
+        })
+    }
 
-        // const apiAddGuide = `http://localhost:8000/api/tour/add-Tour-Guide/ ${data._id}`
-        // axios.put(apiAddGuide,
-        //     {
-        //         "id_guide": "62819f536ea02c9622928747"
-        //     },
-        //     {
-        //     headers: {authorization: localStorage.getItem('token')}
-        // })
-        // .then(res => {
-        //     console.log("Them guide thanh cong:", res);
-        //     window.location.reload(true)
-        // })
-        // .catch(err => console.error(err))
-
+    const handleUpdateTour = () => {
+        const begin = new Date(dateBeginTour)
+        const end = new Date(dateEndTour)
+        if(begin < end){
+            updateTour()
+            updateDetailTour()
+            window.location.reload(true)
+        }else{
+            setShowToast(true)
+            setTimeout(() => {
+                setShowToast(false)
+            }, 3000)
+        }
+       
     }
 
     const handleShowDetail = () => {
-        console.log(data._id);
-        const apiDetail = 'http://localhost:8000/api/tour/detail/'
-        // Call API detail tour
-        axios.get(apiDetail,
-            {
-                params: { id: data._id }
-            }
-        )
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-
         // Show modal
         setShowModal(true)
+        axios.get(`http://localhost:8000/api/tour/detail/${data._id}`)
+        .then(res => {
+            console.log("", res);
+            setTourName(res.data.tour.tourName)
+            setPlace(res.data.tour.place)
+            setPrice(res.data.tour.price)
+            setIntro(res.data.tour.intro)
+            setMaxCustomer(res.data.tour.maxCustomer)
+            setTypeTour(res.data.tour.typeTour  )
+            setSupplierTour(res.data.tour.supplierTour)
+            setStatus(res.data.tour.status)
+            setDateBeginTour(res.data.tour.id_detail_Tour.date_begin_tour.slice(0, 10))
+            setDateEndTour(res.data.tour.id_detail_Tour.date_end_tour.slice(0, 10))
+            setReviewsTour(res.data.tour.id_detail_Tour.reviews_tour)
+        })
+        .catch(err => console.log(err))
    }
 
 
-    
-
-    return (
+    return (<>
+    {/* Toast */}
+    {
+        showToast && <Toast desc="Dữ liệu không hợp lệ" />
+    }
+    {/* Content */}
         <div>
             <li className={clsx("row", styles.tourItem)}>
                 <div className="col l-1">{order + 1}</div>
@@ -130,7 +159,8 @@ export default function Tour({data, order}){
                 <div className={clsx("col l-6 m-6 c-12", styles.tourInfo)}>
                     <p>Tên tour: {data.tourName}</p>
                     <b>Đơn giá: {data.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</b>
-                    <p>Số khách hiện tại: {data.currenCustomer}</p>
+                    <p>Số khách hiện tại: {data.currentCustomer}</p>
+                    <p>Số khách giới hạn: {data.maxCustomer}</p>
                     <p>Ngày cập nhật: {data.dayUpdate.slice(0, 10)}</p>
                 </div>
 
@@ -140,11 +170,11 @@ export default function Tour({data, order}){
                 </div>
             </li>
 
-            {/* Modal */}
+            {/* Modal detail */}
             {
                 showModal && (
                     <div className={clsx(styles.containerModal)}>
-                    <div className={clsx(styles.modalTour)}>
+                    <div className={clsx(styles.modalDetailTour)}>
                         {/* Close button */}
                         <div className={clsx(styles.closeBtn)}>
                             <button onClick={() => setShowModal(false)}>
@@ -158,130 +188,191 @@ export default function Tour({data, order}){
                         <h1 className="text-center brand-name">Chi tiết thông tin tour</h1>
                             <div>
                                 <div className={clsx(styles.wrapTourInfo)}>
+                                    <div className={clsx(styles.wrapBtn)}>
+                                        <button
+                                            onClick={handleUpdateTour}
+                                            className={clsx(styles.btnUpdateTour)
+                                        }>Lưu
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="bi bi-save" viewBox="0 0 16 16">
+                                                <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+
+
                                     <div className={clsx(styles.row)}>
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
-                                            <label htmlFor="" className={clsx(styles.formLabel)}>Tên tour: </label>
-                                            <input type="text" className={clsx(styles.formControl)} 
-                                                onChange={e => setTourName(e.target.value)}
+                                            <label htmlFor="tourName" className={clsx(styles.formLabel)}>Tên tour: </label>
+                                            <input id="tourName" type="text" className={clsx(styles.formControl)} 
+                                                onChange={e => { 
+                                                    getDataSend(e)
+                                                    setTourName(e.target.value)
+                                                }}
                                                 value={tourName}
                                             />
                                         </div>
     
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
-                                            <label htmlFor="" className={clsx(styles.formLabel)}>Địa điểm: </label>
-                                            <input type="text" className={clsx(styles.formControl)}
-                                                onChange={e => setPlace(e.target.value)}
+                                            <label htmlFor="place" className={clsx(styles.formLabel)}>Địa điểm: </label>
+                                            <input id="place" type="text" className={clsx(styles.formControl)}
+                                                onChange={e => { 
+                                                    getDataSend(e)
+                                                    setPlace(e.target.value)
+                                                }}
                                                 value={place}  />
                                         </div>
                                     </div>
     
                                     <div className={clsx(styles.row)}>
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
-                                            <label htmlFor="" className={clsx(styles.formLabel)}>Số khách hiện tại: </label>
-                                            <input  type="number" className={clsx(styles.formControl)} 
-                                                onChange={e => setCurrentCustomer(e.target.value)}
-                                                value={currentCustomer}
-                                            />
-                                        </div>
-    
-                                        <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
-                                            <label htmlFor="" className={clsx(styles.formLabel)}>Thể loại: </label>
-                                            <input type="text" className={clsx(styles.formControl)}
-                                                onChange={e => setTypeTour(e.target.value)}
+                                            <label htmlFor="typeTour" className={clsx(styles.formLabel)}>Thể loại: </label>
+                                            <select name="" id="typeTour" className={clsx(styles.formControl)}
+                                                onChange={e =>{
+                                                    getDataSend(e)
+                                                    setTypeTour(e.target.options[e.target.selectedIndex].value)
+                                                }}
                                                 value={typeTour}
-                                            />
+                                            >
+                                                <option value="Di tích lịch sử">Di tích lịch sử</option>
+                                                <option value="Sinh thái khám phá">Sinh thái khám phá</option>
+                                                <option value="Nghỉ dưỡng">Nghỉ dưỡng</option>
+                                            </select>
+                                        </div>
+
+                                        <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
+                                            <label htmlFor="guide" className={clsx(styles.formLabel)}>Người dẫn tour:</label>
+                                                <select id="guide" className={clsx(styles.formControl)}
+                                                    onChange={(e) => {
+                                                        getDataSend(e)
+                                                        setGuide(e.target.options[e.target.selectedIndex].value)
+                                                    }}
+                                                >
+                                                {/* <option value="1">Nguyen Van A</option> */}
+                                                    {
+                                                        guides.map((data, i) => {
+                                                            return (
+                                                                <option
+                                                                value={data.name}
+                                                                key={i}>
+                                                                    {data.name}
+                                                                </option>
+                                                            )
+                                                        })
+                                                    }
+                                                </select>
                                         </div>
                                     </div>
     
                                     <div className={clsx(styles.row)}>
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
-                                            <label htmlFor="" className={clsx(styles.formLabel)}>Nhà cung cấp: </label>
-                                            <input type="text" className={clsx(styles.formControl)} 
-                                                onChange={e => setSupplierTour(e.target.value)}
+                                            <label htmlFor="supplierTour" className={clsx(styles.formLabel)}>Nhà cung cấp: </label>
+                                            <input id="supplierTour" type="text" className={clsx(styles.formControl)} 
+                                                onChange={e => { 
+                                                    getDataSend(e)
+                                                    setSupplierTour(e.target.value)
+                                                }}
                                                 value={supplierTour} />
                                         </div>
     
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
-                                            <label htmlFor="" className={clsx(styles.formLabel)}>Đơn giá: </label>
-                                            <input type="number" className={clsx(styles.formControl)}
-                                                onChange={e => setPrice(e.target.value)}
-                                            value={price}  />
+                                            <label htmlFor="" className={clsx(styles.formLabel)}>Đơn giá:
+                                                <b>{price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</b>
+                                            </label>
+                                            <input id="price" type="number" className={clsx(styles.formControl)}
+                                                onChange={e => { 
+                                                    getDataSend(e)
+                                                    setPrice(e.target.value)
+                                                }}
+                                                value={price} 
+                                            />
                                         </div>
                                     </div>
     
                                     <div className={clsx(styles.row)}>
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
-                                            <label htmlFor="" className={clsx(styles.formLabel)}>Trạng thái: </label>
-                                            <input type="text" className={clsx(styles.formControl)}
-                                                onChange={e => setStatus(e.target.value)}
+                                            <label htmlFor="status" className={clsx(styles.formLabel)}>Trạng thái: </label>
+                                            <input id="status" type="text" className={clsx(styles.formControl)}
+                                                onChange={e => { 
+                                                    getDataSend(e)
+                                                    setStatus(e.target.value)
+                                                }}
                                             value={status}  />
                                         </div>
     
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
-                                            <label htmlFor="" className={clsx(styles.formLabel)}>Số lượng tối đa:</label>
-                                            <input
-                                                onChange={e => setMaxCustomer(e.target.value)}
-                                            value={maxCustomer} type="number" className={clsx(styles.formControl)} />
+                                            <label htmlFor="maxCustomer" className={clsx(styles.formLabel)}>Số lượng tối đa:</label>
+                                            <input id="maxCustomer" type="number" className={clsx(styles.formControl)}
+                                                onChange={e => { 
+                                                    getDataSend(e)
+                                                    setMaxCustomer(e.target.value)
+                                                }}
+                                                value={maxCustomer}  />
                                         </div>
                                     </div>
     
-    
+
                                     <div className={clsx(styles.row)}>
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
-                                            <label htmlFor="" className={clsx(styles.formLabel)}>Giới thiệu:</label> 
-                                            <textarea  className={clsx(styles.formControl)} 
-                                                value={intro}
-                                                onChange={e => setIntro(e.target.value)}
+                                            <label htmlFor="date_begin_tour" className={clsx(styles.formLabel)}>Ngày bắt đầu:</label>
+                                            <input id="date_begin_tour" type="date" className={clsx(styles.formControl)}
+                                                value={dateBeginTour}
+                                                onChange={e => { 
+                                                    setDateBeginTour(e.target.value)
+                                                }}
                                             />
-                                        </div>                           
-    
-    
+
+                                            
+                                        </div>
+                                        <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
+                                            <label htmlFor="date_end_tour" className={clsx(styles.formLabel)}>Ngày kết thúc:</label>
+                                            <input id="date_end_tour" type="date" className={clsx(styles.formControl)}
+                                                value={dateEndTour}
+                                                onChange={e => { 
+                                                    setDateEndTour(e.target.value)
+                                                }}
+                                            />
+                                            
+                                        </div>
+                                    </div>
+
+                                    <div className={clsx(styles.row)}>
+                                     
+
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Ảnh</label>
                                             <input className={clsx(styles.formControl)} 
                                                 type="input" placeholder="Nhập đường dẫn" />
                                             <img src={image} alt=""/>
                                         </div>
-                                       
                                     </div>
+    
     
                                     <div className={clsx(styles.row)}>
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
-                                            <label htmlFor="" className={clsx(styles.formLabel)}>Ngày cập nhật:</label>
-                                            <span>{day.toLocaleString("en-US")}</span>
-
-                                            <label htmlFor="" className={clsx(styles.formLabel)}>Người dẫn tour:</label>
-                                            <select className={clsx(styles.formControl)}
-                                            
-                                            onChange={(e) => {
-                                                setGuide(e.target.options[e.target.selectedIndex].value)
-                                            }}
-                                            >
-                                            {/* <option value="1">Nguyen Van A</option> */}
-                                                {
-                                                    guides.map((data, i) => {
-                                                        return (
-                                                            <option
-                                                            value={data.name}
-                                                            key={i}>
-                                                                {data.name}
-                                                            </option>
-                                                        )
-                                                    })
-                                                }
-                                            </select>
-                                        </div>
+                                            <label htmlFor="intro" className={clsx(styles.formLabel)}>Giới thiệu:</label> 
+                                            <textarea id="intro" className={clsx(styles.formControl)} 
+                                                value={intro}
+                                                onChange={e => { 
+                                                    getDataSend(e)
+                                                    setIntro(e.target.value)
+                                                }}
+                                            />
+                                        </div>                           
+    
+                                        <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
+                                            <label htmlFor="" className={clsx(styles.formLabel)}>Nhận xét:</label> 
+                                            <textarea id="reviews_tour"  className={clsx(styles.formControl)} 
+                                                value={reviewsTour}
+                                                onChange={e => { 
+                                                    getDataSend(e)
+                                                    setReviewsTour(e.target.value)
+                                                }}
+                                            />
+                                        </div>      
+                                       
                                     </div>
                                 </div>
-                                <div className={clsx(styles.wrapBtn)}>
-                                    <button
-                                    onClick={handleUpdateTour}
-                                    className={clsx(styles.btnUpdateTour)}>Lưu
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="bi bi-save" viewBox="0 0 16 16">
-                                        <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
-                                        </svg>
-                                    </button>
-                                </div>
+                               
                             </div>
                     </div>
                     </div>
@@ -295,7 +386,11 @@ export default function Tour({data, order}){
                 <div className={clsx(styles.dialogConfirm)}>
 
                     {/* Content */}
-                    <h2 className="text-center"><i className="fa-solid fa-circle-info"></i></h2>
+                    <h2 className="text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="orange" className="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                    </svg>
+                    </h2>
                     <div className={clsx( styles.formGroup)}>
                         <p>Bạn muốn xóa: 
                             <b>{data.tourName}</b>
@@ -317,5 +412,7 @@ export default function Tour({data, order}){
                )
            }
           
-        </div>)
+        </div>
+    </>
+    )
 }

@@ -11,14 +11,58 @@ export default function Tours(){
     const [listTours, setListTours] = useState([])
     const [page, setPage] = useState(1)
     const [showAddModal, setShowAddModal] = useState(false)
-    const [totalTours, setTotalTours] = useState([])
-    
+    const [valueSearch, setValueSearch] = useState('')
     const scrollRef = useRef()
+
+    // Phân trang
+    useEffect(() => {
+        // Call api
+        function getTours(page) {
+            axios.get("http://localhost:8000/api/tour/get-all-tour", {
+                params: { page: page },
+            })
+                .then((res) => {
+                    setListTours(res.data.data)
+                    return res
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
+          getTours(page)
+
+    }, [page])
+
+    // Tìm kiếm tour
+    useEffect(() => {
+        axios.get(`http://localhost:8000/api/tour/search?name=${valueSearch}`)
+        .then((res) => {
+            setListTours(res.data.data)
+            console.log("Tours: ", listTours);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+
+       if(!valueSearch){
+            axios.get("http://localhost:8000/api/tour/get-all-tour", {
+                params: { page: 1 },
+            })
+            .then((res) => {
+                setListTours(res.data.data)
+                return res
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+       }
+
+    },[valueSearch])
 
     const handleIncreasePage = () => {
         scrollRef.current.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
         setPage(prev => {
-            if(prev >= listTours.length - 2 ){
+            if(prev >= listTours.length - 1 ){
                 return prev
             }
             return prev + 1
@@ -36,32 +80,18 @@ export default function Tours(){
         })
     }
 
-    useEffect(() => {
-        // Call api
-        const getTours = (page) => {
-            axios.get("http://localhost:8000/api/tour/get-all-tour", {
-                params: { page: page },
-            })
-            .then((res) => {
-                setListTours(res.data.data)
-                return res;
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-          };
-          getTours(page)
-
-    }, [page])
-
+    
     const handleshowAddModal = () => {
         setShowAddModal(!showAddModal)
     }
 
+
+
     return (<div className="grid wide">
         <div className={clsx(styles.wrapSearch)}>
             <input type="search" placeholder="Tìm kiếm"
-             className={clsx(styles.inputSearch)}
+                className={clsx(styles.inputSearch)}
+                onChange={e => setValueSearch(e.target.value)}
              />
         </div>
 
@@ -90,7 +120,7 @@ export default function Tours(){
                     {
                         listTours.map((tour, index) => {
                             return (
-                                <Tour key={tour._id} data={tour} order={index} />
+                                <Tour key={tour._id} data={tour} order={index}  />
                             )
                         })
                     }
@@ -127,7 +157,7 @@ export default function Tours(){
 
         {/* Add modal */}
         {
-            showAddModal && <AddTour />
+            showAddModal && <AddTour  totalTours={listTours.length}/>
         }
     </div>)
    
