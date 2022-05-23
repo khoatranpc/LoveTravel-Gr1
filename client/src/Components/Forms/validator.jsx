@@ -4,7 +4,7 @@ export function isRequired(value, message){
 }
 
 export function minLength(value, min ,message){
-    return value.trim().length >= min ? undefined : message || `Vui lòng nhập tối thiểu ${min} ký tự`
+    return value.length >= min ? undefined : message || `Vui lòng nhập tối thiểu ${min} ký tự`
 }
 
 export function isEmail(value, message){

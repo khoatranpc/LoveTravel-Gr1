@@ -16,6 +16,7 @@ html{
 }
 
 header{
+    height: 80px;
     position: fixed;
     top: 0;
     z-index: 9999;
@@ -119,10 +120,23 @@ footer{
 }
 
 @media screen and (max-width: 739px) {
+    header{
+        position: fixed !important;
+        z-index: 9999;
+    }
+    .brand-name{
+        font-size: 32px;
+    }
     .brand-form{
         font-size: 32px;
         top: 0;
         margin-bottom: 24px;
         padding-top: 0;
     }
+    .container{
+        padding-top: 32px !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+    
 }

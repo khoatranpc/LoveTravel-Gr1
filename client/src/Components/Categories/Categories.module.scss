@@ -53,3 +53,23 @@ $primaryColor: #f69d3c;
         }
     }
 }
+
+@media screen and (max-width:740px)  {
+    
+    h1{
+        font-size: 38px !important;
+        text-align: center;
+        color: $primaryColor !important;
+    }
+
+    h2{
+        font-size: 24px !important;
+    }
+    .categoryItem{
+        padding-bottom: 100%;
+    }
+
+    .categoriesWrap{
+        padding-left: 0px !important;
+    }
+}

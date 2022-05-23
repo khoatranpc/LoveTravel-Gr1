@@ -34,9 +34,8 @@ function Tour({data}){
             setAmount(0)
         }
         console.log({
-            id: data.id,
-            place: data.tour,
-            amount
+            id: data._id,
+            quantity_user: amount,
         });
         setStatusBuy(!statusBuy)
     }
@@ -58,7 +57,10 @@ function Tour({data}){
                 className={clsx(styles.btnDetail)}
             >
                 Chi tiết
-                <i className="fa-solid fa-compass"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="orange" className="bi bi-compass" viewBox="0 0 16 16">
+                    <path d="M8 16.016a7.5 7.5 0 0 0 1.962-14.74A1 1 0 0 0 9 0H7a1 1 0 0 0-.962 1.276A7.5 7.5 0 0 0 8 16.016zm6.5-7.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                    <path d="m6.94 7.44 4.95-2.83-2.83 4.95-4.949 2.83 2.828-4.95z"/>
+                </svg>
             </button>
 
             <div className={clsx(styles.labelBrand)}>
@@ -73,7 +75,9 @@ function Tour({data}){
                     {/* Close button */}
                     <div className={clsx(styles.closeBtn)}>
                         <button onClick={() => setShowModal(false)}>
-                            <i className="fa-solid fa-xmark"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#333" className="bi bi-x-lg" viewBox="0 0 16 16">
+                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                        </svg>
                         </button>
                     </div>
 
@@ -83,17 +87,18 @@ function Tour({data}){
                         <div className={clsx("l-6 m-6 c-12")}>
                             <div className={clsx(styles.tourIntro)}>
                             <img  src={data.image} alt="img" />
-                                <p>Địa điểm: {data.place}</p>
-                                <p>Thể loại: {data.typeTour}</p>
-                                <p>Nhà cung cấp: {data.supplierTour}</p>
-                                <p>Giới thiệu: {data.intro}</p>
+                                <p><b>Địa điểm: </b>{data.place}</p>
+                                <p><b>Thể loại: </b>{data.typeTour}</p>
+                                <p><b>Nhà cung cấp: </b>{data.supplierTour}</p>
+                                <p><b>Giới thiệu: </b>{data.intro}</p>
                             </div>
                         </div>
 
                         <div className={clsx("l-6 m-6 c-12")}>
-                            <p>Số lượng tour: {data.maxCustomer}</p>
-                            <p>Giá: {data.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
-                            <p>Tổng: {totalPrice.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
+                            <p><b>Số lượng tour: </b>{data.maxCustomer}</p>
+                            <p><b>Trạng thái tour: </b>{data.status}</p>
+                            <p><b>Giá: </b>{data.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
+                            <p><b>Tổng: </b>{totalPrice.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
                             <div className={clsx(styles.tourAmount)}>
                                 <span>Số tour đặt</span>
                                 <button onClick={decreaseAmount}> - </button>
@@ -107,7 +112,7 @@ function Tour({data}){
                                     [styles.active]: statusBuy
                                 })}
                             >
-                            {statusBuy && `Hủy tour ` || 'Đặt tour'  } 
+                            {statusBuy && `Hủy tour ` || 'Đặt tour' } 
                             </button>
                         </div>
                     </div>

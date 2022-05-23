@@ -8,7 +8,7 @@ import { isRequired, isEmail, minLength, isEqual} from "../validator.jsx";
 import Toast from '../../Toast'
 
 
-const LENGTH_USER_NAME = 6
+const LENGTH_USER_NAME = 4
 const LENGTH_IDENTIFY = 12
 const LENGTH_PASSWORD = 6
 

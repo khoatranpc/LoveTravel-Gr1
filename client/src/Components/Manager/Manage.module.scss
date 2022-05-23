@@ -370,6 +370,11 @@ nav{
     }
 }
 
+.rowRadio{
+    display: flex;
+    align-items: center;
+}
+
 .formGroup{
     padding: 8px ;
     .formLabel{
@@ -489,8 +494,7 @@ nav{
     border-left: 1px solid $primaryColor;
     border-top: 1px solid $primaryColor;
     border-bottom: 1px solid $primaryColor;
-    align-items: stretch;
-
+    align-items: stretch !important;
     .wrapInfoAccount{
         display: flex;
         align-items: stretch;
@@ -498,10 +502,29 @@ nav{
         height: 100%;
         & > div{
             padding: 4px;
-           
-        }
-        & > div:first-child{
             border-right: 1px solid $primaryColor;
+        }
+        & > div:last-child{
+            border-right: none;
+        }
+        span{
+            overflow: auto;
+            display: block;
+            text-align: justify; 
+            padding-left: 2px;
+            &::-webkit-scrollbar{
+                width: 1px !important; 
+            }
+            &::-webkit-scrollbar-thumb {
+                width: 2px !important;
+                border-radius: 25px;
+                background-color: rgb(0,0,0,0.2);
+            }
+            &::-webkit-scrollbar-track{
+                width: 2px !important;
+                border-radius: 25px;
+                background: rgba(0,0,0,0.1);
+            }
         }
     }
 
@@ -511,6 +534,13 @@ nav{
             font-weight: 500;
             font-size: 18px;
         }
+    }
+
+    .btnDetailAccount{
+        padding: 4px;
+        width: 100%;
+        border-radius: 2px;
+        transform: scaleY(0.8);
     }
 }
 
@@ -548,9 +578,6 @@ nav{
         margin: 0 12px;
         background-color: transparent;
         border-bottom: 1px solid $primaryColor;
-        &:hover{
-            
-        }
     }
 
     button.active{

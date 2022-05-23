@@ -25,6 +25,8 @@ nav{
     &:hover{
         filter: invert(1);
     }
+
+   
 }
 
 .navItem{
@@ -52,6 +54,15 @@ nav{
             opacity: 0.8;
       
     }}
+
+    @media screen and(max-width: 740px) {
+        &:not(:last-child):after{
+            background-color: transparent;
+        }
+        &:nth-child(2), &:nth-child(3){
+            display: none;
+        }
+    }
 }
 
     
@@ -188,8 +199,8 @@ nav{
                 }
 
                 &:hover{
-                    color: orange;
-                    i{
+                    fill: orange;
+                    svg{
                         transform: translateX(4px);
                     }
                 }
@@ -198,8 +209,8 @@ nav{
                     padding: 8px 4px;
                     font-size: 16px !important;
                 }
-                i{
-                    padding-right: 12px;
+                svg{
+                    margin-right: 12px;
                     transition: 0.3s ease all;
                 }
             }
@@ -216,21 +227,18 @@ nav{
         padding: 5px;
         display: block;
         border-radius: 50%;
-        border: 1px solid $primaryColor;
         cursor: pointer;
         transition: all 0.3s linear;
         &:hover{
-            background-color: $primaryColor;
             opacity: 0.8;
-            i{
-                color: #fff;
+            svg{
+                fill: $primaryColor;
             }
         }
-        i{
+        svg{
             transition: all 0.3s linear;
-            font-size: 32px;
-            color: $primaryColor;
-            width: 100%;
+            width: 36px;
+            height: 36px;
         }
     }
 }
@@ -247,5 +255,19 @@ nav{
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+    }
+}
+
+@media screen and (max-width: 740px) {
+    ul{
+        padding-left: 40px !important;
+        a{
+            font-size: 28px !important;
+            font-weight: 500;
+            text-shadow: 1px 1px 8px rgba(0,0,0,0.3);
+        }
+    }
+    .navUserChildren{
+        padding-left: 0!important;
     }
 }

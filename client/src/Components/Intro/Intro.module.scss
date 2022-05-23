@@ -25,25 +25,36 @@
             cursor: pointer;
         }
     }
+    @media screen  and (max-width: 739px) {
+        padding-top: 100%;
+        background-position: bottom center;
+    }
 }
 
 .introContent{
     position: absolute;
-    top: 20%;
+    top: 10%;
     left: 50%;
-    transform: translate(-50%, 20%);
+    transform: translate(-50%, 10%);
     color: #fff;
     text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
     text-align: center;
     width: 100%;
     h1{
-        font-size: 52px;
+        font-size: 42px;
         letter-spacing: 2px;
         margin-bottom: 0;
     }
     h2{
         margin-top: 10px;
-        font-size: 42px;
+        font-size: 32px;
+       
+    }
+
+    @media screen  and (max-width: 739px) {
+        h1, h2{
+            display: none;
+        }
     }
 }
 
@@ -82,6 +93,7 @@
         border-radius: 4px;
         object-fit: cover;
         filter: drop-shadow(1px 1px 6px rgba(0,0,0,0.6));
+        
     }
     
     .introText{
@@ -102,5 +114,24 @@
 
         }
     }
+   
+    @media screen  and (max-width: 739px) {
+       img{
+        width: 100%;
+        height: 50vh;
+       }
+       .btnLeft,.btnRight{
+           display: none;
+       }
+    }
 }
+
+@media screen  and (max-width: 739px) {
+    .heading{
+        font-size: 30px!important;
+    }
+    h2{
+        font-style: normal !important;
+    }
+ }
 

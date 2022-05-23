@@ -36,8 +36,8 @@ $primaryColor: #f69d3c;
         opacity: 0.8;
         background-color: orange;
         color: #fff;
-        i{
-            color: #fff;
+        svg{
+            fill: #fff;
             transform: rotate(180deg);
         }
     }
@@ -276,9 +276,7 @@ select{
                 -webkit-text-fill-color: transparent;
             }
             
-            i{
-                color: $primaryColor;
-                font-size: 20px;
+            svg{
                 margin-left: 8px;
                 transition: 0.5s linear transform, 0.4s ease background-color;
             }

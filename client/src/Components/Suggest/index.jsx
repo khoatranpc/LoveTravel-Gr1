@@ -39,7 +39,7 @@ function Suggest(){
     const [showModal, setShowModal] = useState(false)
 
     const navigate = useNavigate()
-    const suggestTours = listTours.filter((tour) => tour.price <= 120000)
+    const suggestTours = listTours.filter((tour, i) => i <= 3)
 
     useEffect(() => {
         // Call api
@@ -48,6 +48,7 @@ function Suggest(){
                 params: { page: page },
             })
             .then((res) => {
+                console.log(res.data.data);
                 setListTours(res.data.data)
                 return res;
             })
@@ -58,34 +59,34 @@ function Suggest(){
           getTours(1);
 
           
-        }, [])
+    }, [])
         
         
 
     return <div id="suggest" className={clsx("container grid wide ", styles.suggest)}>
         {/* Suggest tours */}
         <div className="row">
-            <div className="col l-4">
+            <div className="col l-4 m-4 c-12">
                 <h1>Đi cùng <span className="brand-name" style={{fontSize: 36}}>Love Travel</span></h1>
                 <h2>Ứng dụng Web du lịch số 1 Việt Nam</h2>
                 <p className={clsx(styles.text)}>Love Travel hiện là nền tảng đặt tour du lịch thịnh hành nhất tại Việt Nam. Đồng hành cùng chúng tôi, bạn có những chuyến đi mang đầy kỉ niệm tuyệt vời. Sứ mệnh của Love Travel là đem lại trải nghiệm hài lòng cho người dùng về tour du lịch, nghỉ dưỡng, khám phá đất nước Việt Nam.</p>
 
                 <div className="row" >
-                    <div className="col l-6 m-4">
+                    <div className="col l-6 m-4 c-4">
                         <img className="qr-code" src={qrCode} />
                     </div>
-                    <div className={clsx("row col l-6 m-8", styles.dowloadApps)}>
+                    <div className={clsx("row col l-6 m-8 c-8", styles.dowloadApps)}>
                         <img src={apple} />
                         <img src={googlePlay} />
                     </div>
                 </div>
             </div>
-            <div className={clsx("col l-8", styles.suggestTour)}>
+            <div className={clsx("col l-8 m-8 c-12", styles.suggestTour)}>
                 <h1 className="text-center">Tour gợi ý từ <span className="brand-name" style={{fontSize: 36}}>Love Travel</span> </h1>
                 <ul className={clsx("row", styles.listTours)}>
                     {
                         suggestTours.map((tour, i) => 
-                            <li className={clsx("l-5 m-5 c-5", styles.suggestTour)} 
+                            <li className={clsx("l-5 m-5 c-12", styles.suggestTour)} 
                                 style={{backgroundImage: 'url('+ tour.image +')'}}
                                 key={i}
                                 onClick={() => navigate('/listTour')}

@@ -34,7 +34,7 @@ function Categories(){
         <div id="category" className={"container grid wide text-center"}>
             <h1>Thể loại tour phổ biến</h1>
             <h2>Việt Nam nằm trong những quốc gia có hệ sinh thái du lịch phong phú và đa dạng nhất trên thế giới</h2>
-            <ul>
+            <ul className={clsx(styles.categoriesWrap)}>
                 {categories.map((category, i) => {
                     return <li className={clsx(styles.category)}  key={i}>
                         <h1>{category.title}</h1>
@@ -45,8 +45,6 @@ function Categories(){
                     </li>
                 })}
             </ul>
-            <div >
-            </div>
         </div>
     )
 }

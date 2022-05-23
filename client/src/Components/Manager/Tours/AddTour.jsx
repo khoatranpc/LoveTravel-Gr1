@@ -5,10 +5,7 @@ import axios from 'axios'
 import styles from "../Manage.module.scss"
 import Toast from '../../Toast'
 
-
-
 export default function AddTour({totalTours}){
-    console.log(totalTours);
     const [currentCustomer, setCurrentCustomer] = useState(0)
     const [image, setImage] = useState('')
     const [intro, setIntro] = useState('')
@@ -17,7 +14,7 @@ export default function AddTour({totalTours}){
     const [dateEndTour, setDateEndTour] = useState('')
     const [place, setPlace] = useState('')
     const [price, setPrice] = useState('')
-    const [status, setStatus] = useState('Activing')
+    const [status, setStatus] = useState('Pending')
     const [supplierTour, setSupplierTour] = useState('Nhóm chúng mình')
     const [tourName, setTourName] = useState('')
     const [typeTour, setTypeTour] = useState('Di tích lịch sử')
@@ -61,11 +58,13 @@ export default function AddTour({totalTours}){
         })
     }
 
-    
+    useEffect(() => {
+        console.log(sendData);
+    },[sendData])
 
     return (
         <>
-            {showToast && <Toast title="Thất bại" desc="Thông tin thêm không hợp kệ" />}
+            {showToast && <Toast type="error" title="Thất bại" desc="Thông tin thêm không hợp lệ" />}
 
             {/* Content */}
         <div>
@@ -168,13 +167,18 @@ export default function AddTour({totalTours}){
 
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Trạng thái: </label>
-                                            <input  id="status"  type="text" className={clsx(styles.formControl)}
+                                            <select  
+                                                id="status"  type="text" className={clsx(styles.formControl)}
                                                 value={status}  
                                                 onChange={e =>{ 
                                                     setStatus(e.target.value)
                                                     getDataSend(e)
-                                                }}
-                                            />
+                                            }}
+                                            >
+                                                <option value="Pending">Pending</option>
+                                                <option value="Activing">Activing</option>
+                                                <option value="Ending">Ending</option>
+                                            </select>
                                         </div>
                                         
                                     </div>

@@ -11,6 +11,7 @@ export default function Tours(){
     const [page, setPage] = useState(1)
     const [showAddModal, setShowAddModal] = useState(false)
     const [totalTours, setTotalTours] = useState([])
+    const [idGuide, setIdGuide] = useState('')
     
     const scrollRef = useRef()
 
@@ -34,25 +35,28 @@ export default function Tours(){
         })
     }
 
-    console.log(localStorage.getItem('token'));
+    // Decode Token
+    const parseJwt = (token) => {
+        let base64Url = token.split('.')[1];
+        let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        let jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    
+        return JSON.parse(jsonPayload);
+    };
 
     useEffect(() => {
-        // Call api
-        const getTours = (page) => {
-            axios.get(apiTours, {
-                params: { page: page },
-            })
-            .then((res) => {
-                setListTours(res.data.data)
-                return res;
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-          };
-          getTours(page)
+        const decode = parseJwt(localStorage.getItem('token'))
+        setIdGuide()
+        // API list selected Tours
+        axios.get(`http://localhost:8000/api/user/guider/tour-guide`,{
+            headers: {authorization: localStorage.getItem('token')}
+        })
+        .then((res) => console.log(res))
+        .catch(err => console.log(err))
+    },[])
 
-    }, [page])
 
 
 

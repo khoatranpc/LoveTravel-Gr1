@@ -11,10 +11,9 @@ export default function BodyMainPage() {
     <div>
       {/* <Outlet /> */}
       <Intro />
-      <Categories />`
+      <Categories />
       <Suggest />
       <Footer />
-
       {/* <ListTour /> */}
     </div>
   );

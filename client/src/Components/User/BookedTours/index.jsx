@@ -1,8 +1,10 @@
-
+import Header from '../../Header/Header'
 
 export default function BookedTours(){
     return (
-        <>
-        <h1>Hello ae book tours</h1></>
+    <>
+        <Header />
+        <h1>Hello ae book tours</h1>
+    </>
     )
 }

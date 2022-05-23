@@ -13,7 +13,6 @@ export default function Tours(){
     const [showAddModal, setShowAddModal] = useState(false)
     const [valueSearch, setValueSearch] = useState('')
     const scrollRef = useRef()
-
     // Phân trang
     useEffect(() => {
         // Call api
@@ -23,13 +22,12 @@ export default function Tours(){
             })
                 .then((res) => {
                     setListTours(res.data.data)
-                    return res
                 })
                 .catch((err) => {
                     console.log(err)
                 })
         }
-          getTours(page)
+        getTours(page)
 
     }, [page])
 
@@ -38,7 +36,6 @@ export default function Tours(){
         axios.get(`http://localhost:8000/api/tour/search?name=${valueSearch}`)
         .then((res) => {
             setListTours(res.data.data)
-            console.log("Tours: ", listTours);
         })
         .catch((err) => {
             console.log(err);
@@ -62,7 +59,7 @@ export default function Tours(){
     const handleIncreasePage = () => {
         scrollRef.current.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
         setPage(prev => {
-            if(prev >= listTours.length - 1 ){
+            if(listTours.length == 0){
                 return prev
             }
             return prev + 1

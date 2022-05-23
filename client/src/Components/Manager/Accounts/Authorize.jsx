@@ -11,6 +11,7 @@ export default function Authorize({data, index}){
     const [showModalAuthorize, setShowModalAuthorize] = useState(false)
     const [valueAuthorize, setValueAuthorize] = useState('')
 
+   
 
     const handleCloseModalDetail = () => {
         setShowModalDetail(false)
@@ -73,7 +74,6 @@ export default function Authorize({data, index}){
         })
     }
 
-
     return (
        <>
        {
@@ -84,7 +84,7 @@ export default function Authorize({data, index}){
             <div className="col l-1 m-1 c-0 text-center">
                 {index}
             </div>
-            <div className="col l-7 m-7 c-8 text-center">
+            <div className="col l-9 m-9 c-8 text-center">
                 <div className={clsx(styles.wrapInfoAccount)}>
                     <div className="l-6 m-6 c-6">{data.username}</div>
                     <div className="l-6 m-6 c-6">{data.role}</div>
@@ -93,11 +93,7 @@ export default function Authorize({data, index}){
             <div className={clsx("col l-2 m-2 c-2 text-center", styles.wrapButtons)}>
                 <button onClick={handleShowModalAuthorize}>Chọn</button>
             </div>
-            <div className={clsx("col l-2 m-2 c-2 text-center", styles.wrapButtons)}>
-                <button onClick={handleShowModalDetail}>Chi tiết</button>
-            </div>
 
-            
             {/* Modal authorization --> Done */}
             {
                 showModalAuthorize && (
