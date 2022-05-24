@@ -17,15 +17,16 @@ export default function Tours(){
     useEffect(() => {
         // Call api
         function getTours(page) {
-            axios.get("http://localhost:8000/api/tour/get-all-tour", {
+            axios.get("http://localhost:8000/api/admin/admin-controller/get-all-tour", {
                 params: { page: page },
             })
-                .then((res) => {
-                    setListTours(res.data.data)
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
+            .then((res) => {
+                setListTours(res.data.data)
+                console.log(res.data);
+            })
+            .catch((err) => {
+                console.log(err)
+            })
         }
         getTours(page)
 
@@ -42,7 +43,7 @@ export default function Tours(){
         });
 
        if(!valueSearch){
-            axios.get("http://localhost:8000/api/tour/get-all-tour", {
+            axios.get("http://localhost:8000/api/admin/admin-controller/get-all-tour", {
                 params: { page: 1 },
             })
             .then((res) => {

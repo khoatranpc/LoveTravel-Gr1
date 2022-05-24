@@ -41,24 +41,23 @@ function Login() {
         
       })
       .then((res)=> {
-          console.log(res);
-          if(res.data.status === 200){
-            console.log("Decode token:", parseJwt((res.data.token)));
-            const decode = parseJwt((res.data.token))
-           
-            if(decode.role_user === "admin"){
-              navigate('/manage/tours')
-            }
-            if(decode.role_user === 'user'){
-              navigate('/home')
-            }
-            if(decode.role_user === 'guide'){
-              navigate('/guide/account')
-            }
-           
+        if(res.data.status === 200){
+          const decode = parseJwt((res.data.token))
+          if(decode.role_user === "admin"){
+            navigate('/manage/tours')
           }
-          localStorage.setItem('token', res.data.token)
-          document.title = "Love Travel"
+          if(decode.role_user === 'user'){
+            navigate('/home')
+          }
+          if(decode.role_user === 'guide'){
+            navigate('/guide/account')
+          }
+        }
+        else{
+          console.log(res.data.status);
+        }
+        localStorage.setItem('token', res.data.token)
+        document.title = "Love Travel"
       })
       .catch((err) => {
         console.log(err);

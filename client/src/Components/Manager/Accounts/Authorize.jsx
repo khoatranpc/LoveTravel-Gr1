@@ -82,7 +82,7 @@ export default function Authorize({data, index}){
        
        <li className={clsx("row", styles.accountItem)}>
             <div className="col l-1 m-1 c-0 text-center">
-                {index}
+                {index + 1}
             </div>
             <div className="col l-9 m-9 c-8 text-center">
                 <div className={clsx(styles.wrapInfoAccount)}>
@@ -110,7 +110,7 @@ export default function Authorize({data, index}){
     
                         {/* Content */}
                         <div>
-                            <h1 className="text-center brand-name">Lựa chọn phân quyền</h1>
+                            <h1 className={clsx("text-center brand-name",styles.headingModal)}>Lựa chọn phân quyền</h1>
                             <div>
                                 <input type="radio" name="typeAuthorize" value="admin"
                                     checked={valueAuthorize == 'admin'}

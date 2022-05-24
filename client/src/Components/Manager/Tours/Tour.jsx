@@ -76,7 +76,6 @@ export default function Tour({data, order}){
         setGuideInfo(guideInfo)
     },[listAccounts, listGuides])
 
-    console.log("Guide info: ", guideInfo);
     const deleteTour = () => {
         setShowDialogConfirm(!showDialogConfirm)
     }
@@ -160,8 +159,8 @@ export default function Tour({data, order}){
        
     }
 
+    // Show modal
     const handleShowDetail = () => {
-        // Show modal
         console.log("Guide: ", guide);
         console.log("ID tour: ", data._id);
         setShowModal(true)
@@ -358,12 +357,24 @@ export default function Tour({data, order}){
                                 <div className={clsx(styles.row)}>
                                     <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                         <label htmlFor="status" className={clsx(styles.formLabel)}>Trạng thái: </label>
-                                        <input id="status" type="text" className={clsx(styles.formControl)}
+                                        {/* <input id="status" type="text" className={clsx(styles.formControl)}
                                             onChange={e => { 
                                                 getDataSend(e)
                                                 setStatus(e.target.value)
                                             }}
-                                        value={status}  />
+                                        value={status}  /> */}
+                                        <select id="status" className={clsx(styles.formControl)}
+                                            onChange={e =>{
+                                                getDataSend(e)
+                                                setStatus(e.target.options[e.target.selectedIndex].value)
+                                            }}
+                                            value={typeTour}
+                                        >   
+                                            <option value={status}>{status}</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="Activing">Activing</option>
+                                            <option value="Ending">Ending</option>
+                                        </select>
                                     </div>
 
                                     <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>

@@ -7,7 +7,6 @@ import styles from "../Form.module.scss";
 import { isRequired, isEmail, minLength, isEqual} from "../validator.jsx";
 import Toast from '../../Toast'
 
-
 const LENGTH_USER_NAME = 4
 const LENGTH_IDENTIFY = 12
 const LENGTH_PASSWORD = 6
@@ -61,34 +60,40 @@ function Register() {
   // Handle submit
   const handleSubmit = () => {
     validateInputs()
-    if(!userNameMsg && !!name && !!birth && !!address && !identifyMsg && !emailMsg && !passwordMsg && checkPassword === undefined) {
-        axios.post(api, {
-          "username" : userName ,
-          "name" :  name,
-          "birth" :  birth,
-          "address" :  address,
-          "gender" :  gender,
-          "indentify" :  identify,
-          "email" :  email,
-          "password" :  password,
-          "repassword": password
-        })
-        .then((res)=> {
-          console.log(res);
-          
-            if(res.status === 201){
-              navigate('/auth/login');
-            }
-        })
-        .catch((err) => {
-          console.log(err);
-        })
+   
+    if(!userNameMsg && !!name && !!birth && !!address && !identifyMsg && !emailMsg && !passwordMsg && checkPassword == undefined) {
+      axios.post(api, {
+        "username" : userName ,
+        "name" :  name,
+        "birth" :  birth,
+        "address" :  address,
+        "gender" :  gender,
+        "indentify" :  identify,
+        "email" :  email,
+        "password" :  password,
+        "repassword": password
+      })
+      .then((res)=> {
+        console.log(res);
+          if(res.status === 201){
+            navigate('/auth/login');
+          }else{
+            console.log(res.status);
+          }
+      })
+      .catch((err) => {
+        console.log(err);
+         setShowToast(true)
+          setTimeout(() => {
+            setShowToast(false)
+          }, 4000)
+      })
     }
     else{
-        setShowToast(true)
-        setTimeout(() => {
-          setShowToast(false)
-        }, 4000)
+      setShowToast(true)
+      setTimeout(() => {
+        setShowToast(false)
+      }, 4000)
     }
   }
 

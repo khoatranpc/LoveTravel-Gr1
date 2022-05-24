@@ -20,20 +20,23 @@ export default function Account({data, index}){
     const [identify, setIdentify] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
+    const [typeAccount, setTypeAccount] = useState('user');
+
     //  Phân trang
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/admin/admin-controller/get-data-user?page=${page}`,{
+        axios.get(`http://localhost:8000/api/admin/admin-controller/get-data-user?page=${page}&role=${typeAccount}`,{
              headers: {
                     authorization: localStorage.getItem('token')
-                }
+            }
         })
         .then(res => {
             setListAccounts(res.data.data)
+            console.log(res.data.data);
         })
         .catch(err => {
             console.log(err);
         })
-    },[page])
+    },[page, typeAccount])
 
 
     const handleIncreasePage = () => {
@@ -101,15 +104,26 @@ export default function Account({data, index}){
 
     return (
         <>
-        <div className={clsx("text-center brand-name",styles.heading)}>
-            <h1>Danh sách tài khoản</h1>
+        <div >
+            <div className={clsx("text-center brand-name",styles.heading)}>
+                <h1>Danh sách tài khoản</h1>
+            </div>
+            <select className={clsx(styles.optionAccount)} 
+                onChange={e =>{
+                    setTypeAccount(e.target.options[e.target.selectedIndex].value)
+                }}
+                value={typeAccount}
+            >
+                <option value="user">Khách hàng</option>
+                <option value="guide">Người dẫn tour</option>
+            </select>
         </div>
 
         <div>
             <ul className={clsx(styles.tableInfo)}>
                 <li className={clsx("row", styles.accountItem)}>
-                    <div className="col l-1 m-1 c-0 text-center"><span>STT</span></div>
-                    <div className="col l-10 m-10 c-10 text-center">
+                    <div className="l-1 m-1 c-0 text-center"><span>STT</span></div>
+                    <div className="l-10 m-10 c-10 text-center">
                         <div className={clsx(styles.wrapInfoAccount)}>
                             <div className="l-1 m-1 c-1"><span>Họ tên</span></div>
                             <div className="l-1 m-1 c-1"><span>Giới tính</span></div>
@@ -119,7 +133,7 @@ export default function Account({data, index}){
                             <div className="l-2 m-2 c-2"><span>SĐT</span></div>
                         </div>
                     </div>
-                    <div className="col l-1 m-1 c-1 text-center">
+                    <div className="l-1 m-1 c-1 text-center">
                         <span>Chi tiết</span>
                     </div>
                 </li>
@@ -128,22 +142,26 @@ export default function Account({data, index}){
                    listAccounts.map((account, i) => {
                        return (
                         <li key={i} className={clsx("row", styles.accountItem)}>
-                            <div className="col l-1 m-1 c-0 text-center"><span>{i}</span></div>
-                            <div className="col l-10 m-10 c-10 text-center">
+                            <div className="l-1 m-1 c-0 text-center"><span>{i + 1}</span></div>
+                            <div className="l-10 m-10 c-10 text-center">
                                 <div className={clsx(styles.wrapInfoAccount)}>
-                                    <div className="l-1 m-1 c-1"><span>{account.name}</span></div>
-                                    <div className="l-1 m-1 c-1"><span>{account.gender == 'male' || account.gender === 'Male' ? 'Nam' : 'Nữ'}</span></div>
-                                    <div className="l-2 m-2 c-2"><span>{account.birth.slice(0, 10)}</span></div>
-                                    <div className="l-4 m-4 c-4"><span>{account.email}</span></div>
-                                    <div className="l-2 m-2 c-2"><span>{account.address}</span></div>
-                                    <div className="l-2 m-2 c-2"><span>{account.phone}</span></div>
+                                    {console.log(account.id_user)}
+                                    <div className="l-1 m-1 c-1"><span>{account.id_user.name}</span></div>
+                                    <div className="l-1 m-1 c-1"><span>{account.id_user.gender == 'male' || account.id_user.gender === 'Male' ? 'Nam' : 'Nữ'}</span></div>
+                                    <div className="l-2 m-2 c-2"><span>{account.id_user.birth.slice(0, 10)}</span></div>
+                                    <div className="l-4 m-4 c-4"><span>{account.id_user.email}</span></div>
+                                    <div className="l-2 m-2 c-2"><span>{account.id_user.address}</span></div>
+                                    <div className="l-2 m-2 c-2"><span>{account.id_user.phone}</span></div>
                                 </div>
                             </div>
-                            <div className="col l-1 m-1 c-1 text-center">
+                            <div className="l-1 m-1 c-1 text-center">
                                 <button className={clsx(styles.btnDetailAccount)}
-                                    onClick={() => {handleShowDetail(account)}}
+                                    onClick={() => {handleShowDetail(account.id_user)}}
                                 >
-                                    Chi tiết
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" className="bi bi-ticket-detailed" viewBox="0 0 16 16">
+                                        <path d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5ZM5 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H5Z"/>
+                                        <path d="M0 4.5A1.5 1.5 0 0 1 1.5 3h13A1.5 1.5 0 0 1 16 4.5V6a.5.5 0 0 1-.5.5 1.5 1.5 0 0 0 0 3 .5.5 0 0 1 .5.5v1.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 11.5V10a.5.5 0 0 1 .5-.5 1.5 1.5 0 1 0 0-3A.5.5 0 0 1 0 6V4.5ZM1.5 4a.5.5 0 0 0-.5.5v1.05a2.5 2.5 0 0 1 0 4.9v1.05a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-1.05a2.5 2.5 0 0 1 0-4.9V4.5a.5.5 0 0 0-.5-.5h-13Z"/>
+                                    </svg>
                                 </button>
                             </div>
                         </li>
@@ -246,7 +264,7 @@ export default function Account({data, index}){
                                 {/* Phone */}
                                 <div className={clsx(styles.formGroup)}>
                                     <label htmlFor="Phone" className={clsx(styles.formLabel)}>Số điện thoại:</label>
-                                    <input id="Phone" type="text" 
+                                    <input id="Phone" type="number" 
                                         className={clsx(styles.formControl)}
                                         value={phone}
                                         onChange={e => setPhone(e.target.value.trim())}

@@ -3,18 +3,25 @@ import clsx from 'clsx'
 import {useState,useEffect} from 'react'
 import axios from 'axios'
 
+import {isEmail, minLength} from '../../Forms/validator'
 import Header from '../../Header/Header'
 import styles from '../User.module.scss'
 import avatar from './avatar.jpg'
+import Toast from '../../Toast'
+
 export default function Account(){
     const [name, setName] =useState('')
     const [birth, setBirth] = useState('')
     const [gender, setGender] = useState('male');
     const [address, setAddress] = useState('');
     const [identify, setIdentify] = useState('');
+    const [identifyMsg, setIdentifyMsg] = useState();
     const [email, setEmail] = useState('');
+    const [emailMsg, setEmailMsg] = useState('');
     const [phone, setPhone] = useState('');
+    const [phoneMsg, setPhoneMsg] = useState('');
 
+    const [showToast, setShowToast] = useState(false)
     useEffect(() => {
         
         const api = `http://localhost:8000/api/user/current-user`
@@ -34,8 +41,15 @@ export default function Account(){
         .catch(err => console.error(err))
     },[])
 
+    const validateInputs = () => {
+        setIdentifyMsg(minLength(identify, 12))
+        setEmailMsg(isEmail(email))
+        setPhoneMsg(minLength(phone, 9))
+      }
+
     const handleUpdate = () => {
-        if(phone.length >= 10 && identify.length >= 12){
+        validateInputs()
+        if(!identifyMsg && !emailMsg && !phoneMsg){
             const apiUpdate = `http://localhost:8000/api/user/current-user/update`
             axios.put(apiUpdate,
                 {
@@ -53,9 +67,20 @@ export default function Account(){
             .then(res => {
                window.location.reload(true)
             })
-            .catch(err => console.error(err))
+            .catch(err => {
+                console.error(err)
+                setShowToast(true)
+                setTimeout(() =>
+                    setShowToast(false)
+                , 2000)
+            }
+            )
         }else{
             console.log("Failed");
+            setShowToast(true)
+            setTimeout(() =>
+                setShowToast(false)
+            , 2000)
         }
       
     }
@@ -132,8 +157,10 @@ export default function Account(){
                                 className={clsx(styles.formControl)}
                                 value={identify}
                                 onChange={e => setIdentify(e.target.value.trim())}
+                                onBlur={() => setIdentifyMsg(minLength(identify, 12))}
                             />
                         </div>
+                        <span className={clsx(styles.formMsg, styles.formMsgError)}>{identifyMsg}</span>
 
                         {/* Email */}
                         <div className={clsx(styles.formGroup)}>
@@ -142,8 +169,10 @@ export default function Account(){
                                 className={clsx(styles.formControl)}
                                 value={email}
                                 onChange={e => setEmail(e.target.value.trim())}
+                                onBlur={() => setEmailMsg(isEmail(email))}
                             />
                         </div>
+                        <span className={clsx(styles.formMsg, styles.formMsgError)}>{emailMsg}</span>
 
                         {/* Phone */}
                         <div className={clsx(styles.formGroup)}>
@@ -152,8 +181,11 @@ export default function Account(){
                                 className={clsx(styles.formControl)}
                                 value={phone}
                                 onChange={e => setPhone(e.target.value.trim())}
+                                onBlur={e =>  setPhoneMsg(minLength(phone, 10))}
+                                
                             />
                         </div>
+                        <span className={clsx(styles.formMsg, styles.formMsgError)}>{phoneMsg}</span>
                     </div>
 
                     <div className="col l-2 m-2 c-12">
@@ -166,6 +198,11 @@ export default function Account(){
                 </div>
 
             </div>
+
+              {/* Toast */}
+            {
+                showToast && <Toast desc="Thông tin cập nhật không hợp lệ" />
+            }
         </>
     )
 }

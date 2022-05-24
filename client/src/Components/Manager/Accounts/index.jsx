@@ -62,12 +62,12 @@ export default function Accounts(){
         // console.log("List account: ", listAccounts);
 
         const idGuides = listGuides.map(guide => guide._id)
-        console.log(idGuides);
+        // console.log(idGuides);
 
         const guideInfo = listAccounts.filter(acc => {
             return idGuides.includes(acc.id_account)
         })
-        console.log("Guide info: ", guideInfo);
+        // console.log("Guide info: ", guideInfo);
     },[listAccounts, listGuides])
 
 
@@ -133,8 +133,8 @@ export default function Accounts(){
                                         <div className="col l-1 m-1 c-0 text-center"><span>STT</span></div>
                                         <div className="col l-9 m-9 c-9 text-center">
                                             <div className={clsx(styles.wrapInfoAccount)}>
-                                                <div className="l-6 m-6 c-6"><span>User name</span></div>
-                                                <div className="l-6 m-6 c-6"><span>Role</span></div>
+                                                <div className="l-6 m-6 c-6"><span >User name</span></div>
+                                                <div className="l-6 m-6 c-6"><span >Role</span></div>
                                             </div>
                                         </div>
                                         <div className="col l-2 m-2 c-2 text-center">
