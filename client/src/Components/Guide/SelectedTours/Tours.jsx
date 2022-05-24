@@ -12,28 +12,6 @@ export default function Tours(){
     const [showAddModal, setShowAddModal] = useState(false)
     const [totalTours, setTotalTours] = useState([])
     const [idGuide, setIdGuide] = useState('')
-    
-    const scrollRef = useRef()
-
-    const handleIncreasePage = () => {
-        scrollRef.current.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
-        setPage(prev => {
-            if(prev >= listTours.length - 2 ){
-                return prev
-            }
-            return prev + 1
-        })
-    }
-
-    const handleDecreasePage = () => {
-        scrollRef.current.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
-        setPage(prev => {
-            if(prev <= 1 ){
-              return prev
-            }
-            return prev - 1
-        })
-    }
 
     // Decode Token
     const parseJwt = (token) => {
@@ -53,7 +31,10 @@ export default function Tours(){
         axios.get(`http://localhost:8000/api/user/guider/tour-guide`,{
             headers: {authorization: localStorage.getItem('token')}
         })
-        .then((res) => console.log(res))
+        .then((res) => {
+            console.log(res)
+            setListTours(res.data.data.id_detail_tour)
+        })
         .catch(err => console.log(err))
     },[])
 

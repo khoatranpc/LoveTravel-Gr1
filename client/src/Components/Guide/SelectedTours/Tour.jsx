@@ -25,38 +25,6 @@ export default function Tour({data, order}){
     const [showDialogConfirm, setShowDialogConfirm] = useState(false)
 
     const day = new Date(dayUpdate)
-    const nav = useNavigate()
-
-    const deleteTour = () => {
-        setShowDialogConfirm(!showDialogConfirm)
-    }
-    const hanleDeleteTour = () => {
-        const apiDelete = `http://localhost:8000/api/tour/delete/${data._id}`
-        axios.delete(apiDelete,{
-            headers: {authorization: localStorage.getItem('token')}
-        })
-        .then(res => {
-            console.log(res);
-            window.location.reload(true)
-        })
-        .catch(err => console.error(err))
-    }
-
-    const handleUpdateTour = () => {
-        const apiUpdate = `http://localhost:8000/api/tour/update/${data._id}`
-        axios.put(apiUpdate,
-            {
-                "tourName": tourName
-            },
-            {
-            headers: {authorization: localStorage.getItem('token')}
-        })
-        .then(res => {
-            console.log("Update thanh cong:", res);
-            window.location.reload(true)
-        })
-        .catch(err => console.error(err))
-    }
 
     return (
         <div>

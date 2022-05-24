@@ -22,7 +22,6 @@ export default function Tours(){
             })
             .then((res) => {
                 setListTours(res.data.data)
-                console.log(res.data);
             })
             .catch((err) => {
                 console.log(err)
