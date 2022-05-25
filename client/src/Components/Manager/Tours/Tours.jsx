@@ -47,7 +47,6 @@ export default function Tours(){
             })
             .then((res) => {
                 setListTours(res.data.data)
-                return res
             })
             .catch((err) => {
                 console.log(err)
@@ -86,7 +85,7 @@ export default function Tours(){
 
     return (<div className="grid wide">
         <div className={clsx(styles.wrapSearch)}>
-            <input type="search" placeholder="Tìm kiếm"
+            <input type="search" placeholder="Tìm kiếm tour ..."
                 className={clsx(styles.inputSearch)}
                 onChange={e => setValueSearch(e.target.value)}
              />

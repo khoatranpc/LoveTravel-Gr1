@@ -1,5 +1,6 @@
 import clsx from 'clsx'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
+import axios from 'axios'
 
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -7,6 +8,7 @@ import styles from "../Guide.module.scss"
 
 export default function Header(){
   const [toggleMenu, setToggleMenu] = useState(false)
+  const [page, setPage] = useState(1)
     const navigate = useNavigate()
     const handleLogout = () => {
         localStorage.removeItem('token')

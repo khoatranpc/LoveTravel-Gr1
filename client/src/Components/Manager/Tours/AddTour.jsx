@@ -58,9 +58,9 @@ export default function AddTour({totalTours}){
         })
     }
 
-    useEffect(() => {
-        console.log(sendData);
-    },[sendData])
+    // useEffect(() => {
+    //     console.log(sendData);
+    // },[sendData])
 
     return (
         <>

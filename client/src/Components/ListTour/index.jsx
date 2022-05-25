@@ -7,8 +7,9 @@ import logo from './logo.png'
 import Tour from './Tour'
 import styles from "./LisTour.module.scss"
 
-const apiTours = "http://localhost:8000/api/tour/get-all-tour"
+
 export default function ListTour(){
+    const apiTours = "http://localhost:8000/api/tour/get-all-tour"
     const [scrollTop, setScrollTop] = useState(false)
     const [listTours, setListTours] = useState([])
     const [valueSearch, setValueSearch] = useState('')
@@ -51,21 +52,38 @@ export default function ListTour(){
     }
 
     // Phân trang
+    // useEffect(() => {
+    //     // Call api
+    //     const getTours = (page) => {
+    //         axios.get(apiTours, {
+    //             params: { page: page },
+    //         })
+    //         .then((res) => {
+    //             setListTours(res.data.data)
+    //             return res;
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         });
+    //       };
+    //       getTours(page);
+
+    // }, [page])
+
     useEffect(() => {
         // Call api
-        const getTours = (page) => {
-            axios.get(apiTours, {
+        function getTours(page) {
+            axios.get("http://localhost:8000/api/admin/admin-controller/get-all-tour", {
                 params: { page: page },
             })
             .then((res) => {
                 setListTours(res.data.data)
-                return res;
             })
             .catch((err) => {
-                console.log(err);
-            });
-          };
-          getTours(page);
+                console.log(err)
+            })
+        }
+        getTours(page)
 
     }, [page])
 
@@ -91,13 +109,22 @@ export default function ListTour(){
         }
     },[valueSearch])
 
+    const goBack = () => {
+        window.history.back();
+    }
     return <>
             <header>
                 <div className={clsx("grid wide", styles.header)}>
                     <nav className="row" >
-                        <Link to="/home" id={clsx(styles.logo)}className="col l-1"  >
+                        {/* <Link to="/home" id={clsx(styles.logo)}className="col l-1"  >
                             <img src={logo} />
-                        </Link>
+                        </Link> */}
+
+                        <div id={clsx(styles.logo)}className="col l-1" 
+                            onClick={goBack}
+                        >
+                            <img src={logo} />
+                        </div>
 
                         <div className={clsx("row col l-2" ,styles.navRight)}>
                         </div>

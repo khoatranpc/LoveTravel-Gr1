@@ -32,7 +32,6 @@ export default function Tours(){
             headers: {authorization: localStorage.getItem('token')}
         })
         .then((res) => {
-            console.log(res)
             setListTours(res.data.data.id_detail_tour)
         })
         .catch(err => console.log(err))

@@ -31,6 +31,7 @@ export default function Tour({data, order}){
     const [showModal, setShowModal] = useState(false)
     const [showDialogConfirm, setShowDialogConfirm] = useState(false)
     const [showToast, setShowToast] = useState(false)
+    const [toastTittle, setToastTittle] = useState("Thông báo")
     const [toastMsg, setToastMsg] = useState("Dữ liệu không hợp lệ")
     
     // Get list guides
@@ -60,10 +61,20 @@ export default function Tour({data, order}){
             headers: {authorization: localStorage.getItem('token')}
         })
         .then(res => {
-            console.log(res);
+            // console.log(res);
             window.location.reload(true)
         })
-        .catch(err => console.error(err))
+        .catch(err =>{
+            console.error(err)
+            setToastTittle("Xóa tour thất bại")
+            setToastMsg("Chỉ xóa khi trạng thái Pending...")
+            setShowToast(true)
+            setTimeout(() => {
+                setShowToast(false)
+                setToastMsg("Dữ liệu không hợp lệ")
+                setToastTittle("Thông báo")
+            }, 3000)
+        })
     }
 
     const getDataSend = (e) => {
@@ -73,7 +84,7 @@ export default function Tour({data, order}){
         })
     }
 
-     // Show modal
+     // Show modal detail
     const handleShowDetail = () => {
         setIdTour(data._id)
         setShowModal(true)
@@ -90,7 +101,6 @@ export default function Tour({data, order}){
             setDateBeginTour(res.data.tour.id_detail_Tour.date_begin_tour.slice(0, 10))
             setDateEndTour(res.data.tour.id_detail_Tour.date_end_tour.slice(0, 10))
             setReviewsTour(res.data.tour.id_detail_Tour.reviews_tour)
-            console.log("Detail:", res);
         })
         .catch(err => console.log(err))
    }
@@ -145,8 +155,8 @@ export default function Tour({data, order}){
 
     // Update guide
     const updateGuide = () => {
-        console.log("ID guide: ", guide.id);
-        console.log("ID tour: ", idTour);
+        // console.log("ID guide: ", guide.id);
+        // console.log("ID tour: ", idTour);
         axios.put(`http://localhost:8000/api/tour/add-Tour-Guide/${idTour}`,
         {
             "id_guide": guide.id
@@ -155,8 +165,10 @@ export default function Tour({data, order}){
             headers: {authorization: localStorage.getItem('token')}
         })
         .then(res => {
-            console.log("Success");
             setToastMsg("Thêm thành công")
+            setTimeout(() => {
+                window.location.reload(true)
+            },2000)
             setShowToast(true)
             setTimeout(() => {
                 setShowToast(false)
@@ -164,7 +176,9 @@ export default function Tour({data, order}){
             }, 3000)
         })
         .catch(err => {
-            setToastMsg(err.response.data.message)
+            // setToastMsg(err.response.data.message)
+            console.log(err.response.data);
+            setToastMsg("Người dẫn tour trùng lịch")
             setShowToast(true)
             setTimeout(() => {
                 setShowToast(false)
@@ -180,7 +194,7 @@ export default function Tour({data, order}){
         if(begin <= end){
             updateTour()
             updateDetailTour()
-            // window.location.reload(true)
+            window.location.reload(true)
         }else{
             setShowToast(true)
             setTimeout(() => {
@@ -196,17 +210,13 @@ export default function Tour({data, order}){
             headers: {authorization: localStorage.getItem('token')}
         })
         .then(res => {
-            // setGuide({
-            //     ...guide,
-            //     name: res.data.data.id_user.name,
-            // })
+            setGuide({
+                ...guide,
+                name: res.data.data.id_user.name
+            })
         })
         .catch(err => {
-            console.log(err);
-            // setShowToast(true)
-            // setTimeout(() => {
-            //     setShowToast(false)
-            // }, 3000)
+            // console.log(err);
         })
    },[])
 
@@ -214,7 +224,7 @@ export default function Tour({data, order}){
     return (<>
     {/* Toast */}
     {
-        showToast && <Toast desc={toastMsg} />
+        showToast && <Toast title={toastTittle} desc={toastMsg} />
     }
     {/* Content */}
         <div>

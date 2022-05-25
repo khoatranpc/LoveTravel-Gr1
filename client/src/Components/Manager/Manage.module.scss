@@ -76,8 +76,8 @@ nav{
     input{
         width: 500px;
         padding: 8px 16px;
-        border: 1px solid #333;
-        border-radius: 12px;
+        border: 1px solid $primaryColor;
+        border-radius: 24px;
         font-size: 16px;
         &:focus{
             outline: 1px solid $primaryColor;
@@ -485,8 +485,9 @@ nav{
         font-size: 16px;
         letter-spacing: 1px;
         color: #fff;
-        background-color: #007bff;
-        border-color: #007bff;
+        border-radius: 24px;
+        background-color: $primaryColor;
+        border-color: $primaryColor;
     }
     padding-bottom: 8px;
 }

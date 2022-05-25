@@ -104,7 +104,7 @@ export default function Accounts(){
                         [styles.active]: isListAccounts
                     })}
                 >
-                    Danh sách tài khoản
+                    Danh sách người dùng
                 </button>
             </div>
             {/* Authorize */}

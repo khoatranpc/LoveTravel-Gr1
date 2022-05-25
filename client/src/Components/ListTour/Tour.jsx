@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import {memo, useState, useLayoutEffect, useMemo} from 'react'
+import axios from 'axios'
 
 import styles from "./LisTour.module.scss"
 
@@ -8,7 +9,19 @@ function Tour({data}){
     const [statusBuy, setStatusBuy] = useState(false)
     const [showIntro, setShowInTro] = useState(false)
     const [showModal, setShowModal] = useState(false)
+    const [detailTour, setDetailTour] = useState({})
     const totalPrice = amount * data.price
+    let dayBegin, dayEnd
+    if(typeof detailTour.date_begin_tour === 'string'){
+        let formatDayBegin = new Date(detailTour.date_begin_tour.slice(0,10)) 
+        dayBegin = formatDayBegin.getDate() + '/' + (formatDayBegin.getMonth() + 1) + '/' +  formatDayBegin.getFullYear()
+        
+        let formatDayEnd = new Date(detailTour.date_end_tour.slice(0,10)) 
+        dayEnd = formatDayEnd.getDate() + '/' + (formatDayEnd.getMonth() + 1) + '/' +  formatDayEnd.getFullYear()
+    }
+
+
+    // Handle set amount
     useLayoutEffect(() => {
         if(amount < 0){
             setAmount(0)
@@ -20,6 +33,15 @@ function Tour({data}){
         
     }, [amount])
 
+
+    // Get detail tour
+    useLayoutEffect(() => {
+        axios.get(`http://localhost:8000/api/tour/detail/${data._id}`)
+        .then(res => {
+            setDetailTour(res.data.tour.id_detail_Tour)
+        })
+        .catch(err => console.log(err))
+    },[])
 
     const increaseAmount = () => {
         !statusBuy && setAmount(amount + 1)
@@ -50,7 +72,7 @@ function Tour({data}){
                 <p>Địa điểm: {data.place}</p>
                 <p>Giá: {data.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
                 <p>Thể loại: {data.typeTour}</p>
-                <div>Số lượng tour: {data.maxCustomer}</div>
+                <p>Khởi hành: {dayBegin}</p>
             </div>
             <button
                 onClick={() => setShowModal(true)}
@@ -89,12 +111,17 @@ function Tour({data}){
                             <img  src={data.image} alt="img" />
                                 <p><b>Địa điểm: </b>{data.place}</p>
                                 <p><b>Thể loại: </b>{data.typeTour}</p>
-                                <p><b>Nhà cung cấp: </b>{data.supplierTour}</p>
                                 <p><b>Giới thiệu: </b>{data.intro}</p>
                             </div>
                         </div>
 
                         <div className={clsx("l-6 m-6 c-12")}>
+                            <p><b>Ngày bắt đầu: </b>
+                                <mark>{dayBegin}</mark>
+                            </p>
+                            <p><b>Ngày kết thúc: </b>
+                                <mark>{dayEnd}</mark>
+                            </p>
                             <p><b>Số lượng tour: </b>{data.maxCustomer}</p>
                             <p><b>Trạng thái tour: </b>{data.status}</p>
                             <p><b>Giá: </b>{data.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>

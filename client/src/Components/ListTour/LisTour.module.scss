@@ -371,13 +371,6 @@ select{
                 &:hover{
                     opacity: 0.8;
                     transform: rotate(90deg);
-                    i{
-                        color: $primaryColor;
-                    }
-                }
-                i{
-                    font-size: 28px;
-                    color: #333;
                 }
             }
         }
@@ -433,6 +426,11 @@ select{
         .btnBuy{
             @include button;
         }
+
+        mark{
+            letter-spacing: 2px;
+            margin-left: 8px;
+        }
     }
 }
 
@@ -446,5 +444,36 @@ select{
     to{
         opacity: 1;
         transform: translateX(0);
+    }
+}
+
+
+@media screen and (max-width: 740px) {
+    .modalTour{
+        max-height: 100vh !important;
+        min-width: 100% !important;
+        .closeBtn{
+            margin: 12px 0;
+            svg{
+                width: 36px;
+                height: 36px;
+            }
+        }
+        h1{
+            text-align: left;
+            margin-bottom: 4px;
+        }
+      
+        .tourIntro, p, mark, span{
+            font-size: 24px;
+        }
+        button{
+            min-height: 42px !important;
+            min-width: 42px !important;
+        }
+        .btnBuy{
+            font-size: 24px !important;
+            letter-spacing: 2px !important;
+        }
     }
 }

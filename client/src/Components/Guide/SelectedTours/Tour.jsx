@@ -1,7 +1,5 @@
-
-
 import clsx from 'clsx'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
@@ -20,11 +18,25 @@ export default function Tour({data, order}){
     const [supplierTour, setSupplierTour] = useState(data.supplierTour)
     const [tourName, setTourName] = useState(data.tourName)
     const [typeTour, setTypeTour] = useState(data.typeTour)
-
+    const [detailTour, setDetailTour] = useState({})
     const [showModal, setShowModal] = useState(false)
-    const [showDialogConfirm, setShowDialogConfirm] = useState(false)
 
-    const day = new Date(dayUpdate)
+    let dayBegin, dayEnd
+    if(typeof detailTour.date_begin_tour === 'string'){
+        let formatDayBegin = new Date(detailTour.date_begin_tour.slice(0,10)) 
+        dayBegin = formatDayBegin.getDate() + '/' + (formatDayBegin.getMonth() + 1) + '/' +  formatDayBegin.getFullYear()
+        
+        let formatDayEnd = new Date(detailTour.date_end_tour.slice(0,10)) 
+        dayEnd = formatDayEnd.getDate() + '/' + (formatDayEnd.getMonth() + 1) + '/' +  formatDayEnd.getFullYear()
+    }
+    useEffect(() => {
+        axios.get(`http://localhost:8000/api/tour/detail/${data._id}`)
+        .then(res => {
+            console.log(res);
+            setDetailTour(res.data.tour.id_detail_Tour)
+        })
+        .catch(err => console.log(err))
+    },[])
 
     return (
         <div>
@@ -37,8 +49,12 @@ export default function Tour({data, order}){
                     <p>Tên tour: {data.tourName}</p>
                     <b>Đơn giá: {data.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</b>
                     <p>Số khách hiện tại: {data.currenCustomer}</p>
-                    {/* <p>Ngày cập nhật: {data.dayUpdate.slice(0, 10)}</p> */}
-                    <p>Ngày dẫn: {data.dayUpdate.slice(0, 10)}</p>
+                    <p>Ngày dẫn: 
+                        <mark>{dayBegin} </mark>
+                    </p>
+                    <p>Ngày kết thúc: 
+                        <mark>{dayEnd} </mark>
+                    </p>
                 </div>
 
                 <div className={clsx("l-2", styles.wrapBtns)}>
@@ -67,7 +83,7 @@ export default function Tour({data, order}){
                                     <div className={clsx(styles.row)}>
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Tên tour: </label>
-                                            <input type="text" className={clsx(styles.formControl)} 
+                                            <input readOnly type="text" className={clsx(styles.formControl)} 
                                                 onChange={e => setTourName(e.target.value)}
                                                 value={tourName}
                                             />
@@ -75,7 +91,7 @@ export default function Tour({data, order}){
     
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Địa điểm: </label>
-                                            <input type="text" className={clsx(styles.formControl)}
+                                            <input readOnly type="text" className={clsx(styles.formControl)}
                                                 onChange={e => setPlace(e.target.value)}
                                                 value={place}  />
                                         </div>
@@ -84,7 +100,7 @@ export default function Tour({data, order}){
                                     <div className={clsx(styles.row)}>
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Số khách hiện tại: </label>
-                                            <input  type="number" className={clsx(styles.formControl)} 
+                                            <input readOnly  type="number" className={clsx(styles.formControl)} 
                                                 onChange={e => setCurrentCustomer(e.target.value)}
                                                 value={currentCustomer}
                                             />
@@ -92,7 +108,7 @@ export default function Tour({data, order}){
     
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Thể loại: </label>
-                                            <input type="text" className={clsx(styles.formControl)}
+                                            <input readOnly type="text" className={clsx(styles.formControl)}
                                                 onChange={e => setTypeTour(e.target.value)}
                                                 value={typeTour}
                                             />
@@ -102,14 +118,14 @@ export default function Tour({data, order}){
                                     <div className={clsx(styles.row)}>
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Nhà cung cấp: </label>
-                                            <input type="text" className={clsx(styles.formControl)} 
+                                            <input readOnly type="text" className={clsx(styles.formControl)} 
                                                 onChange={e => setSupplierTour(e.target.value)}
                                                 value={supplierTour} />
                                         </div>
     
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Đơn giá: </label>
-                                            <input type="number" className={clsx(styles.formControl)}
+                                            <input readOnly type="number" className={clsx(styles.formControl)}
                                                 onChange={e => setPrice(e.target.value)}
                                             value={price}  />
                                         </div>
@@ -118,14 +134,14 @@ export default function Tour({data, order}){
                                     <div className={clsx(styles.row)}>
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Trạng thái: </label>
-                                            <input type="text" className={clsx(styles.formControl)}
+                                            <input readOnly type="text" className={clsx(styles.formControl)}
                                                 onChange={e => setStatus(e.target.value)}
                                             value={status}  />
                                         </div>
     
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Số lượng tối đa:</label>
-                                            <input
+                                            <input readOnly
                                                 onChange={e => setMaxCustomer(e.target.value)}
                                             value={maxCustomer} type="number" className={clsx(styles.formControl)} />
                                         </div>
