@@ -48,9 +48,7 @@ function Suggest(){
                 params: { page: page },
             })
             .then((res) => {
-                console.log(res.data.data);
                 setListTours(res.data.data)
-                return res;
             })
             .catch((err) => {
                 console.log(err);

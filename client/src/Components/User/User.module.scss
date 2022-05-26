@@ -38,6 +38,11 @@ $primaryColor: #f69d3c;
         margin-left: 10px;
         cursor: pointer;
     }
+
+    h1{
+        font-size: 42px;
+        letter-spacing: 1px;
+    }
     
 }
 
@@ -66,4 +71,68 @@ button{
     border-color: #007bff;
     letter-spacing:1px;
     border-radius: 20px;
+}
+
+.btnAddBanking{
+    @extend button;
+    display: block;
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    padding: 6px 50px;
+    margin-top: 24px;
+}
+
+
+@media screen and (max-width: 1023px) {
+    nav{
+        padding: 0 32px;
+    }
+    *{
+        font-size: 24px;
+    }
+    .formContainer{
+        h1{
+            font-size: 32px;
+        }
+
+        .formControl{
+            width: 100% !important;
+        }
+    }
+
+    .btnAddBanking{
+        width: 100%;
+        border-radius: 12px;
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 740px){
+    .formContainer{
+        padding-left: 12px;
+        padding-right: 12px;
+        h1{
+            font-size: 36px!important;
+        }
+    }
+    .avatar{
+        max-height: 100%;       
+        padding-top: 80px;
+    }
+
+    .formGroup{
+        font-size: 24px!important;
+    }
+
+    .formControl{
+        font-size: 22px !important;
+    }
+
+    .btnUpdateAccount{
+        padding: 16px;
+        margin-top: 12px;
+        font-size: 22px;
+        letter-spacing: 2px;
+    }
 }

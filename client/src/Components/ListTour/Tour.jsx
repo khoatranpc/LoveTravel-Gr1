@@ -51,15 +51,31 @@ function Tour({data}){
         !statusBuy && setAmount(amount - 1)
     }
 
-    const submitAmount = () => {
+
+    // Đặt tour
+    const bookTour = () => {
+        setStatusBuy(!statusBuy)
         if(!statusBuy){
             setAmount(0)
         }
-        console.log({
-            id: data._id,
-            quantity_user: amount,
-        });
-        setStatusBuy(!statusBuy)
+        if(amount > 0){
+            console.log("Log: ", {
+                id: data._id,
+                quantity_user: amount,
+            });
+
+           axios.post(`http://localhost:8000/api/user/current-user/booktour/${data._id}/${amount}`,
+            {
+                headers: {authorization: localStorage.getItem('token')}
+            }
+           )
+           .then(res => {
+               console.log(res);
+           })
+           .catch(err => {
+               console.log(err);
+           })
+        }
     }
 
     return(<>
@@ -134,7 +150,7 @@ function Tour({data}){
                             </div>
 
                             <button
-                                onClick={submitAmount}
+                                onClick={bookTour}
                                 className={clsx(styles.btnBuy, {
                                     [styles.active]: statusBuy
                                 })}

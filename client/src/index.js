@@ -26,6 +26,7 @@ import GuideAccountSelectedTours from './Components/Guide/SelectedTours'
 import User from './Components/User';
 import UserBookedTours from './Components/User/BookedTours'
 import UserAccount from './Components/User/Account'
+import UserBanking from './Components/User/Banking'
 
 import {OtpProvider} from './Contexts/OtpContext'
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -68,10 +69,11 @@ root.render(
             </Route>
 
           {/* User */}
-          <Route path='/user'>
+            <Route path='/user'>
               <Route path='' element={<User />}/>
               <Route path='account' element={<UserAccount />}/>
               <Route path='bookedTours' element={<UserBookedTours />}/>
+              <Route path='banking' element={<UserBanking />} />
             </Route>
 
             <Route path='/listTour' element={<ListTour />} />

@@ -9,8 +9,8 @@ export default function Toast({type = 'error', title='Thông báo', desc='Lỗi'
         <div className={clsx(styles.toastContainer)}>
             <div id={clsx(styles.toast)}>
                <div className={clsx(styles.toast, {
-                   [styles.toast__success] : type == 'success',
-                   [styles.toast__error] : type == 'error'
+                   [styles.toast__success] : type === 'success',
+                   [styles.toast__error] : type === 'error'
                })}>
                     <div className={clsx(styles.toast__body)}>
                         <h3 className={clsx(styles.toast__title)}>{title}</h3>

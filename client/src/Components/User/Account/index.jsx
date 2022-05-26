@@ -22,23 +22,31 @@ export default function Account(){
     const [phoneMsg, setPhoneMsg] = useState('');
 
     const [showToast, setShowToast] = useState(false)
+
+    // Get data user
     useEffect(() => {
-        
-        const api = `http://localhost:8000/api/user/current-user`
-        axios.get(api,
-            {
-            headers: {authorization: localStorage.getItem('token')}
-        })
-        .then(res => {
-            setName(res.data.data.name)
-            setBirth(res.data.data.birth.slice(0, 10))
-            setGender(res.data.data.gender)
-            setAddress(res.data.data.address)
-            setIdentify(res.data.data.indentify)
-            setEmail(res.data.data.email)
-            setPhone(res.data.data.phone)
-        })
-        .catch(err => console.error(err))
+       const timerId = setTimeout(() => {
+            const api = `http://localhost:8000/api/user/current-user`
+            axios.get(api,
+                {
+                headers: {authorization: localStorage.getItem('token')}
+            })
+            .then(res => {
+                console.log(res.data);
+                setName(res.data.data.name)
+                setBirth(res.data.data.birth.slice(0, 10))
+                setGender(res.data.data.gender)
+                setAddress(res.data.data.address)
+                setIdentify(res.data.data.indentify)
+                setEmail(res.data.data.email)
+                setPhone(res.data.data.phone)
+            })
+            .catch(err => console.error(err))
+       }, 1000)
+
+       return () => {
+           clearTimeout(timerId)
+       }
     },[])
 
     const validateInputs = () => {
@@ -94,7 +102,7 @@ export default function Account(){
                         <img className={clsx(styles.avatar)} src={avatar} alt="avatar" />
                     </div>
 
-                    <div className={clsx("col l-8 m-8 c-12", styles.formContainer)}>
+                    <div className={clsx("col l-8 m-7 c-12", styles.formContainer)}>
                         <h1 className="text-center brand-name">Thông tin cá nhân</h1>
                         {/* Họ tên */}
                         <div className={clsx(styles.formGroup)}>
@@ -188,7 +196,7 @@ export default function Account(){
                         <span className={clsx(styles.formMsg, styles.formMsgError)}>{phoneMsg}</span>
                     </div>
 
-                    <div className="col l-2 m-2 c-12">
+                    <div className="col l-2 m-3 c-12">
                         <button 
                         onClick={handleUpdate}
                         className={clsx(styles.btnUpdateAccount)} >Cập nhật

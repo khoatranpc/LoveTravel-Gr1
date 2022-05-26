@@ -153,38 +153,47 @@ export default function Tour({data, order}){
         })
     }
 
+    // Toast error
+    const toastError = (msg) => {
+        setToastMsg(msg)
+        setShowToast(true)
+        setTimeout(() => {
+            setShowToast(false)
+            setToastMsg("Dữ liệu không hợp lệ")
+        }, 3000)
+    }
+
     // Update guide
     const updateGuide = () => {
         // console.log("ID guide: ", guide.id);
         // console.log("ID tour: ", idTour);
-        axios.put(`http://localhost:8000/api/tour/add-Tour-Guide/${idTour}`,
-        {
-            "id_guide": guide.id
-        },
-        {
-            headers: {authorization: localStorage.getItem('token')}
-        })
-        .then(res => {
-            setToastMsg("Thêm thành công")
-            setTimeout(() => {
-                window.location.reload(true)
-            },2000)
-            setShowToast(true)
-            setTimeout(() => {
-                setShowToast(false)
-                setToastMsg("Dữ liệu không hợp lệ")
-            }, 3000)
-        })
-        .catch(err => {
-            // setToastMsg(err.response.data.message)
-            console.log(err.response.data);
-            setToastMsg("Người dẫn tour trùng lịch")
-            setShowToast(true)
-            setTimeout(() => {
-                setShowToast(false)
-                setToastMsg("Dữ liệu không hợp lệ")
-            }, 3000)
-        });
+        if(status === 'Ending'){
+            toastError("Tour đã kết thúc")
+        }else{
+            axios.put(`http://localhost:8000/api/tour/add-Tour-Guide/${idTour}`,
+            {
+                "id_guide": guide.id
+            },
+            {
+                headers: {authorization: localStorage.getItem('token')}
+            })
+            .then(res => {
+                setToastMsg("Thêm thành công")
+                // setTimeout(() => {
+                //     window.location.reload(true)
+                // },1500)
+                setShowToast(true)
+                setTimeout(() => {
+                    setShowToast(false)
+                    setToastMsg("Dữ liệu không hợp lệ")
+                }, 3000)
+            })
+            .catch(err => {
+                // setToastMsg(err.response.data.message)
+                console.log(err.response.data)
+                toastError("Người dẫn tour trùng lịch")
+            });
+        }
     }
 
     // Handle update tour
@@ -387,7 +396,6 @@ export default function Tour({data, order}){
                                                     getDataSend(e)
                                                     setStatus(e.target.options[e.target.selectedIndex].value)
                                                 }}
-                                                value={typeTour}
                                             >   
                                                 <option value={status}>{status}</option>
                                                 <option value="Pending">Pending</option>
