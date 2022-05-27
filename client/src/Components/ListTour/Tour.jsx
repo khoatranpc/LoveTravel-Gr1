@@ -7,13 +7,13 @@ import Toast from '../Toast'
 
 function Tour({data}){
     const [amount, setAmount] = useState(0)
-    const [statusBuy, setStatusBuy] = useState(false)
     const [showToast, setShowToast] = useState(false)
     const [toastMsg, setToastMsg] = useState("Đặt tour thất bại")
     const [toastType, setToastType] = useState("error")
     const [showIntro, setShowInTro] = useState(false)
     const [showModal, setShowModal] = useState(false)
     const [detailTour, setDetailTour] = useState({})
+    const [currentCustomer, setCurrentCustomer] = useState(data.currentCustomer)
     const [showDialogConfirm, setShowDialogConfirm] = useState(false)
     const totalPrice = amount * data.price
 
@@ -28,12 +28,9 @@ function Tour({data}){
         }, 3000)
     }
 
-    const toastError = () => {
-        setToastMsg("Đặt tour thất bại")
+    const toastError = (msg = "Đặt tour thất bại") => {
+        setToastMsg(msg)
         setShowToast(true)
-        setTimeout(() => {
-            setToastMsg("Số tiền không đủ")
-        }, 1000)
         setTimeout(() => {
             setShowToast(false)
         }, 4000)
@@ -71,11 +68,11 @@ function Tour({data}){
     },[])
 
     const increaseAmount = () => {
-        !statusBuy && setAmount(amount + 1)
+        setAmount(amount + 1)
     }
 
     const decreaseAmount = () => {
-        !statusBuy && setAmount(amount - 1)
+        setAmount(amount - 1)
     }
 
 
@@ -84,11 +81,12 @@ function Tour({data}){
         axios.post(`http://localhost:8000/api/user/current-user/booktour/${data._id}/${amount}`,{
         },
          {
-             headers: {Authorization: localStorage.getItem('token')}
+            headers: {Authorization: localStorage.getItem('token')}
          }
         )
         .then(res => {
             // console.log(res);
+            setCurrentCustomer(amount)
             toastSuccess();
         })
         .catch(err => {
@@ -98,9 +96,14 @@ function Tour({data}){
     }
 
     const bookTour = () => {
-        if(amount > 0){
-            setShowDialogConfirm(true)
+        if(data.status === 'Pending' || data.status === 'Ending'){
+            toastError("Tour chưa sẵn sàng hoặc đã kết thúc")
+        }else{
+            if(amount > 0){
+                setShowDialogConfirm(true)
+            }
         }
+        
     }
 
     const handleBookTour = () => {
@@ -172,7 +175,7 @@ function Tour({data}){
                             <mark>{dayEnd}</mark>
                         </p>
                         <p><b>Số lượng tour: </b>{data.maxCustomer}</p>
-                        <p><b>Số khách hiện tại: </b>{data.currentCustomer}</p>
+                        <p><b>Số khách hiện tại: </b>{currentCustomer}</p>
                         <p><b>Trạng thái tour: </b>{data.status}</p>
                         <p><b>Giá: </b>{data.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
                         <p><b>Tổng: </b>{totalPrice.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</p>
@@ -185,11 +188,9 @@ function Tour({data}){
 
                         <button
                             onClick={bookTour}
-                            className={clsx(styles.btnBuy, {
-                                [styles.active]: statusBuy
-                            })}
+                            className={clsx(styles.btnBuy)}
                         >
-                        {statusBuy && `Hủy tour ` || 'Đặt tour' } 
+                            Đặt tour
                         </button>
                     </div>
                 </div>

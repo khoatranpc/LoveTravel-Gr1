@@ -158,7 +158,7 @@ button{
         box-shadow: 1px 1px 8px rgba(0,0,0,0.2);
         overflow-y: scroll;
         @include scroll;
-
+       
         .closeBtn{
             position: absolute;
             top: 1px;
@@ -234,6 +234,15 @@ button{
         }
     }
 
+}
+
+p{
+    margin-bottom: 12px;
+    margin-right: 0!important;
+    margin-left: 0!important;
+}
+mark{
+    padding-left: 4px;
 }
 
 textarea{

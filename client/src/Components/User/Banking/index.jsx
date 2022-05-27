@@ -33,7 +33,7 @@ export default function Banking(){
         }, 3000)
     }
 
-    const toastError  = () => {
+    const toastError = () => {
         setToastMsg("Thêm ngân hàng thất bại")
         setShowToast(true)
         setTimeout(() => {
