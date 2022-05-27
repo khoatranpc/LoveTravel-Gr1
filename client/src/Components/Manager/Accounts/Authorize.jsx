@@ -84,13 +84,13 @@ export default function Authorize({data, index}){
             <div className="col l-1 m-1 c-0 text-center">
                 {index + 1}
             </div>
-            <div className="col l-9 m-9 c-8 text-center">
+            <div className="col l-9 m-9 c-9 text-center">
                 <div className={clsx(styles.wrapInfoAccount)}>
                     <div className="l-6 m-6 c-6">{data.username}</div>
                     <div className="l-6 m-6 c-6">{data.role}</div>
                 </div>
             </div>
-            <div className={clsx("col l-2 m-2 c-2 text-center", styles.wrapButtons)}>
+            <div className={clsx("col l-2 m-2 c-3 text-center", styles.wrapButtons)}>
                 <button onClick={handleShowModalAuthorize}>Chọn</button>
             </div>
 

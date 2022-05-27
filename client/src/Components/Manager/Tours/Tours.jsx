@@ -81,8 +81,6 @@ export default function Tours(){
         setShowAddModal(!showAddModal)
     }
 
-
-
     return (<div className="grid wide">
         <div className={clsx(styles.wrapSearch)}>
             <input type="search" placeholder="Tìm kiếm tour ..."
@@ -105,11 +103,11 @@ export default function Tours(){
            <div>
                 <ul ref={scrollRef}>
                     <li className={clsx("row", styles.tourItem)}>
-                        <div className="col l-1">STT</div>
-                        <div className="col l-9">
+                        <div className="col l-1 m-1 c-0">STT</div>
+                        <div className="col l-9 m-9 c-0">
                            <div>Thông tin</div>
                         </div>
-                        <div className="col l-2">
+                        <div className="col l-2 m-2 c-0">
                            <span>Tùy chọn</span>
                         </div>
                     </li>

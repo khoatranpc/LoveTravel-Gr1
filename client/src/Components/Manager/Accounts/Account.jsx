@@ -123,7 +123,7 @@ export default function Account({data, index}){
             <ul className={clsx(styles.tableInfo)}>
                 <li className={clsx("row", styles.accountItem)}>
                     <div className="l-1 m-1 c-0 text-center"><span>STT</span></div>
-                    <div className="l-10 m-10 c-10 text-center">
+                    <div className="l-10 m-10 c-0 text-center">
                         <div className={clsx(styles.wrapInfoAccount)}>
                             <div className="l-1 m-1 c-1"><span>Họ tên</span></div>
                             <div className="l-1 m-1 c-1"><span>Giới tính</span></div>
@@ -133,7 +133,7 @@ export default function Account({data, index}){
                             <div className="l-2 m-2 c-2"><span>SĐT</span></div>
                         </div>
                     </div>
-                    <div className="l-1 m-1 c-1 text-center">
+                    <div className="l-1 m-1 c-0 text-center">
                         <span>Chi tiết</span>
                     </div>
                 </li>
@@ -143,18 +143,18 @@ export default function Account({data, index}){
                        return (
                         <li key={i} className={clsx("row", styles.accountItem)}>
                             <div className="l-1 m-1 c-0 text-center"><span>{i + 1}</span></div>
-                            <div className="l-10 m-10 c-10 text-center">
+                            <div className="l-10 m-10 c-12 text-center">
                                 <div className={clsx(styles.wrapInfoAccount)}>
                                     {console.log(account.id_user)}
-                                    <div className="l-1 m-1 c-1"><span>{account.id_user.name}</span></div>
-                                    <div className="l-1 m-1 c-1"><span>{account.id_user.gender == 'male' || account.id_user.gender === 'Male' ? 'Nam' : 'Nữ'}</span></div>
-                                    <div className="l-2 m-2 c-2"><span>{account.id_user.birth.slice(0, 10)}</span></div>
-                                    <div className="l-4 m-4 c-4"><span>{account.id_user.email}</span></div>
-                                    <div className="l-2 m-2 c-2"><span>{account.id_user.address}</span></div>
-                                    <div className="l-2 m-2 c-2"><span>{account.id_user.phone}</span></div>
+                                    <div className="l-1 m-1 c-12"><span>{account.id_user.name}</span></div>
+                                    <div className="l-1 m-1 c-0"><span>{account.id_user.gender == 'male' || account.id_user.gender === 'Male' ? 'Nam' : 'Nữ'}</span></div>
+                                    <div className="l-2 m-2 c-0"><span>{account.id_user.birth.slice(0, 10)}</span></div>
+                                    <div className="l-4 m-4 c-0"><span>{account.id_user.email}</span></div>
+                                    <div className="l-2 m-2 c-0"><span>{account.id_user.address}</span></div>
+                                    <div className="l-2 m-2 c-0"><span>{account.id_user.phone}</span></div>
                                 </div>
                             </div>
-                            <div className="l-1 m-1 c-1 text-center">
+                            <div className="l-1 m-1 c-12 text-center">
                                 <button className={clsx(styles.btnDetailAccount)}
                                     onClick={() => {handleShowDetail(account.id_user)}}
                                 >

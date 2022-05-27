@@ -137,7 +137,7 @@ export default function Accounts(){
                                                 <div className="l-6 m-6 c-6"><span >Role</span></div>
                                             </div>
                                         </div>
-                                        <div className="col l-2 m-2 c-2 text-center">
+                                        <div className="col l-2 m-2 c-3 text-center">
                                             <span>Phân quyền</span>
                                         </div>
                                     </li>

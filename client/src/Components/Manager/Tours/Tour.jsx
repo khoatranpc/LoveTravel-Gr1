@@ -238,8 +238,9 @@ export default function Tour({data, order}){
     {/* Content */}
         <div>
             <li className={clsx("row", styles.tourItem)}>
-                <div className="col l-1">{order + 1}</div>
-                <div className="col l-3">
+                <div className="col l-1 m-1 c-0">{order + 1}</div>
+
+                <div className="col l-3 m-3 c-12">
                     <img src={data.image} alt={data.tourName} />
                 </div>
                 <div className={clsx("col l-6 m-6 c-12", styles.tourInfo)}>
@@ -250,7 +251,7 @@ export default function Tour({data, order}){
                     <p>Ngày cập nhật: {data.dayUpdate.slice(0, 10)}</p>
                 </div>
 
-                <div className={clsx("l-2", styles.wrapBtns)}>
+                <div className={clsx("col l-2 m-2 c-12", styles.wrapBtns)}>
                         <button onClick={handleShowDetail}>Chi tiết</button>
                         <button onClick={deleteTour}>Xóa</button>
                 </div>

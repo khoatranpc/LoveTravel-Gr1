@@ -43,13 +43,10 @@ export default function Banking(){
 
     const handleAddBanking = () => {
         if(bankInfo.cardNumber.length > 8 && bankInfo.cardNumber.length <= 15) {
-            axios.post("http://localhost:8000/api/user/current-user/banking",bankInfo,
-            {
-                headers: {authorization: localStorage.getItem('token')}
-            },)
+            axios.post("http://localhost:8000/api/user/current-user/banking",bankInfo,{headers: {authorization: localStorage.getItem('token')}})
             .then(res => {
-                console.log(res);
-                    toastSuccess()
+                // console.log(res);
+                toastSuccess()
             })
             .catch(err => {
                 console.log(err);
@@ -59,8 +56,6 @@ export default function Banking(){
         else{
             toastError()
         }
-
-        
     }
 
     useEffect(() => {

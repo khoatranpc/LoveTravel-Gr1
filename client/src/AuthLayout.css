@@ -119,6 +119,48 @@ footer{
     cursor: no-drop;
 }
 
+
+.dialogConfirm{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 300px;
+    max-width: 800px;
+    background-color: #fff;
+    min-height: 260px;
+    max-height: 600px;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+    box-shadow: 1px 1px 8px rgba(0,0,0,0.2);
+    padding: 16px ;
+    overflow-y: scroll;
+    max-height: 150px;
+}
+.dialogConfirm > h2{
+    margin-top: 4px;
+}
+
+.dialogConfirm .confirmBtnGroup{
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dialogConfirm .confirmBtnGroup button:first-child{
+    color: #212529;
+    background-color: #ffc107;
+    border-color: #ffc107;
+    padding: 8px 18px;
+}
+
+.dialogConfirm .confirmBtnGroup button:last-child{
+    background-color: #dc3545;
+    border-color: #dc3545;
+    padding: 8px 18px;
+}
+
+
 @media screen and (max-width: 739px) {
     header{
         position: fixed !important;
