@@ -73,7 +73,9 @@ export default function Banking(){
                 })
                 setCurrentMoney(res.data.data.id_bank.currentMoney)
             })
-            .catch(err => console.error(err))
+            .catch(err => {
+                // console.error(err)
+            })
         }, 1000)
         return () => clearTimeout(timerId)
     },[])
@@ -89,7 +91,8 @@ export default function Banking(){
             
             <div className={clsx(styles.formContainer)}>
               {/* Save button */}
-              <h1 className="text-center brand-name">Ngân hàng</h1>
+              <h1 className="text-center brand-name">Ngân hàng
+              </h1>
             {/* Tên ngân hàng */}
             <div className={clsx(styles.formGroup)}>
                     <label htmlFor="bankName" className={clsx(styles.formLabel)}>Tên ngân hàng:</label>

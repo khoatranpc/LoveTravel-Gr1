@@ -58,7 +58,6 @@ export default function Account({data, index}){
     }
 
     const handleShowDetail = (acc) => {
-        console.log("ID: ", acc._id);
         setShowModal(true)
         setId(acc._id)
         setName(acc.name)
@@ -70,6 +69,7 @@ export default function Account({data, index}){
         setPhone(acc.phone)
     }
 
+    // Update account
     const handleUpdateAccount = (id) => {
         const birthday = new Date(birth)
         const now = new Date()
@@ -98,7 +98,12 @@ export default function Account({data, index}){
             .then(res =>{
                 window.location.reload(true)
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                setShowToast(true)
+                setTimeout(() =>
+                    setShowToast(false)
+                , 2000)
+            })
         }
     }
 
@@ -254,7 +259,7 @@ export default function Account({data, index}){
                                 {/* Email */}
                                 <div className={clsx(styles.formGroup)}>
                                     <label htmlFor="email" className={clsx(styles.formLabel)}>Email:</label>
-                                    <input id="email" type="email" name="registerEmail" placeholder="VD: daotai123@gmail.com"
+                                    <input readOnly id="email" type="email" name="registerEmail" placeholder="VD: daotai123@gmail.com"
                                         className={clsx(styles.formControl)}
                                         value={email}
                                         onChange={e => setEmail(e.target.value.trim())}
@@ -264,7 +269,7 @@ export default function Account({data, index}){
                                 {/* Phone */}
                                 <div className={clsx(styles.formGroup)}>
                                     <label htmlFor="Phone" className={clsx(styles.formLabel)}>Số điện thoại:</label>
-                                    <input id="Phone" type="number" 
+                                    <input readOnly id="Phone" type="number" 
                                         className={clsx(styles.formControl)}
                                         value={phone}
                                         onChange={e => setPhone(e.target.value.trim())}

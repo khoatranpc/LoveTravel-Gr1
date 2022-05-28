@@ -67,7 +67,9 @@ export default function BookedTours(){
             setPrice(res.data.tour.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}))
             setDetailTour(res.data.tour)
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            // console.log(err)
+        })
     }
 
     // Show diaglog Cancel
@@ -107,13 +109,14 @@ export default function BookedTours(){
         }
         <Header />
         <div className="grid wide">
-           <div className="container">
-           <ul className="listTour">
+           <div className={clsx("container", styles.containerBookedTours)}>
+               <h1 className="text-center brand-name">Danh sách tour đã chọn</h1>
+           <div className="listTour">
                 <ul >
                    <li className={clsx("row", styles.bill)}>
-                        <div className="col l-2 m-2 c-0 text-center"><b>STT</b></div>
+                        <div className="col l-1 m-1 c-0 text-center"><b>STT</b></div>
                         <div className="col l-2 m-2 c-0 text-center"><b>Ngày thanh toán</b></div>
-                        <div className="col l-2 m-2 c-0 text-center"><b>Tổng tiền</b></div>
+                        <div className="col l-3 m-3 c-0 text-center"><b>Tổng tiền</b></div>
                         <div className="col l-2 m-2 c-0 text-center"><b>Số người</b></div>
                         <div className="col l-2 m-2 c-0 text-center"><b>Hủy tour</b></div>
                         <div className="col l-2 m-2 c-0 text-center"><b>Chi tiết tour</b></div>
@@ -123,24 +126,24 @@ export default function BookedTours(){
                     listBills.map((bill, i) => {
                         return ( 
                             <li key={i} className={clsx("row", styles.bill)}>
-                            <div className="col l-2 m-2 c-0 text-center">{i+1}</div>
-                            <div className="col l-2 m-2 c-2 text-center">{bill.datePay.slice(0,10)}</div>
-                            <div className="col l-2 m-2 c-2 text-center">{bill.money.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
-                            <div className="col l-2 m-2 c-2 text-center">{bill.totalPerson}</div>
-                            <div className="col l-2 m-2 c-2 text-center">
-                                <button
-                                 onClick={() => showDialogCancel(bill.id_tour, bill._id)}
-                                >Hủy tour</button>
-                            </div>
-                            <div className="col l-2 m-2 c-2 text-center">
-                                <button onClick={() => showModalTour(bill.id_tour)}>Xem</button>
-                            </div>
+                                <div className="col l-1 m-1 c-0 text-center">{i+1}</div>
+                                <div className="col l-2 m-2 c-12 text-center"><mark>{bill.datePay.slice(0,10)}</mark></div>
+                                <div className="col l-3 m-3 c-12 text-center">{bill.money.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</div>
+                                <div className="col l-2 m-2 c-12 text-center">{bill.totalPerson}</div>
+                                <div className="col l-2 m-2 c-12 text-center">
+                                    <button
+                                    onClick={() => showDialogCancel(bill.id_tour, bill._id)}
+                                    >Hủy tour</button>
+                                </div>
+                                <div className="col l-2 m-2 c-12 text-center">
+                                    <button onClick={() => showModalTour(bill.id_tour)}>Xem</button>
+                                </div>
                        </li>
                         )
                     })
                 }
                 </ul>
-            </ul>
+            </div>
            </div>
         </div>
 
@@ -180,11 +183,6 @@ export default function BookedTours(){
                         <p><b>Số lượng tour: </b>{detailTour.maxCustomer }</p>
                         <p><b>Trạng thái tour: </b>{detailTour.status }</p>
                         <p><b>Đơn giá: </b>{price  }</p>
-                        <textarea value={review} 
-                            onChange={e => setReview(e.target.value)}
-                        >
-                        </textarea>
-                        <button>Gửi bình luận</button>
                     </div>
                 </div>
             </div>
@@ -205,8 +203,8 @@ export default function BookedTours(){
                     <div className={clsx(styles.formGroup)}>
                         <p>Bạn muốn xóa tour: <b>{detailTour.tourName}</b> ?</p>
                         <p>
-                            <b>Lưu ý:</b>
-                            <p><mark>Bạn sẽ được hoàn lại 30% số tiền</mark></p>
+                            <b>Lưu ý:</b> <br />
+                            <mark>Bạn sẽ được hoàn lại 30% số tiền</mark>
                         </p>
                         <div className="confirmBtnGroup">
                             <button  onClick={() => setShowDialogConfirm(false)}>

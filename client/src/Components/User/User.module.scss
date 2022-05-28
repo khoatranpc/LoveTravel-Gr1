@@ -127,7 +127,7 @@ button{
 
 .bill{
     & > div{
-        border: 1px solid #333;
+        border: 1px solid $primaryColor;
         padding: 4px
     }
     button{
@@ -278,6 +278,21 @@ textarea{
 }
 
 @media screen and (max-width: 740px){
+    .closeBtn{
+        top: 4px !important;
+        button{
+            background-color: transparent;
+            padding: 12px;
+        }
+    }
+    .modalTour{
+        min-width: 100vw!important;
+        max-height: 100vh!important;
+        padding: 16px 8px!important;
+    }
+    .containerBookedTours{
+        margin-top: 48px;
+    }
     .formContainer{
         padding-left: 12px;
         padding-right: 12px;
@@ -303,5 +318,11 @@ textarea{
         margin-top: 12px;
         font-size: 22px;
         letter-spacing: 2px;
+    }
+
+    .bill{
+        & + .bill{
+            margin-bottom: 36px;
+        }
     }
 }

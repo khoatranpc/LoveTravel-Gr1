@@ -31,6 +31,7 @@ export default function Tour({data, order}){
     const [showModal, setShowModal] = useState(false)
     const [showDialogConfirm, setShowDialogConfirm] = useState(false)
     const [showToast, setShowToast] = useState(false)
+    const [toastType, setToastType] = useState("error")
     const [toastTittle, setToastTittle] = useState("Thông báo")
     const [toastMsg, setToastMsg] = useState("Dữ liệu không hợp lệ")
     
@@ -165,8 +166,6 @@ export default function Tour({data, order}){
 
     // Update guide
     const updateGuide = () => {
-        // console.log("ID guide: ", guide.id);
-        // console.log("ID tour: ", idTour);
         if(status === 'Ending'){
             toastError("Tour đã kết thúc")
         }else{
@@ -178,19 +177,18 @@ export default function Tour({data, order}){
                 headers: {authorization: localStorage.getItem('token')}
             })
             .then(res => {
-                setToastMsg("Thêm thành công")
-                // setTimeout(() => {
-                //     window.location.reload(true)
-                // },1500)
+                setToastMsg("Thêm người dẫn tour thành công")
+                setToastType("success")
                 setShowToast(true)
                 setTimeout(() => {
                     setShowToast(false)
+                    setToastType("error")
                     setToastMsg("Dữ liệu không hợp lệ")
-                }, 3000)
+                }, 2000)
             })
             .catch(err => {
                 // setToastMsg(err.response.data.message)
-                console.log(err.response.data)
+                // console.log(err.response.data)
                 toastError("Người dẫn tour trùng lịch")
             });
         }
@@ -233,7 +231,7 @@ export default function Tour({data, order}){
     return (<>
     {/* Toast */}
     {
-        showToast && <Toast title={toastTittle} desc={toastMsg} />
+        showToast && <Toast type={toastType} title={toastTittle} desc={toastMsg} />
     }
     {/* Content */}
         <div>
@@ -442,14 +440,12 @@ export default function Tour({data, order}){
                                     </div>
 
                                     <div className={clsx(styles.row)}>
-                                        
-
-                                        <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
+                                        {/* <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Ảnh</label>
                                             <input className={clsx(styles.formControl)} 
                                                 type="input" placeholder="Nhập đường dẫn" />
                                             <img src={image} alt=""/>
-                                        </div>
+                                        </div> */}
                                     </div>
 
 

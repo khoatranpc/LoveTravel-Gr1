@@ -76,7 +76,7 @@ export default function Account(){
                window.location.reload(true)
             })
             .catch(err => {
-                console.error(err)
+                // console.error(err)
                 setShowToast(true)
                 setTimeout(() =>
                     setShowToast(false)
@@ -84,7 +84,7 @@ export default function Account(){
             }
             )
         }else{
-            console.log("Failed");
+            // console.log("Failed");
             setShowToast(true)
             setTimeout(() =>
                 setShowToast(false)
