@@ -86,8 +86,8 @@ export default function Tour({data, order}){
 
      // Show modal detail
     const handleShowDetail = () => {
-        setIdTour(data._id)
         setShowModal(true)
+        setIdTour(data._id)
         axios.get(`http://localhost:8000/api/tour/detail/${data._id}`)
         .then(res => {
             setTourName(res.data.tour.tourName)
@@ -108,9 +108,12 @@ export default function Tour({data, order}){
 
     // Update tour
     const updateTour = () => {
+        let currentDate = new Date();
         const apiUpdateTour = `http://localhost:8000/api/tour/update/${data._id}`
         axios.put(apiUpdateTour,
-            sendData,
+            {   ...sendData,
+                "dayUpdate": currentDate
+            },
             {
                 headers: {authorization: localStorage.getItem('token')}
             }
@@ -225,6 +228,10 @@ export default function Tour({data, order}){
             // console.log(err);
         })
    },[])
+
+   useEffect(() => {
+        console.log(sendData);
+   },[sendData])
 
 
     return (<>
