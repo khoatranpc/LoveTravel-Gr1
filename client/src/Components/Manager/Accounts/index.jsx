@@ -124,7 +124,7 @@ export default function Accounts(){
                                 >
                                     <option value="user">Khách hàng</option>
                                     <option value="guide">Người dẫn tour</option>
-                                    <option value="admin">Admin</option>
+                                    {/* <option value="admin">Admin</option> */}
                             </select>
 
                             <div>

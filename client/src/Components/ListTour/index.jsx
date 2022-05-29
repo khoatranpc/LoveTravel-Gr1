@@ -80,7 +80,7 @@ export default function ListTour(){
                 setListTours(res.data.data)
             })
             .catch((err) => {
-                console.log(err)
+                // console.log(err)
             })
         }
         getTours(page)

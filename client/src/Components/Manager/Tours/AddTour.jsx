@@ -58,9 +58,9 @@ export default function AddTour({totalTours}){
         })
     }
 
-    // useEffect(() => {
-    //     console.log(sendData);
-    // },[sendData])
+    useEffect(() => {
+        console.log(sendData);
+    },[sendData])
 
     return (
         <>
@@ -198,9 +198,11 @@ export default function AddTour({totalTours}){
 
                                         <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Ảnh</label>
-                                            <input className={clsx(styles.formControl)} 
+                                            <input id="image" className={clsx(styles.formControl)} 
                                                 value={image}
-                                                onChange={e =>{ setImage(e.target.value)}}
+                                                onChange={e =>{ setImage(e.target.value)
+                                                    getDataSend(e)
+                                                }}
                                                 type="input"
                                                 placeholder="Nhập đường dẫn hình ảnh"
                                                 />

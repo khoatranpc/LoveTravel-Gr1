@@ -43,7 +43,6 @@ export default function Tour({data, order}){
         }
     })
     .then(res => {
-        // console.log(res.data.data);
         setGuideInfo(res.data.data)
     })
     .catch(err => {
