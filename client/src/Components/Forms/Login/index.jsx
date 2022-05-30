@@ -60,14 +60,14 @@ function Login() {
         document.title = "Love Travel"
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         setPasswordMsg("Thông tin đăng nhập không hợp lệ")
-        
+       
         // Show toast
         setShowToast(true)
         setTimeout(() => {
           setShowToast(false)
-        }, 4000)
+        }, 2000)
       })
 
     )

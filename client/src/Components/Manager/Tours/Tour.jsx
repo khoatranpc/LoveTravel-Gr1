@@ -230,8 +230,8 @@ export default function Tour({data, order}){
    },[])
 
    useEffect(() => {
-        console.log(sendData);
-   },[sendData])
+        console.log(guideInfo);
+   },[guideInfo])
 
 
     return (<>
@@ -347,15 +347,18 @@ export default function Tour({data, order}){
                                             {/* Options guide */}
                                             {
                                                 guideInfo.map((guide, i) => {
-                                                    return (
-                                                        <option
-                                                            id={guide.id_user._id}
-                                                            value={guide.id_user.name}
-                                                            key={i}
-                                                        >
-                                                            {guide.id_user.name}: {guide.username}
-                                                        </option>
-                                                    )
+                                                    if(guide.id_user._id){
+                                                        console.log("OK");
+                                                        return (
+                                                            <option
+                                                                id={guide.id_user._id}
+                                                                value={guide.id_user.name}
+                                                                key={i}
+                                                            >
+                                                                {guide.id_user.name}: {guide.username}
+                                                            </option>
+                                                        )
+                                                    }
                                                 })
                                             }
                                             </select>
@@ -446,12 +449,20 @@ export default function Tour({data, order}){
                                     </div>
 
                                     <div className={clsx(styles.row)}>
-                                        {/* <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
+                                        <div className={clsx("col l-6 m-6 c-12", styles.formGroup)}>
                                             <label htmlFor="" className={clsx(styles.formLabel)}>Ảnh</label>
-                                            <input className={clsx(styles.formControl)} 
-                                                type="input" placeholder="Nhập đường dẫn" />
+                                            <input
+                                                id="image"
+                                                className={clsx(styles.formControl)} 
+                                                type="input" placeholder="Nhập đường dẫn"
+                                                value={image}
+                                                onChange={e => { 
+                                                    getDataSend(e)
+                                                    setImage(e.target.value)
+                                                }}
+                                                />
                                             <img src={image} alt=""/>
-                                        </div> */}
+                                        </div>
                                     </div>
 
 
