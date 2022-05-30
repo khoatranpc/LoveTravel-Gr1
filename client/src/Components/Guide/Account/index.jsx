@@ -55,7 +55,7 @@ export default function Account(){
       }
 
     const handleUpdateInfo = () => {
-        validateInputs()
+        // validateInputs()
         const apiUpdate = `http://localhost:8000/api/user/current-user/update`
         if(!identifyMsg && !emailMsg && !phoneMsg) {
             axios.put(apiUpdate,
@@ -64,7 +64,7 @@ export default function Account(){
                     "birth": birth,
                     "gender": gender,
                     "address": address,
-                    "identify": identify,
+                    "indentify": identify,
                     "email": email,
                     "phone": phone,
                 },
@@ -72,6 +72,7 @@ export default function Account(){
                 headers: {authorization: localStorage.getItem('token')}
             })
             .then(res => {
+                console.log(res.data);
                 window.location.reload(true)
             })
             .catch(err =>{
@@ -88,6 +89,10 @@ export default function Account(){
             , 2000)
         }
     }
+
+    useEffect(() => {
+        console.log(identify);
+    },[identify])
 
     return (
         <>
@@ -157,10 +162,10 @@ export default function Account(){
                             {/* CCCD */}
                             <div className={clsx(styles.formGroup)}>
                                 <label htmlFor="identify" className={clsx(styles.formLabel)}>CCCD:</label>
-                                <input id="identify" type="number" name="registerIdentify" placeholder="Nhập CCCD"
+                                <input id="identify" type="text" name="registerIdentify" placeholder="Nhập CCCD"
                                     className={clsx(styles.formControl)}
                                     value={identify}
-                                    onChange={e => setIdentify(e.target.value.trim())}
+                                    onChange={e => setIdentify(e.target.value)}
                                     onBlur={() => setIdentifyMsg(minLength(identify, LENGTH_IDENTIFY))}
                                 />
                                 <span className={clsx(styles.formMsg, styles.formMsgError)}>{identifyMsg}</span>

@@ -57,7 +57,7 @@ export default function Account(){
 
     const handleUpdate = () => {
         validateInputs()
-        if(!identifyMsg && !emailMsg && !phoneMsg){
+        if(!emailMsg && !phoneMsg){
             const apiUpdate = `http://localhost:8000/api/user/current-user/update`
             axios.put(apiUpdate,
                 {
@@ -161,10 +161,10 @@ export default function Account(){
                         {/* CCCD */}
                         <div className={clsx(styles.formGroup)}>
                             <label htmlFor="identify" className={clsx(styles.formLabel)}>CCCD:</label>
-                            <input id="identify" type="number" name="registerIdentify" placeholder="Nhập CCCD"
+                            <input id="identify" type="text" name="registerIdentify" placeholder="Nhập CCCD"
                                 className={clsx(styles.formControl)}
                                 value={identify}
-                                onChange={e => setIdentify(e.target.value.trim())}
+                                onChange={e => setIdentify(e.target.value)}
                                 onBlur={() => setIdentifyMsg(minLength(identify, 12))}
                             />
                         </div>

@@ -229,9 +229,6 @@ export default function Tour({data, order}){
         })
    },[])
 
-   useEffect(() => {
-        console.log(guideInfo);
-   },[guideInfo])
 
 
     return (<>
