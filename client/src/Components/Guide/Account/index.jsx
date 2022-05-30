@@ -90,9 +90,7 @@ export default function Account(){
         }
     }
 
-    useEffect(() => {
-        console.log(identify);
-    },[identify])
+   
 
     return (
         <>

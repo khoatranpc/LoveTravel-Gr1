@@ -54,7 +54,7 @@ function ForgetPassword() {
                 }
             })
             .catch((err) => {
-                console.log(err);
+                // console.log(err);
                  // Show toast
                 setShowToast(true)
                 setTimeout(() => {

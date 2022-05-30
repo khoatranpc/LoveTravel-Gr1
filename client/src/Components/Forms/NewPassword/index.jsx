@@ -24,8 +24,8 @@ function NewPassword() {
   const navigate = useNavigate()
   useEffect(() => {
     document.title = "Love Travel"
-    console.log("OTP: ", (context.otp).toString());
-    console.log("id: ", context.idAccount);
+    // console.log("OTP: ", (context.otp).toString());
+    // console.log("id: ", context.idAccount);
   },[])
 
   const handleConfirm = () => {
@@ -46,7 +46,7 @@ function NewPassword() {
                 navigate('/auth/login')
               })
               .catch(err => {
-                console.log(err);
+                // console.log(err);
                 setOtpMsg("Mã OTP không hợp lệ")
               })
               
